@@ -1,0 +1,137 @@
+name: NetApp APIs
+description: Collection of NetApp APIs for cloud data services, storage management, and infrastructure
+image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+url: https://www.netapp.com
+created: '2024'
+modified: '2024'
+tags:
+- Storage
+- Cloud
+- Data Management
+- Infrastructure
+- Hybrid Cloud
+apis:
+- name: NetApp Cloud Manager API
+  description: API for managing NetApp Cloud Volumes ONTAP and cloud data services
+  image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+  baseURL: https://cloudmanager.cloud.netapp.com
+  humanURL: https://docs.netapp.com/us-en/cloud-manager-automation/
+  tags:
+  - Cloud Management
+  - ONTAP
+  - Automation
+  properties:
+  - type: Documentation
+    url: https://docs.netapp.com/us-en/cloud-manager-automation/
+  - type: OpenAPI
+    url: https://docs.netapp.com/us-en/cloud-manager-automation/api/openapi.yaml
+  - type: Authentication
+    url: https://docs.netapp.com/us-en/cloud-manager-automation/platform/get_identifiers.html
+- name: NetApp ONTAP REST API
+  description: REST API for NetApp ONTAP storage management system
+  image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+  baseURL: https://<cluster-management-ip>/api
+  humanURL: https://docs.netapp.com/us-en/ontap-automation/
+  tags:
+  - ONTAP
+  - Storage Management
+  - REST API
+  properties:
+  - type: Documentation
+    url: https://docs.netapp.com/us-en/ontap-automation/
+  - type: Reference
+    url: https://docs.netapp.com/us-en/ontap-automation/reference/api_reference.html
+  - type: Getting Started
+    url: https://docs.netapp.com/us-en/ontap-automation/getting_started_with_the_ontap_rest_api.html
+  - type: Authentication
+    url: https://docs.netapp.com/us-en/ontap-automation/rest/authentication.html
+- name: NetApp Cloud Volumes Service API
+  description: API for managing NetApp Cloud Volumes Service in major cloud providers
+  image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+  baseURL: https://cloudvolumesgcp-api.netapp.com
+  humanURL: https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api
+  tags:
+  - Cloud Volumes
+  - GCP
+  - AWS
+  - Azure
+  properties:
+  - type: Documentation
+    url: https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api
+  - type: API Reference
+    url: https://cloud.google.com/architecture/partners/netapp-cloud-volumes/reference
+- name: NetApp Astra Control API
+  description: API for Kubernetes-native application data management
+  image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+  baseURL: https://astra.netapp.io/accounts
+  humanURL: https://docs.netapp.com/us-en/astra-automation/
+  tags:
+  - Kubernetes
+  - Application Management
+  - Data Protection
+  - Container Storage
+  properties:
+  - type: Documentation
+    url: https://docs.netapp.com/us-en/astra-automation/
+  - type: API Reference
+    url: https://docs.netapp.com/us-en/astra-automation/reference/overview.html
+  - type: Getting Started
+    url: https://docs.netapp.com/us-en/astra-automation/get-started/overview.html
+- name: NetApp StorageGRID API
+  description: API for object storage management with StorageGRID
+  image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+  baseURL: https://<storagegrid-endpoint>/api/v3
+  humanURL: https://docs.netapp.com/us-en/storagegrid-116/admin/using-grid-management-api.html
+  tags:
+  - Object Storage
+  - S3
+  - Grid Management
+  properties:
+  - type: Documentation
+    url: https://docs.netapp.com/us-en/storagegrid-116/admin/using-grid-management-api.html
+  - type: S3 API
+    url: https://docs.netapp.com/us-en/storagegrid-116/s3/index.html
+- name: NetApp Element API
+  description: API for NetApp Element software and NetApp HCI storage management
+  image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+  baseURL: https://<mvip>/json-rpc
+  humanURL: https://docs.netapp.com/us-en/element-software/api/index.html
+  tags:
+  - Element
+  - HCI
+  - Storage
+  - JSON-RPC
+  properties:
+  - type: Documentation
+    url: https://docs.netapp.com/us-en/element-software/api/index.html
+  - type: API Reference
+    url: https://docs.netapp.com/us-en/element-software/api/reference_element_api_reference.html
+- name: NetApp Cloud Insights API
+  description: API for infrastructure monitoring and analytics
+  image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+  baseURL: https://<tenant>.cloudinsights.netapp.com/rest/v1
+  humanURL: https://docs.netapp.com/us-en/cloudinsights/API_Overview.html
+  tags:
+  - Monitoring
+  - Analytics
+  - Observability
+  properties:
+  - type: Documentation
+    url: https://docs.netapp.com/us-en/cloudinsights/API_Overview.html
+  - type: Authentication
+    url: https://docs.netapp.com/us-en/cloudinsights/API_Overview.html#api-access-tokens
+common:
+- type: Developer Portal
+  url: https://devnet.netapp.com/
+- type: Support
+  url: https://www.netapp.com/support-and-training/
+- type: Blog
+  url: https://netapp.io/
+- type: GitHub
+  url: https://github.com/NetApp
+- type: Community
+  url: https://community.netapp.com/
+maintainers:
+- name: NetApp
+  email: ng-cloudmanager-api-requests@netapp.com
+  url: https://www.netapp.com
