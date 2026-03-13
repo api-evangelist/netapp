@@ -1,0 +1,530 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://netapp.com/schemas/ontap/volume.json",
+  "title": "NetApp ONTAP Volume",
+  "description": "Schema for a NetApp ONTAP storage volume. A volume is a logical container for data within a storage virtual machine (SVM), provisioned from an aggregate (local tier). Volumes support NAS (NFS/CIFS) and SAN (iSCSI/FCP) protocols and provide features such as snapshots, cloning, tiering, encryption, and quality of service.",
+  "type": "object",
+  "required": [
+    "name",
+    "svm"
+  ],
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the volume, assigned by ONTAP upon creation",
+      "readOnly": true
+    },
+    "name": {
+      "type": "string",
+      "description": "Volume name, unique within the SVM. Must begin with a letter or underscore and contain only letters, digits, underscores, and hyphens.",
+      "pattern": "^[a-zA-Z_][a-zA-Z0-9_-]*$",
+      "maxLength": 203,
+      "examples": [
+        "vol1",
+        "data_lun_vol",
+        "nfs_exports"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "description": "Volume type: rw (read-write, default), dp (data-protection for SnapMirror destinations), ls (load-sharing mirror)",
+      "enum": [
+        "rw",
+        "dp",
+        "ls"
+      ],
+      "default": "rw"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current operational state of the volume",
+      "enum": [
+        "online",
+        "offline",
+        "restricted",
+        "mixed"
+      ]
+    },
+    "style": {
+      "type": "string",
+      "description": "Volume style indicating the underlying architecture",
+      "enum": [
+        "flexvol",
+        "flexgroup",
+        "flexgroup_constituent"
+      ],
+      "readOnly": true
+    },
+    "size": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Total provisioned size of the volume in bytes",
+      "minimum": 20971520,
+      "examples": [
+        107374182400
+      ]
+    },
+    "comment": {
+      "type": ["string", "null"],
+      "description": "Optional comment or description for the volume",
+      "maxLength": 1023
+    },
+    "language": {
+      "type": "string",
+      "description": "Language encoding setting for the volume, controlling character set and case-folding behavior",
+      "examples": [
+        "c.utf_8",
+        "en_us.utf_8"
+      ]
+    },
+    "create_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the volume was created",
+      "readOnly": true
+    },
+    "svm": {
+      "$ref": "#/$defs/SvmReference",
+      "description": "Storage virtual machine (SVM) that owns the volume"
+    },
+    "aggregates": {
+      "type": "array",
+      "description": "Aggregates hosting the volume. A FlexVol volume resides on a single aggregate; a FlexGroup volume can span multiple aggregates.",
+      "items": {
+        "$ref": "#/$defs/AggregateReference"
+      },
+      "minItems": 1
+    },
+    "space": {
+      "$ref": "#/$defs/VolumeSpace",
+      "description": "Space utilization and configuration for the volume"
+    },
+    "nas": {
+      "$ref": "#/$defs/NasProperties",
+      "description": "NAS-specific configuration including junction path, security style, and export policy"
+    },
+    "guarantee": {
+      "$ref": "#/$defs/SpaceGuarantee",
+      "description": "Space guarantee configuration determining how space is reserved"
+    },
+    "snapshot_policy": {
+      "$ref": "#/$defs/SnapshotPolicyReference",
+      "description": "Snapshot policy governing automatic snapshot creation and retention"
+    },
+    "qos": {
+      "$ref": "#/$defs/QosConfiguration",
+      "description": "Quality of service settings controlling throughput and IOPS limits"
+    },
+    "tiering": {
+      "$ref": "#/$defs/TieringPolicy",
+      "description": "FabricPool tiering policy controlling data movement to cloud storage"
+    },
+    "encryption": {
+      "$ref": "#/$defs/EncryptionProperties",
+      "description": "Volume encryption configuration and state"
+    },
+    "autosize": {
+      "$ref": "#/$defs/AutosizeConfiguration",
+      "description": "Volume autosize settings for automatic grow and shrink behavior"
+    },
+    "clone": {
+      "$ref": "#/$defs/CloneProperties",
+      "description": "Clone information if this volume is a FlexClone"
+    },
+    "_links": {
+      "$ref": "#/$defs/SelfLink"
+    }
+  },
+  "$defs": {
+    "SvmReference": {
+      "type": "object",
+      "description": "Reference to a storage virtual machine (SVM)",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "SVM UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "SVM name"
+        },
+        "_links": {
+          "$ref": "#/$defs/SelfLink"
+        }
+      }
+    },
+    "AggregateReference": {
+      "type": "object",
+      "description": "Reference to a storage aggregate (local tier)",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Aggregate UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Aggregate name"
+        },
+        "_links": {
+          "$ref": "#/$defs/SelfLink"
+        }
+      }
+    },
+    "VolumeSpace": {
+      "type": "object",
+      "description": "Space utilization and configuration for a volume",
+      "properties": {
+        "size": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total provisioned size in bytes"
+        },
+        "available": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Available space in bytes",
+          "readOnly": true
+        },
+        "used": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Used space in bytes",
+          "readOnly": true
+        },
+        "percent_used": {
+          "type": "integer",
+          "description": "Percentage of space used (0-100)",
+          "minimum": 0,
+          "maximum": 100,
+          "readOnly": true
+        },
+        "logical_space": {
+          "type": "object",
+          "description": "Logical space accounting (reflects storage efficiency savings)",
+          "properties": {
+            "available": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Available logical space in bytes"
+            },
+            "used": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Used logical space in bytes"
+            },
+            "used_percent": {
+              "type": "integer",
+              "description": "Percentage of logical space used"
+            },
+            "reporting": {
+              "type": "boolean",
+              "description": "Whether logical space reporting is enabled"
+            },
+            "enforcement": {
+              "type": "boolean",
+              "description": "Whether logical space enforcement is enabled"
+            }
+          }
+        },
+        "snapshot": {
+          "type": "object",
+          "description": "Space reserved and consumed by Snapshot copies",
+          "properties": {
+            "reserve_percent": {
+              "type": "integer",
+              "description": "Percentage of volume capacity reserved for snapshots (0-100)",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "used": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Space consumed by snapshots in bytes",
+              "readOnly": true
+            }
+          }
+        },
+        "over_provisioned": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Amount of over-provisioned space in bytes",
+          "readOnly": true
+        }
+      }
+    },
+    "NasProperties": {
+      "type": "object",
+      "description": "NAS protocol configuration for the volume",
+      "properties": {
+        "path": {
+          "type": ["string", "null"],
+          "description": "Junction path where the volume is mounted in the SVM namespace. Must start with /. Set to null to unmount.",
+          "pattern": "^/",
+          "examples": [
+            "/vol1",
+            "/data/exports"
+          ]
+        },
+        "security_style": {
+          "type": "string",
+          "description": "Security style of the volume root directory, determining how file permissions are evaluated",
+          "enum": [
+            "unix",
+            "ntfs",
+            "mixed",
+            "unified"
+          ]
+        },
+        "unix_permissions": {
+          "type": "string",
+          "description": "UNIX permissions on the volume root in octal format",
+          "pattern": "^[0-7]{4}$",
+          "examples": [
+            "0755",
+            "0777"
+          ]
+        },
+        "export_policy": {
+          "type": "object",
+          "description": "NFS export policy controlling client access",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Export policy name",
+              "examples": [
+                "default"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "SpaceGuarantee": {
+      "type": "object",
+      "description": "Space guarantee configuration for the volume",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of space guarantee. 'volume' reserves the full volume size on the aggregate; 'none' uses thin provisioning.",
+          "enum": [
+            "volume",
+            "none"
+          ]
+        },
+        "honored": {
+          "type": "boolean",
+          "description": "Whether the guarantee is currently being honored",
+          "readOnly": true
+        }
+      }
+    },
+    "SnapshotPolicyReference": {
+      "type": "object",
+      "description": "Reference to a snapshot policy",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Snapshot policy name",
+          "examples": [
+            "default",
+            "none"
+          ]
+        },
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Snapshot policy UUID"
+        }
+      }
+    },
+    "QosConfiguration": {
+      "type": "object",
+      "description": "Quality of service configuration for the volume",
+      "properties": {
+        "policy": {
+          "type": "object",
+          "description": "QoS policy group settings",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "QoS policy group name"
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid",
+              "description": "QoS policy group UUID"
+            },
+            "max_throughput_iops": {
+              "type": "integer",
+              "description": "Maximum throughput in I/O operations per second",
+              "minimum": 0
+            },
+            "max_throughput_mbps": {
+              "type": "integer",
+              "description": "Maximum throughput in megabytes per second",
+              "minimum": 0
+            },
+            "min_throughput_iops": {
+              "type": "integer",
+              "description": "Minimum guaranteed throughput in IOPS (adaptive QoS)",
+              "minimum": 0
+            },
+            "min_throughput_mbps": {
+              "type": "integer",
+              "description": "Minimum guaranteed throughput in MB/s (adaptive QoS)",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "TieringPolicy": {
+      "type": "object",
+      "description": "FabricPool tiering configuration controlling data movement between performance and capacity tiers",
+      "properties": {
+        "policy": {
+          "type": "string",
+          "description": "Tiering policy: 'none' keeps all data on the performance tier, 'snapshot_only' tiers snapshot data, 'auto' tiers cold data, 'all' tiers all data, 'backup' is for SnapMirror destinations.",
+          "enum": [
+            "all",
+            "auto",
+            "none",
+            "snapshot_only",
+            "backup"
+          ]
+        },
+        "min_cooling_days": {
+          "type": "integer",
+          "description": "Minimum number of days data blocks must be inactive before they are eligible for tiering to the cloud tier",
+          "minimum": 2,
+          "maximum": 183
+        }
+      }
+    },
+    "EncryptionProperties": {
+      "type": "object",
+      "description": "Volume encryption settings and status",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether NetApp Volume Encryption (NVE) is enabled on this volume"
+        },
+        "state": {
+          "type": "string",
+          "description": "Current encryption state",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "Encryption type applied to the volume",
+          "enum": [
+            "none",
+            "volume",
+            "aggregate"
+          ],
+          "readOnly": true
+        }
+      }
+    },
+    "AutosizeConfiguration": {
+      "type": "object",
+      "description": "Volume autosize configuration for automatic space management",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "Autosize operating mode: 'off' disables autosize, 'grow' allows automatic growth, 'grow_shrink' allows both growth and shrinkage.",
+          "enum": [
+            "off",
+            "grow",
+            "grow_shrink"
+          ]
+        },
+        "grow_threshold": {
+          "type": "integer",
+          "description": "Percentage of used space that triggers automatic growth",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "shrink_threshold": {
+          "type": "integer",
+          "description": "Percentage of used space below which automatic shrinkage occurs",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "maximum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum size the volume can grow to in bytes"
+        },
+        "minimum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Minimum size the volume can shrink to in bytes"
+        }
+      }
+    },
+    "CloneProperties": {
+      "type": "object",
+      "description": "Clone information for FlexClone volumes",
+      "readOnly": true,
+      "properties": {
+        "is_flexclone": {
+          "type": "boolean",
+          "description": "Whether this volume is a FlexClone volume"
+        },
+        "parent_volume": {
+          "type": "object",
+          "description": "Parent volume from which this clone was created",
+          "properties": {
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "parent_snapshot": {
+          "type": "object",
+          "description": "Parent snapshot from which this clone was created",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "split_initiated": {
+          "type": "boolean",
+          "description": "Whether a clone split operation has been initiated to separate this clone from its parent"
+        }
+      }
+    },
+    "SelfLink": {
+      "type": "object",
+      "description": "HAL-style self link for the resource",
+      "properties": {
+        "self": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL of this resource"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2098 @@
+openapi: 3.1.0
+info:
+  title: NetApp ONTAP REST API
+  description: >-
+    REST API for managing NetApp ONTAP storage systems. Provides programmatic
+    access to cluster administration, storage provisioning, data protection, and
+    networking configuration. The ONTAP REST API is available on all ONTAP 9.6
+    and later systems, with expanded coverage in each subsequent release. Resources
+    include clusters, storage virtual machines (SVMs), aggregates, volumes,
+    LUNs, snapshots, network interfaces, and more.
+  version: 9.15.1
+  contact:
+    name: NetApp Developer Resources
+    url: https://devnet.netapp.com/
+  license:
+    name: NetApp Terms of Use
+    url: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  termsOfService: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  x-logo:
+    url: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+servers:
+  - url: https://{clusterMgmtIp}/api
+    description: ONTAP cluster management endpoint
+    variables:
+      clusterMgmtIp:
+        default: cluster-mgmt-ip
+        description: IP address or hostname of the ONTAP cluster management LIF
+security:
+  - basicAuth: []
+  - bearerAuth: []
+tags:
+  - name: Cluster
+    description: Operations for managing ONTAP cluster configuration, nodes, licensing, and health
+  - name: Volumes
+    description: Operations for creating, modifying, and managing storage volumes
+  - name: Aggregates
+    description: Operations for managing storage aggregates (local tiers)
+  - name: SVMs
+    description: Operations for managing storage virtual machines (SVMs / vservers)
+  - name: Snapshots
+    description: Operations for managing volume snapshots
+  - name: Network
+    description: Operations for managing network interfaces, ports, and IP configuration
+paths:
+  /cluster:
+    get:
+      operationId: getCluster
+      summary: Retrieve cluster information
+      description: >-
+        Retrieves the cluster configuration including name, version, UUID,
+        contact information, DNS domains, NTP servers, and management interfaces.
+      tags:
+        - Cluster
+      parameters:
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/return_records'
+        - $ref: '#/components/parameters/return_timeout'
+      responses:
+        '200':
+          description: Cluster information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      operationId: updateCluster
+      summary: Update cluster configuration
+      description: >-
+        Updates cluster-wide configuration properties such as name, contact,
+        location, DNS, NTP, and timezone settings.
+      tags:
+        - Cluster
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cluster'
+      responses:
+        '200':
+          description: Cluster configuration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /cluster/nodes:
+    get:
+      operationId: listClusterNodes
+      summary: List cluster nodes
+      description: >-
+        Retrieves the list of nodes in the cluster, including node name, UUID,
+        model, serial number, version, uptime, and health status.
+      tags:
+        - Cluster
+      parameters:
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/return_records'
+        - $ref: '#/components/parameters/return_timeout'
+        - $ref: '#/components/parameters/max_records'
+        - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: List of cluster nodes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ClusterNode'
+                  num_records:
+                    type: integer
+                    description: Number of records returned
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ClusterNode'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /cluster/nodes/{uuid}:
+    get:
+      operationId: getClusterNode
+      summary: Retrieve a specific cluster node
+      description: >-
+        Retrieves information about a specific node in the cluster identified
+        by its UUID.
+      tags:
+        - Cluster
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Node information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClusterNode'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /cluster/licensing/licenses:
+    get:
+      operationId: listLicenses
+      summary: List cluster licenses
+      description: >-
+        Retrieves information about the licenses installed on the cluster,
+        including license name, scope, state, and compliance status.
+      tags:
+        - Cluster
+      parameters:
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/max_records'
+      responses:
+        '200':
+          description: License information retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/License'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /storage/volumes:
+    get:
+      operationId: listVolumes
+      summary: List storage volumes
+      description: >-
+        Retrieves a list of volumes across the cluster. Supports filtering by
+        SVM, aggregate, state, type, and other attributes. Returns volume
+        configuration, space usage, performance counters, and relationships.
+      tags:
+        - Volumes
+      parameters:
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/return_records'
+        - $ref: '#/components/parameters/return_timeout'
+        - $ref: '#/components/parameters/max_records'
+        - $ref: '#/components/parameters/order_by'
+        - name: svm.name
+          in: query
+          description: Filter by SVM name
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: Filter by volume name
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: Filter by volume state
+          schema:
+            type: string
+            enum:
+              - online
+              - offline
+              - restricted
+              - mixed
+        - name: type
+          in: query
+          description: Filter by volume type
+          schema:
+            type: string
+            enum:
+              - rw
+              - dp
+              - ls
+      responses:
+        '200':
+          description: List of volumes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Volume'
+                  num_records:
+                    type: integer
+                    description: Number of records in this response
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Volume'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      operationId: createVolume
+      summary: Create a new volume
+      description: >-
+        Creates a new volume on the specified SVM and aggregate. The volume name,
+        SVM, and aggregate are required. Optional parameters include size,
+        security style, export policy, tiering policy, QoS policy, and snapshot
+        policy.
+      tags:
+        - Volumes
+      parameters:
+        - name: return_records
+          in: query
+          description: Return the newly created record
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Volume'
+      responses:
+        '201':
+          description: Volume created successfully
+          headers:
+            Location:
+              description: URL of the newly created volume resource
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Volume creation accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /storage/volumes/{uuid}:
+    get:
+      operationId: getVolume
+      summary: Retrieve a specific volume
+      description: >-
+        Retrieves detailed information about a specific volume including
+        space utilization, configuration, state, associated SVM, aggregate,
+        export policy, snapshot policy, and QoS settings.
+      tags:
+        - Volumes
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Volume details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      operationId: updateVolume
+      summary: Update a volume
+      description: >-
+        Updates the properties of an existing volume. Supports modifying
+        the volume name, size, comment, state, export policy, snapshot
+        policy, tiering policy, and QoS settings.
+      tags:
+        - Volumes
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Volume'
+      responses:
+        '200':
+          description: Volume updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Volume update accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deleteVolume
+      summary: Delete a volume
+      description: >-
+        Deletes an existing volume. The volume must be offline or unmounted
+        before deletion. This is an asynchronous operation.
+      tags:
+        - Volumes
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Volume deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Volume deletion accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /storage/volumes/{volume.uuid}/snapshots:
+    get:
+      operationId: listSnapshots
+      summary: List snapshots for a volume
+      description: >-
+        Retrieves the list of snapshots for a specific volume, including
+        snapshot name, UUID, creation time, and size.
+      tags:
+        - Snapshots
+      parameters:
+        - name: volume.uuid
+          in: path
+          required: true
+          description: UUID of the volume
+          schema:
+            type: string
+            format: uuid
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/max_records'
+        - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: List of snapshots retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      operationId: createSnapshot
+      summary: Create a volume snapshot
+      description: >-
+        Creates a new snapshot of the specified volume. The snapshot name
+        is required. An optional comment and expiry time can be specified.
+      tags:
+        - Snapshots
+      parameters:
+        - name: volume.uuid
+          in: path
+          required: true
+          description: UUID of the volume
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Snapshot'
+      responses:
+        '201':
+          description: Snapshot created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Snapshot creation accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /storage/aggregates:
+    get:
+      operationId: listAggregates
+      summary: List storage aggregates
+      description: >-
+        Retrieves a list of aggregates (local tiers) in the cluster. Returns
+        aggregate configuration, space usage, state, RAID details, and the
+        owning node. Aggregates are the physical storage pools from which
+        volumes are provisioned.
+      tags:
+        - Aggregates
+      parameters:
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/return_records'
+        - $ref: '#/components/parameters/return_timeout'
+        - $ref: '#/components/parameters/max_records'
+        - $ref: '#/components/parameters/order_by'
+        - name: name
+          in: query
+          description: Filter by aggregate name
+          schema:
+            type: string
+        - name: node.name
+          in: query
+          description: Filter by owning node name
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: Filter by aggregate state
+          schema:
+            type: string
+            enum:
+              - online
+              - offline
+              - restricted
+              - creating
+              - destroying
+              - failed
+              - frozen
+              - inconsistent
+              - iron_restricted
+              - mounting
+              - partial
+              - quiesced
+              - quiescing
+              - relocated
+              - relocating
+              - reverted
+              - unknown
+              - unmounted
+              - unmounting
+      responses:
+        '200':
+          description: List of aggregates retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Aggregate'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Aggregate'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      operationId: createAggregate
+      summary: Create a new aggregate
+      description: >-
+        Creates a new aggregate (local tier) on the specified node. The
+        aggregate name, node, disk count, and RAID type are required.
+      tags:
+        - Aggregates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aggregate'
+      responses:
+        '201':
+          description: Aggregate created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Aggregate creation accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /storage/aggregates/{uuid}:
+    get:
+      operationId: getAggregate
+      summary: Retrieve a specific aggregate
+      description: >-
+        Retrieves detailed information about a specific aggregate including
+        space usage, RAID configuration, state, and owning node.
+      tags:
+        - Aggregates
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Aggregate details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aggregate'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Aggregate'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      operationId: updateAggregate
+      summary: Update an aggregate
+      description: >-
+        Updates the properties of an existing aggregate. Supports modifying
+        the name and adding disks to expand capacity.
+      tags:
+        - Aggregates
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aggregate'
+      responses:
+        '200':
+          description: Aggregate updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Aggregate update accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deleteAggregate
+      summary: Delete an aggregate
+      description: >-
+        Deletes an existing aggregate. The aggregate must be empty (no volumes)
+        and offline before deletion.
+      tags:
+        - Aggregates
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Aggregate deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Aggregate deletion accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /svm/svms:
+    get:
+      operationId: listSvms
+      summary: List storage virtual machines
+      description: >-
+        Retrieves a list of storage virtual machines (SVMs) in the cluster.
+        SVMs are secure virtualized storage containers that provide data
+        access to clients. Each SVM has its own volumes, network interfaces,
+        protocols, and security configuration.
+      tags:
+        - SVMs
+      parameters:
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/return_records'
+        - $ref: '#/components/parameters/return_timeout'
+        - $ref: '#/components/parameters/max_records'
+        - $ref: '#/components/parameters/order_by'
+        - name: name
+          in: query
+          description: Filter by SVM name
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: Filter by SVM state
+          schema:
+            type: string
+            enum:
+              - starting
+              - running
+              - stopping
+              - stopped
+              - deleting
+      responses:
+        '200':
+          description: List of SVMs retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Svm'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Svm'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      operationId: createSvm
+      summary: Create a new SVM
+      description: >-
+        Creates a new storage virtual machine (SVM). The SVM name is required.
+        Optional parameters include allowed protocols (NFS, CIFS, iSCSI, FCP),
+        aggregates, language, snapshot policy, and IP interface configuration.
+      tags:
+        - SVMs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Svm'
+      responses:
+        '201':
+          description: SVM created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: SVM creation accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /svm/svms/{uuid}:
+    get:
+      operationId: getSvm
+      summary: Retrieve a specific SVM
+      description: >-
+        Retrieves detailed information about a specific SVM including name,
+        state, allowed protocols, IP interfaces, aggregates, and CIFS/NFS
+        configuration.
+      tags:
+        - SVMs
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+        - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: SVM details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Svm'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Svm'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      operationId: updateSvm
+      summary: Update an SVM
+      description: >-
+        Updates the properties of an existing SVM. Supports modifying name,
+        allowed protocols, language, comment, and snapshot policy.
+      tags:
+        - SVMs
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Svm'
+      responses:
+        '200':
+          description: SVM updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: SVM update accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deleteSvm
+      summary: Delete an SVM
+      description: >-
+        Deletes an existing SVM and all associated configuration. All volumes
+        and network interfaces in the SVM must be deleted first.
+      tags:
+        - SVMs
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: SVM deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: SVM deletion accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /network/ip/interfaces:
+    get:
+      operationId: listNetworkInterfaces
+      summary: List network interfaces
+      description: >-
+        Retrieves a list of network interfaces (LIFs) across the cluster.
+        Network interfaces provide data access and management connectivity
+        for SVMs and the cluster.
+      tags:
+        - Network
+      parameters:
+        - $ref: '#/components/parameters/fields'
+        - $ref: '#/components/parameters/max_records'
+        - $ref: '#/components/parameters/order_by'
+        - name: svm.name
+          in: query
+          description: Filter by SVM name
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: Filter by interface name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of network interfaces retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NetworkInterface'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        HTTP basic authentication using ONTAP user credentials. Provide the
+        cluster or SVM administrator username and password.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth 2.0 bearer token authentication. Supported in ONTAP 9.8 and later.
+  parameters:
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of fields to return. Use * for all fields.
+        Nested fields can be specified using dot notation (e.g., space.size).
+      schema:
+        type: string
+    return_records:
+      name: return_records
+      in: query
+      required: false
+      description: If true, return the records in the response body
+      schema:
+        type: boolean
+        default: true
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: >-
+        The number of seconds to wait for the response. If the operation
+        takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+    max_records:
+      name: max_records
+      in: query
+      required: false
+      description: Maximum number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of fields to sort by. Add 'desc' after a field
+        name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
+  responses:
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Cluster:
+      type: object
+      description: ONTAP cluster configuration and status
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Cluster UUID
+          readOnly: true
+        name:
+          type: string
+          description: Cluster name
+          examples:
+            - cluster1
+        contact:
+          type: string
+          description: Contact information for the cluster administrator
+        location:
+          type: string
+          description: Physical location of the cluster
+        version:
+          type: object
+          description: ONTAP software version
+          readOnly: true
+          properties:
+            full:
+              type: string
+              description: Full version string
+              examples:
+                - NetApp Release 9.15.1
+            generation:
+              type: integer
+              description: Major version generation
+            major:
+              type: integer
+              description: Major version number
+            minor:
+              type: integer
+              description: Minor version number
+        dns_domains:
+          type: array
+          description: DNS domain names for the cluster
+          items:
+            type: string
+        ntp_servers:
+          type: array
+          description: NTP server addresses
+          items:
+            type: string
+        timezone:
+          type: object
+          description: Cluster timezone setting
+          properties:
+            name:
+              type: string
+              description: Timezone name (Olson format)
+              examples:
+                - America/New_York
+        management_interfaces:
+          type: array
+          description: Cluster management network interfaces
+          readOnly: true
+          items:
+            type: object
+            properties:
+              ip:
+                type: object
+                properties:
+                  address:
+                    type: string
+                    format: ipv4
+                    description: IPv4 address
+        nodes:
+          type: array
+          description: Nodes in the cluster
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClusterNodeReference'
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    ClusterNode:
+      type: object
+      description: A node in the ONTAP cluster
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Node UUID
+          readOnly: true
+        name:
+          type: string
+          description: Node name
+          examples:
+            - node1
+        model:
+          type: string
+          description: Hardware model of the node
+          readOnly: true
+          examples:
+            - AFF-A400
+        serial_number:
+          type: string
+          description: System serial number
+          readOnly: true
+        uptime:
+          type: integer
+          description: Node uptime in seconds
+          readOnly: true
+        version:
+          type: object
+          description: ONTAP version running on the node
+          readOnly: true
+          properties:
+            full:
+              type: string
+              description: Full version string
+            generation:
+              type: integer
+            major:
+              type: integer
+            minor:
+              type: integer
+        controller:
+          type: object
+          description: Node controller information
+          readOnly: true
+          properties:
+            cpu:
+              type: object
+              properties:
+                count:
+                  type: integer
+                  description: Number of CPU cores
+                processor:
+                  type: string
+                  description: CPU processor model
+            memory_size:
+              type: integer
+              description: Total memory in bytes
+              format: int64
+            over_temperature:
+              type: string
+              description: Over-temperature status
+              enum:
+                - over
+                - normal
+        state:
+          type: string
+          description: Current operational state of the node
+          readOnly: true
+          enum:
+            - up
+            - down
+            - taken_over
+            - waiting_for_giveback
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    ClusterNodeReference:
+      type: object
+      description: Reference to a cluster node
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    Volume:
+      type: object
+      description: >-
+        A storage volume is a logical container for data. Volumes are created
+        within SVMs and reside on aggregates. They provide the primary unit
+        of data management in ONTAP.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier for the volume
+          readOnly: true
+        name:
+          type: string
+          description: Volume name (unique within the SVM)
+          examples:
+            - vol1
+        type:
+          type: string
+          description: >-
+            Volume type. rw = read-write, dp = data-protection,
+            ls = load-sharing
+          enum:
+            - rw
+            - dp
+            - ls
+          readOnly: true
+        state:
+          type: string
+          description: Volume operational state
+          enum:
+            - online
+            - offline
+            - restricted
+            - mixed
+        style:
+          type: string
+          description: Volume style
+          enum:
+            - flexvol
+            - flexgroup
+            - flexgroup_constituent
+          readOnly: true
+        size:
+          type: integer
+          format: int64
+          description: Volume size in bytes
+        comment:
+          type: string
+          description: Optional comment or description for the volume
+          maxLength: 1023
+        language:
+          type: string
+          description: Language encoding for the volume
+          examples:
+            - c.utf_8
+        create_time:
+          type: string
+          format: date-time
+          description: Time when the volume was created
+          readOnly: true
+        svm:
+          $ref: '#/components/schemas/SvmReference'
+        aggregates:
+          type: array
+          description: >-
+            Aggregates hosting the volume. A FlexVol has one aggregate; a
+            FlexGroup can span multiple aggregates.
+          items:
+            $ref: '#/components/schemas/AggregateReference'
+        space:
+          type: object
+          description: Volume space usage and configuration
+          properties:
+            size:
+              type: integer
+              format: int64
+              description: Total provisioned size in bytes
+            available:
+              type: integer
+              format: int64
+              description: Available space in bytes
+              readOnly: true
+            used:
+              type: integer
+              format: int64
+              description: Used space in bytes
+              readOnly: true
+            percent_used:
+              type: integer
+              description: Percentage of space used
+              readOnly: true
+              minimum: 0
+              maximum: 100
+            logical_space:
+              type: object
+              description: Logical space accounting
+              properties:
+                available:
+                  type: integer
+                  format: int64
+                used:
+                  type: integer
+                  format: int64
+                used_percent:
+                  type: integer
+                reporting:
+                  type: boolean
+                  description: Whether logical space reporting is enabled
+                enforcement:
+                  type: boolean
+                  description: Whether logical space enforcement is enabled
+            snapshot:
+              type: object
+              description: Snapshot reserve space
+              properties:
+                reserve_percent:
+                  type: integer
+                  description: Percentage of volume reserved for snapshots
+                  minimum: 0
+                  maximum: 100
+                used:
+                  type: integer
+                  format: int64
+                  description: Space used by snapshots in bytes
+                  readOnly: true
+            over_provisioned:
+              type: integer
+              format: int64
+              description: Amount of space over-provisioned in bytes
+              readOnly: true
+        nas:
+          type: object
+          description: NAS protocol configuration
+          properties:
+            path:
+              type: string
+              description: Junction path where the volume is mounted in the SVM namespace
+              examples:
+                - /vol1
+            security_style:
+              type: string
+              description: Security style of the volume
+              enum:
+                - unix
+                - ntfs
+                - mixed
+                - unified
+            unix_permissions:
+              type: string
+              description: UNIX permissions in octal format
+              examples:
+                - '0755'
+            export_policy:
+              type: object
+              description: Export policy controlling NFS access
+              properties:
+                name:
+                  type: string
+                  description: Export policy name
+                  examples:
+                    - default
+        guarantee:
+          type: object
+          description: Space guarantee configuration
+          properties:
+            type:
+              type: string
+              description: Type of space guarantee
+              enum:
+                - volume
+                - none
+            honored:
+              type: boolean
+              description: Whether the guarantee is currently honored
+              readOnly: true
+        snapshot_policy:
+          type: object
+          description: Snapshot policy assigned to the volume
+          properties:
+            name:
+              type: string
+              description: Snapshot policy name
+              examples:
+                - default
+            uuid:
+              type: string
+              format: uuid
+        qos:
+          type: object
+          description: Quality of service configuration
+          properties:
+            policy:
+              type: object
+              description: QoS policy group
+              properties:
+                name:
+                  type: string
+                  description: QoS policy name
+                uuid:
+                  type: string
+                  format: uuid
+                max_throughput_iops:
+                  type: integer
+                  description: Maximum throughput in IOPS
+                max_throughput_mbps:
+                  type: integer
+                  description: Maximum throughput in MB/s
+                min_throughput_iops:
+                  type: integer
+                  description: Minimum throughput in IOPS
+                min_throughput_mbps:
+                  type: integer
+                  description: Minimum throughput in MB/s
+        tiering:
+          type: object
+          description: FabricPool tiering configuration
+          properties:
+            policy:
+              type: string
+              description: Tiering policy for the volume
+              enum:
+                - all
+                - auto
+                - none
+                - snapshot_only
+                - backup
+            min_cooling_days:
+              type: integer
+              description: Minimum number of days data must be inactive before tiering
+              minimum: 2
+              maximum: 183
+        encryption:
+          type: object
+          description: Volume encryption configuration
+          properties:
+            enabled:
+              type: boolean
+              description: Whether volume encryption is enabled
+            state:
+              type: string
+              description: Encryption state
+              readOnly: true
+            type:
+              type: string
+              description: Encryption type
+              readOnly: true
+              enum:
+                - none
+                - volume
+                - aggregate
+        autosize:
+          type: object
+          description: Volume autosize configuration
+          properties:
+            mode:
+              type: string
+              description: Autosize mode
+              enum:
+                - off
+                - grow
+                - grow_shrink
+            grow_threshold:
+              type: integer
+              description: Used space threshold percentage to trigger growth
+              minimum: 0
+              maximum: 100
+            shrink_threshold:
+              type: integer
+              description: Used space threshold percentage to trigger shrink
+              minimum: 0
+              maximum: 100
+            maximum:
+              type: integer
+              format: int64
+              description: Maximum size the volume can grow to in bytes
+            minimum:
+              type: integer
+              format: int64
+              description: Minimum size the volume can shrink to in bytes
+        clone:
+          type: object
+          description: Clone information if this volume is a clone
+          readOnly: true
+          properties:
+            is_flexclone:
+              type: boolean
+              description: Whether the volume is a FlexClone
+            parent_volume:
+              $ref: '#/components/schemas/VolumeReference'
+            parent_snapshot:
+              type: object
+              properties:
+                name:
+                  type: string
+                uuid:
+                  type: string
+                  format: uuid
+            split_initiated:
+              type: boolean
+              description: Whether clone split has been initiated
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    VolumeReference:
+      type: object
+      description: Reference to a volume
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    Aggregate:
+      type: object
+      description: >-
+        An aggregate (local tier) is a collection of physical disks that
+        provides a pool of storage from which FlexVol volumes are provisioned.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Aggregate UUID
+          readOnly: true
+        name:
+          type: string
+          description: Aggregate name
+          examples:
+            - aggr1
+        state:
+          type: string
+          description: Aggregate operational state
+          readOnly: true
+          enum:
+            - online
+            - offline
+            - restricted
+            - creating
+            - destroying
+            - failed
+            - frozen
+            - inconsistent
+            - iron_restricted
+            - mounting
+            - partial
+            - quiesced
+            - quiescing
+            - relocated
+            - relocating
+            - reverted
+            - unknown
+            - unmounted
+            - unmounting
+        node:
+          $ref: '#/components/schemas/ClusterNodeReference'
+        space:
+          type: object
+          description: Aggregate space usage
+          properties:
+            block_storage:
+              type: object
+              description: Block storage space
+              properties:
+                size:
+                  type: integer
+                  format: int64
+                  description: Total usable space in bytes
+                available:
+                  type: integer
+                  format: int64
+                  description: Available space in bytes
+                used:
+                  type: integer
+                  format: int64
+                  description: Used space in bytes
+                percent_used:
+                  type: integer
+                  description: Percentage of block storage used
+                full_threshold_percent:
+                  type: integer
+                  description: Threshold percentage at which the aggregate is considered full
+                nearly_full_threshold_percent:
+                  type: integer
+                  description: Threshold percentage for nearly full warning
+            cloud_storage:
+              type: object
+              description: FabricPool cloud tier space
+              properties:
+                used:
+                  type: integer
+                  format: int64
+                  description: Space used in the cloud tier in bytes
+            efficiency:
+              type: object
+              description: Storage efficiency information
+              properties:
+                savings:
+                  type: integer
+                  format: int64
+                  description: Total space saved through efficiency
+                ratio:
+                  type: number
+                  format: double
+                  description: Data reduction ratio
+                logical_used:
+                  type: integer
+                  format: int64
+                  description: Logical space used before efficiency savings
+        block_storage:
+          type: object
+          description: Block storage configuration
+          properties:
+            primary:
+              type: object
+              properties:
+                disk_count:
+                  type: integer
+                  description: Number of disks in the aggregate
+                disk_class:
+                  type: string
+                  description: Class of disks
+                  enum:
+                    - capacity
+                    - performance
+                    - archive
+                    - solid_state
+                    - array
+                    - virtual
+                    - data_center
+                    - capacity_flash
+                raid_type:
+                  type: string
+                  description: RAID type
+                  enum:
+                    - raid4
+                    - raid_dp
+                    - raid_tec
+                    - raid0
+                raid_size:
+                  type: integer
+                  description: Number of disks per RAID group
+                checksum_style:
+                  type: string
+                  description: Checksum style
+                  enum:
+                    - block
+                    - advanced_zoned
+            mirror:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  description: Whether SyncMirror is enabled
+                state:
+                  type: string
+                  description: Mirror state
+                  enum:
+                    - unmirrored
+                    - cp_count_check
+                    - limbo
+                    - mirrored
+        data_encryption:
+          type: object
+          description: Aggregate encryption configuration
+          properties:
+            software_encryption_enabled:
+              type: boolean
+              description: Whether software encryption is enabled on the aggregate
+            drive_protection_enabled:
+              type: boolean
+              description: Whether self-encrypting drives are used
+        cloud_storage:
+          type: object
+          description: FabricPool configuration
+          properties:
+            attach_eligible:
+              type: boolean
+              description: Whether the aggregate is eligible for FabricPool attachment
+        create_time:
+          type: string
+          format: date-time
+          description: Time when the aggregate was created
+          readOnly: true
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    AggregateReference:
+      type: object
+      description: Reference to an aggregate
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    Svm:
+      type: object
+      description: >-
+        A storage virtual machine (SVM), also known as a vserver, is a secure
+        virtual storage server that provides isolated data access to clients.
+        Each SVM has its own set of volumes, network interfaces, and protocol
+        configurations.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: SVM UUID
+          readOnly: true
+        name:
+          type: string
+          description: SVM name (unique within the cluster)
+          examples:
+            - svm1
+        state:
+          type: string
+          description: SVM operational state
+          enum:
+            - starting
+            - running
+            - stopping
+            - stopped
+            - deleting
+        subtype:
+          type: string
+          description: SVM subtype
+          readOnly: true
+          enum:
+            - default
+            - dp_destination
+            - sync_source
+            - sync_destination
+        language:
+          type: string
+          description: Default language encoding for volumes in the SVM
+          examples:
+            - c.utf_8
+        comment:
+          type: string
+          description: Optional comment or description for the SVM
+        ipspace:
+          type: object
+          description: IPspace associated with the SVM
+          properties:
+            name:
+              type: string
+              description: IPspace name
+              examples:
+                - Default
+            uuid:
+              type: string
+              format: uuid
+        aggregates:
+          type: array
+          description: Aggregates assigned to the SVM for volume provisioning
+          items:
+            $ref: '#/components/schemas/AggregateReference'
+        ip_interfaces:
+          type: array
+          description: Network interfaces configured for the SVM
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/NetworkInterface'
+        nfs:
+          type: object
+          description: NFS protocol configuration
+          properties:
+            enabled:
+              type: boolean
+              description: Whether NFS is enabled on the SVM
+            allowed:
+              type: boolean
+              description: Whether NFS is allowed on the SVM
+        cifs:
+          type: object
+          description: CIFS/SMB protocol configuration
+          properties:
+            enabled:
+              type: boolean
+              description: Whether CIFS is enabled on the SVM
+            allowed:
+              type: boolean
+              description: Whether CIFS is allowed on the SVM
+            name:
+              type: string
+              description: CIFS server name
+        iscsi:
+          type: object
+          description: iSCSI protocol configuration
+          properties:
+            enabled:
+              type: boolean
+              description: Whether iSCSI is enabled on the SVM
+            allowed:
+              type: boolean
+              description: Whether iSCSI is allowed on the SVM
+        fcp:
+          type: object
+          description: Fibre Channel Protocol configuration
+          properties:
+            enabled:
+              type: boolean
+              description: Whether FCP is enabled on the SVM
+            allowed:
+              type: boolean
+              description: Whether FCP is allowed on the SVM
+        nvme:
+          type: object
+          description: NVMe over Fabrics protocol configuration
+          properties:
+            enabled:
+              type: boolean
+              description: Whether NVMe is enabled on the SVM
+            allowed:
+              type: boolean
+              description: Whether NVMe is allowed on the SVM
+        snapshot_policy:
+          type: object
+          description: Default snapshot policy for the SVM
+          properties:
+            name:
+              type: string
+            uuid:
+              type: string
+              format: uuid
+        dns:
+          type: object
+          description: DNS configuration for the SVM
+          properties:
+            domains:
+              type: array
+              description: DNS domain names
+              items:
+                type: string
+            servers:
+              type: array
+              description: DNS server IP addresses
+              items:
+                type: string
+        certificate:
+          type: object
+          description: SSL/TLS certificate for the SVM
+          properties:
+            uuid:
+              type: string
+              format: uuid
+            name:
+              type: string
+        max_volumes:
+          type: string
+          description: Maximum number of volumes allowed on the SVM
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    SvmReference:
+      type: object
+      description: Reference to an SVM
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    NetworkInterface:
+      type: object
+      description: A network interface (LIF) providing data or management access
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Network interface UUID
+          readOnly: true
+        name:
+          type: string
+          description: Interface name
+          examples:
+            - lif1
+        ip:
+          type: object
+          description: IP address configuration
+          properties:
+            address:
+              type: string
+              description: IP address
+              examples:
+                - 192.168.1.100
+            netmask:
+              type: string
+              description: Network mask
+              examples:
+                - 255.255.255.0
+            family:
+              type: string
+              description: IP address family
+              enum:
+                - ipv4
+                - ipv6
+        state:
+          type: string
+          description: Operational state of the interface
+          readOnly: true
+          enum:
+            - up
+            - down
+        enabled:
+          type: boolean
+          description: Whether the interface is administratively enabled
+        scope:
+          type: string
+          description: Interface scope
+          enum:
+            - svm
+            - cluster
+        service_policy:
+          type: object
+          description: Service policy governing the interface
+          properties:
+            name:
+              type: string
+              description: Service policy name
+              examples:
+                - default-data-files
+        svm:
+          $ref: '#/components/schemas/SvmReference'
+        location:
+          type: object
+          description: Current location of the interface
+          properties:
+            home_node:
+              $ref: '#/components/schemas/ClusterNodeReference'
+            home_port:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Port name
+                  examples:
+                    - e0d
+                node:
+                  $ref: '#/components/schemas/ClusterNodeReference'
+            node:
+              $ref: '#/components/schemas/ClusterNodeReference'
+            port:
+              type: object
+              properties:
+                name:
+                  type: string
+                node:
+                  $ref: '#/components/schemas/ClusterNodeReference'
+            is_home:
+              type: boolean
+              description: Whether the interface is on its home port
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    Snapshot:
+      type: object
+      description: A point-in-time copy of a volume
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Snapshot UUID
+          readOnly: true
+        name:
+          type: string
+          description: Snapshot name
+          examples:
+            - hourly.2024-01-15_0815
+        create_time:
+          type: string
+          format: date-time
+          description: Time when the snapshot was created
+          readOnly: true
+        expiry_time:
+          type: string
+          format: date-time
+          description: Time when the snapshot expires and can be automatically deleted
+        comment:
+          type: string
+          description: Optional comment for the snapshot
+        size:
+          type: integer
+          format: int64
+          description: Amount of space consumed by the snapshot in bytes
+          readOnly: true
+        state:
+          type: string
+          description: Snapshot state
+          readOnly: true
+          enum:
+            - valid
+            - invalid
+            - partial
+            - unknown
+        snapmirror_label:
+          type: string
+          description: SnapMirror label used for policy-based selection
+        volume:
+          $ref: '#/components/schemas/VolumeReference'
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    License:
+      type: object
+      description: Cluster feature license
+      properties:
+        name:
+          type: string
+          description: License name
+          examples:
+            - NFS
+            - CIFS
+            - iSCSI
+            - FCP
+            - SnapMirror
+            - SnapRestore
+            - FlexClone
+            - SnapVault
+            - FabricPool
+        scope:
+          type: string
+          description: License scope
+          enum:
+            - cluster
+            - node
+            - not_available
+        state:
+          type: string
+          description: License compliance state
+          enum:
+            - compliant
+            - noncompliant
+            - unlicensed
+            - unknown
+        licenses:
+          type: array
+          description: Individual license entries
+          items:
+            type: object
+            properties:
+              serial_number:
+                type: string
+                description: License serial number
+              owner:
+                type: string
+                description: Node or cluster that owns the license
+              compliance:
+                type: object
+                properties:
+                  state:
+                    type: string
+                    enum:
+                      - compliant
+                      - noncompliant
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    JobLink:
+      type: object
+      description: Reference to an asynchronous job
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Job UUID
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  description: URL to retrieve the job status
+    SelfLink:
+      type: object
+      description: HAL self link
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              description: URL of this resource
+    CollectionLinks:
+      type: object
+      description: Pagination links for collection responses
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
+    ErrorResponse:
+      type: object
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error

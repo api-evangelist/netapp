@@ -1,0 +1,266 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "netapp": "https://netapp.com/ns/ontap/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Cluster": {
+      "@id": "netapp:Cluster",
+      "@context": {
+        "uuid": {
+          "@id": "netapp:uuid",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "contact": {
+          "@id": "schema:contactPoint",
+          "@type": "xsd:string"
+        },
+        "location": {
+          "@id": "schema:location",
+          "@type": "xsd:string"
+        },
+        "version": "netapp:version",
+        "dns_domains": {
+          "@id": "netapp:dnsDomains",
+          "@container": "@set"
+        },
+        "ntp_servers": {
+          "@id": "netapp:ntpServers",
+          "@container": "@set"
+        },
+        "timezone": "netapp:timezone",
+        "nodes": {
+          "@id": "netapp:hasNode",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "ClusterNode": {
+      "@id": "netapp:ClusterNode",
+      "@context": {
+        "uuid": {
+          "@id": "netapp:uuid",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "model": {
+          "@id": "schema:model",
+          "@type": "xsd:string"
+        },
+        "serial_number": {
+          "@id": "netapp:serialNumber",
+          "@type": "xsd:string"
+        },
+        "uptime": {
+          "@id": "netapp:uptime",
+          "@type": "xsd:integer"
+        },
+        "state": "netapp:operationalState"
+      }
+    },
+
+    "Volume": {
+      "@id": "netapp:Volume",
+      "@context": {
+        "uuid": {
+          "@id": "netapp:uuid",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "type": "netapp:volumeType",
+        "state": "netapp:operationalState",
+        "style": "netapp:volumeStyle",
+        "size": {
+          "@id": "netapp:sizeBytes",
+          "@type": "xsd:long"
+        },
+        "comment": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "language": "netapp:languageEncoding",
+        "create_time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "svm": {
+          "@id": "netapp:belongsToSvm",
+          "@type": "@id"
+        },
+        "aggregates": {
+          "@id": "netapp:residesOnAggregate",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "space": "netapp:spaceUtilization",
+        "nas": "netapp:nasConfiguration",
+        "guarantee": "netapp:spaceGuarantee",
+        "snapshot_policy": {
+          "@id": "netapp:snapshotPolicy",
+          "@type": "@id"
+        },
+        "qos": "netapp:qosConfiguration",
+        "tiering": "netapp:tieringPolicy",
+        "encryption": "netapp:encryptionConfiguration",
+        "autosize": "netapp:autosizeConfiguration"
+      }
+    },
+
+    "Aggregate": {
+      "@id": "netapp:Aggregate",
+      "@context": {
+        "uuid": {
+          "@id": "netapp:uuid",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "state": "netapp:operationalState",
+        "node": {
+          "@id": "netapp:ownedByNode",
+          "@type": "@id"
+        },
+        "space": "netapp:spaceUtilization",
+        "block_storage": "netapp:blockStorageConfiguration",
+        "data_encryption": "netapp:dataEncryption",
+        "create_time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Svm": {
+      "@id": "netapp:StorageVirtualMachine",
+      "@context": {
+        "uuid": {
+          "@id": "netapp:uuid",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "state": "netapp:operationalState",
+        "subtype": "netapp:svmSubtype",
+        "language": "netapp:languageEncoding",
+        "comment": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "ipspace": "netapp:ipspace",
+        "aggregates": {
+          "@id": "netapp:assignedAggregate",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "ip_interfaces": {
+          "@id": "netapp:hasInterface",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "nfs": "netapp:nfsConfiguration",
+        "cifs": "netapp:cifsConfiguration",
+        "iscsi": "netapp:iscsiConfiguration",
+        "fcp": "netapp:fcpConfiguration",
+        "nvme": "netapp:nvmeConfiguration",
+        "dns": "netapp:dnsConfiguration",
+        "max_volumes": {
+          "@id": "netapp:maxVolumes",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Snapshot": {
+      "@id": "netapp:Snapshot",
+      "@context": {
+        "uuid": {
+          "@id": "netapp:uuid",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "create_time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "expiry_time": {
+          "@id": "netapp:expiryTime",
+          "@type": "xsd:dateTime"
+        },
+        "comment": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "size": {
+          "@id": "netapp:sizeBytes",
+          "@type": "xsd:long"
+        },
+        "state": "netapp:snapshotState",
+        "snapmirror_label": "netapp:snapmirrorLabel",
+        "volume": {
+          "@id": "netapp:belongsToVolume",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "NetworkInterface": {
+      "@id": "netapp:NetworkInterface",
+      "@context": {
+        "uuid": {
+          "@id": "netapp:uuid",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "ip": "netapp:ipConfiguration",
+        "state": "netapp:operationalState",
+        "enabled": {
+          "@id": "netapp:enabled",
+          "@type": "xsd:boolean"
+        },
+        "scope": "netapp:interfaceScope",
+        "service_policy": "netapp:servicePolicy",
+        "svm": {
+          "@id": "netapp:belongsToSvm",
+          "@type": "@id"
+        },
+        "location": "netapp:interfaceLocation"
+      }
+    },
+
+    "License": {
+      "@id": "netapp:License",
+      "@context": {
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "scope": "netapp:licenseScope",
+        "state": "netapp:complianceState"
+      }
+    }
+  }
+}
