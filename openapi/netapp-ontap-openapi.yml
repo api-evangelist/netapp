@@ -45,7 +45,7 @@ paths:
   /cluster:
     get:
       operationId: getCluster
-      summary: Retrieve cluster information
+      summary: NetApp Retrieve cluster information
       description: >-
         Retrieves the cluster configuration including name, version, UUID,
         contact information, DNS domains, NTP servers, and management interfaces.
@@ -69,7 +69,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     patch:
       operationId: updateCluster
-      summary: Update cluster configuration
+      summary: NetApp Update cluster configuration
       description: >-
         Updates cluster-wide configuration properties such as name, contact,
         location, DNS, NTP, and timezone settings.
@@ -93,7 +93,7 @@ paths:
   /cluster/nodes:
     get:
       operationId: listClusterNodes
-      summary: List cluster nodes
+      summary: NetApp List cluster nodes
       description: >-
         Retrieves the list of nodes in the cluster, including node name, UUID,
         model, serial number, version, uptime, and health status.
@@ -139,7 +139,7 @@ paths:
   /cluster/nodes/{uuid}:
     get:
       operationId: getClusterNode
-      summary: Retrieve a specific cluster node
+      summary: NetApp Retrieve a specific cluster node
       description: >-
         Retrieves information about a specific node in the cluster identified
         by its UUID.
@@ -160,7 +160,7 @@ paths:
   /cluster/licensing/licenses:
     get:
       operationId: listLicenses
-      summary: List cluster licenses
+      summary: NetApp List cluster licenses
       description: >-
         Retrieves information about the licenses installed on the cluster,
         including license name, scope, state, and compliance status.
@@ -190,7 +190,7 @@ paths:
   /storage/volumes:
     get:
       operationId: listVolumes
-      summary: List storage volumes
+      summary: NetApp List storage volumes
       description: >-
         Retrieves a list of volumes across the cluster. Supports filtering by
         SVM, aggregate, state, type, and other attributes. Returns volume
@@ -265,7 +265,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     post:
       operationId: createVolume
-      summary: Create a new volume
+      summary: NetApp Create a new volume
       description: >-
         Creates a new volume on the specified SVM and aggregate. The volume name,
         SVM, and aggregate are required. Optional parameters include size,
@@ -316,7 +316,7 @@ paths:
   /storage/volumes/{uuid}:
     get:
       operationId: getVolume
-      summary: Retrieve a specific volume
+      summary: NetApp Retrieve a specific volume
       description: >-
         Retrieves detailed information about a specific volume including
         space utilization, configuration, state, associated SVM, aggregate,
@@ -340,7 +340,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     patch:
       operationId: updateVolume
-      summary: Update a volume
+      summary: NetApp Update a volume
       description: >-
         Updates the properties of an existing volume. Supports modifying
         the volume name, size, comment, state, export policy, snapshot
@@ -378,7 +378,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     delete:
       operationId: deleteVolume
-      summary: Delete a volume
+      summary: NetApp Delete a volume
       description: >-
         Deletes an existing volume. The volume must be offline or unmounted
         before deletion. This is an asynchronous operation.
@@ -410,7 +410,7 @@ paths:
   /storage/volumes/{volume.uuid}/snapshots:
     get:
       operationId: listSnapshots
-      summary: List snapshots for a volume
+      summary: NetApp List snapshots for a volume
       description: >-
         Retrieves the list of snapshots for a specific volume, including
         snapshot name, UUID, creation time, and size.
@@ -447,7 +447,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     post:
       operationId: createSnapshot
-      summary: Create a volume snapshot
+      summary: NetApp Create a volume snapshot
       description: >-
         Creates a new snapshot of the specified volume. The snapshot name
         is required. An optional comment and expiry time can be specified.
@@ -491,7 +491,7 @@ paths:
   /storage/aggregates:
     get:
       operationId: listAggregates
-      summary: List storage aggregates
+      summary: NetApp List storage aggregates
       description: >-
         Retrieves a list of aggregates (local tiers) in the cluster. Returns
         aggregate configuration, space usage, state, RAID details, and the
@@ -572,7 +572,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     post:
       operationId: createAggregate
-      summary: Create a new aggregate
+      summary: NetApp Create a new aggregate
       description: >-
         Creates a new aggregate (local tier) on the specified node. The
         aggregate name, node, disk count, and RAID type are required.
@@ -608,7 +608,7 @@ paths:
   /storage/aggregates/{uuid}:
     get:
       operationId: getAggregate
-      summary: Retrieve a specific aggregate
+      summary: NetApp Retrieve a specific aggregate
       description: >-
         Retrieves detailed information about a specific aggregate including
         space usage, RAID configuration, state, and owning node.
@@ -631,7 +631,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     patch:
       operationId: updateAggregate
-      summary: Update an aggregate
+      summary: NetApp Update an aggregate
       description: >-
         Updates the properties of an existing aggregate. Supports modifying
         the name and adding disks to expand capacity.
@@ -668,7 +668,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     delete:
       operationId: deleteAggregate
-      summary: Delete an aggregate
+      summary: NetApp Delete an aggregate
       description: >-
         Deletes an existing aggregate. The aggregate must be empty (no volumes)
         and offline before deletion.
@@ -700,7 +700,7 @@ paths:
   /svm/svms:
     get:
       operationId: listSvms
-      summary: List storage virtual machines
+      summary: NetApp List storage virtual machines
       description: >-
         Retrieves a list of storage virtual machines (SVMs) in the cluster.
         SVMs are secure virtualized storage containers that provide data
@@ -762,7 +762,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     post:
       operationId: createSvm
-      summary: Create a new SVM
+      summary: NetApp Create a new SVM
       description: >-
         Creates a new storage virtual machine (SVM). The SVM name is required.
         Optional parameters include allowed protocols (NFS, CIFS, iSCSI, FCP),
@@ -799,7 +799,7 @@ paths:
   /svm/svms/{uuid}:
     get:
       operationId: getSvm
-      summary: Retrieve a specific SVM
+      summary: NetApp Retrieve a specific SVM
       description: >-
         Retrieves detailed information about a specific SVM including name,
         state, allowed protocols, IP interfaces, aggregates, and CIFS/NFS
@@ -823,7 +823,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     patch:
       operationId: updateSvm
-      summary: Update an SVM
+      summary: NetApp Update an SVM
       description: >-
         Updates the properties of an existing SVM. Supports modifying name,
         allowed protocols, language, comment, and snapshot policy.
@@ -860,7 +860,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
     delete:
       operationId: deleteSvm
-      summary: Delete an SVM
+      summary: NetApp Delete an SVM
       description: >-
         Deletes an existing SVM and all associated configuration. All volumes
         and network interfaces in the SVM must be deleted first.
@@ -892,7 +892,7 @@ paths:
   /network/ip/interfaces:
     get:
       operationId: listNetworkInterfaces
-      summary: List network interfaces
+      summary: NetApp List network interfaces
       description: >-
         Retrieves a list of network interfaces (LIFs) across the cluster.
         Network interfaces provide data access and management connectivity
