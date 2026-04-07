@@ -29,18 +29,18 @@ security:
   - basicAuth: []
   - bearerAuth: []
 tags:
-  - name: Cluster
-    description: Operations for managing ONTAP cluster configuration, nodes, licensing, and health
-  - name: Volumes
-    description: Operations for creating, modifying, and managing storage volumes
   - name: Aggregates
     description: Operations for managing storage aggregates (local tiers)
-  - name: SVMs
-    description: Operations for managing storage virtual machines (SVMs / vservers)
-  - name: Snapshots
-    description: Operations for managing volume snapshots
+  - name: Cluster
+    description: Operations for managing ONTAP cluster configuration, nodes, licensing, and health
   - name: Network
     description: Operations for managing network interfaces, ports, and IP configuration
+  - name: Snapshots
+    description: Operations for managing volume snapshots
+  - name: SVMs
+    description: Operations for managing storage virtual machines (SVMs / vservers)
+  - name: Volumes
+    description: Operations for creating, modifying, and managing storage volumes
 paths:
   /cluster:
     get:
