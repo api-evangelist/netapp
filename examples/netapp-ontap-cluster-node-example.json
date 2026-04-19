@@ -1,0 +1,10 @@
+{
+  "uuid": "500123",
+  "name": "Example Title",
+  "model": "example_value",
+  "serial_number": "example_value",
+  "uptime": 10,
+  "version": "example_value",
+  "controller": "example_value",
+  "state": "example_value"
+}

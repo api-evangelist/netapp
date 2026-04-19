@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "NetworkInterface",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "object"
+    },
+    "state": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "service_policy": {
+      "type": "object"
+    },
+    "location": {
+      "type": "object"
+    }
+  }
+}

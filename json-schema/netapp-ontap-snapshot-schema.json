@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Snapshot",
+  "type": "object",
+  "description": "A point-in-time copy of a volume",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "Snapshot UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Snapshot name"
+    },
+    "create_time": {
+      "type": "string",
+      "description": "Time when the snapshot was created"
+    },
+    "expiry_time": {
+      "type": "string",
+      "description": "Time when the snapshot expires and can be automatically deleted"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment for the snapshot"
+    },
+    "size": {
+      "type": "integer",
+      "description": "Amount of space consumed by the snapshot in bytes"
+    },
+    "state": {
+      "type": "string",
+      "description": "Snapshot state"
+    },
+    "snapmirror_label": {
+      "type": "string",
+      "description": "SnapMirror label used for policy-based selection"
+    }
+  }
+}

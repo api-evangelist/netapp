@@ -1,0 +1,21 @@
+{
+  "uuid": "500123",
+  "name": "Example Title",
+  "type": "example_value",
+  "state": "example_value",
+  "style": "example_value",
+  "size": 10,
+  "comment": "example_value",
+  "language": "example_value",
+  "create_time": "example_value",
+  "aggregates": [],
+  "space": "example_value",
+  "nas": "example_value",
+  "guarantee": "example_value",
+  "snapshot_policy": "example_value",
+  "qos": "example_value",
+  "tiering": "example_value",
+  "encryption": "example_value",
+  "autosize": "example_value",
+  "clone": "example_value"
+}

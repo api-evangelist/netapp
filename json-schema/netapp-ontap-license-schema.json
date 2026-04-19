@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "License",
+  "type": "object",
+  "description": "Cluster feature license",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "License name"
+    },
+    "scope": {
+      "type": "string",
+      "description": "License scope"
+    },
+    "state": {
+      "type": "string",
+      "description": "License compliance state"
+    },
+    "licenses": {
+      "type": "array",
+      "description": "Individual license entries"
+    }
+  }
+}

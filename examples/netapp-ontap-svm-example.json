@@ -1,0 +1,20 @@
+{
+  "uuid": "500123",
+  "name": "Example Title",
+  "state": "example_value",
+  "subtype": "example_value",
+  "language": "example_value",
+  "comment": "example_value",
+  "ipspace": "example_value",
+  "aggregates": [],
+  "ip_interfaces": [],
+  "nfs": "example_value",
+  "cifs": "example_value",
+  "iscsi": "example_value",
+  "fcp": "example_value",
+  "nvme": "example_value",
+  "snapshot_policy": "example_value",
+  "dns": "example_value",
+  "certificate": "example_value",
+  "max_volumes": "example_value"
+}

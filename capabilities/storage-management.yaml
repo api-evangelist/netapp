@@ -1,0 +1,280 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "NetApp Storage Management"
+  description: "Unified workflow for managing NetApp ONTAP storage infrastructure including volumes, aggregates, SVMs, snapshots, and network interfaces. Used by storage administrators for provisioning and day-to-day management."
+  tags:
+    - NetApp
+    - Storage Management
+    - ONTAP
+    - Data Protection
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      NETAPP_USERNAME: NETAPP_USERNAME
+      NETAPP_PASSWORD: NETAPP_PASSWORD
+
+capability:
+  consumes:
+    - import: ontap
+      location: ./shared/ontap.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: storage-management-api
+      description: "Unified REST API for NetApp storage management."
+      resources:
+        - path: /v1/cluster
+          name: cluster
+          description: "Cluster information and configuration"
+          operations:
+            - method: GET
+              name: get-cluster
+              description: "Retrieve cluster information"
+              call: "ontap.get-cluster"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/nodes
+          name: nodes
+          description: "Cluster node management"
+          operations:
+            - method: GET
+              name: list-nodes
+              description: "List cluster nodes"
+              call: "ontap.list-cluster-nodes"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/volumes
+          name: volumes
+          description: "Storage volume management"
+          operations:
+            - method: GET
+              name: list-volumes
+              description: "List storage volumes"
+              call: "ontap.list-volumes"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-volume
+              description: "Create a new volume"
+              call: "ontap.create-volume"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/volumes/{uuid}
+          name: volume
+          description: "Individual volume operations"
+          operations:
+            - method: GET
+              name: get-volume
+              description: "Retrieve a specific volume"
+              call: "ontap.get-volume"
+              with:
+                uuid: "rest.uuid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-volume
+              description: "Update a volume"
+              call: "ontap.update-volume"
+              with:
+                uuid: "rest.uuid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-volume
+              description: "Delete a volume"
+              call: "ontap.delete-volume"
+              with:
+                uuid: "rest.uuid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/snapshots
+          name: snapshots
+          description: "Volume snapshot management"
+          operations:
+            - method: GET
+              name: list-snapshots
+              description: "List volume snapshots"
+              call: "ontap.list-snapshots"
+              with:
+                volume.uuid: "rest.volume_uuid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-snapshot
+              description: "Create a volume snapshot"
+              call: "ontap.create-snapshot"
+              with:
+                volume.uuid: "rest.volume_uuid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/aggregates
+          name: aggregates
+          description: "Aggregate management"
+          operations:
+            - method: GET
+              name: list-aggregates
+              description: "List storage aggregates"
+              call: "ontap.list-aggregates"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/svms
+          name: svms
+          description: "Storage virtual machine management"
+          operations:
+            - method: GET
+              name: list-svms
+              description: "List SVMs"
+              call: "ontap.list-svms"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/network-interfaces
+          name: network-interfaces
+          description: "Network interface management"
+          operations:
+            - method: GET
+              name: list-network-interfaces
+              description: "List network interfaces"
+              call: "ontap.list-network-interfaces"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: storage-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted NetApp storage management."
+      tools:
+        - name: get-cluster
+          description: "Retrieve ONTAP cluster information including name, version, and health"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.get-cluster"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-nodes
+          description: "List all nodes in the ONTAP cluster"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-cluster-nodes"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-volumes
+          description: "List all storage volumes across the cluster"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-volumes"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-volume
+          description: "Retrieve detailed information about a specific volume"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.get-volume"
+          with:
+            uuid: "tools.uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-volume
+          description: "Create a new storage volume on a specified SVM and aggregate"
+          hints:
+            readOnly: false
+          call: "ontap.create-volume"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-volume
+          description: "Update properties of an existing volume"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "ontap.update-volume"
+          with:
+            uuid: "tools.uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-volume
+          description: "Delete a storage volume"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "ontap.delete-volume"
+          with:
+            uuid: "tools.uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-snapshots
+          description: "List snapshots for a specific volume"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-snapshots"
+          with:
+            volume.uuid: "tools.volume_uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-snapshot
+          description: "Create a point-in-time snapshot of a volume"
+          hints:
+            readOnly: false
+          call: "ontap.create-snapshot"
+          with:
+            volume.uuid: "tools.volume_uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-aggregates
+          description: "List storage aggregates (local tiers) in the cluster"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-aggregates"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-svms
+          description: "List storage virtual machines in the cluster"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-svms"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-network-interfaces
+          description: "List network interfaces (LIFs) in the cluster"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-network-interfaces"
+          outputParameters:
+            - type: object
+              mapping: "$."

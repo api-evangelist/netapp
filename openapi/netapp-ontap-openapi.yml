@@ -19,42 +19,42 @@ info:
   x-logo:
     url: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
 servers:
-  - url: https://{clusterMgmtIp}/api
-    description: ONTAP cluster management endpoint
-    variables:
-      clusterMgmtIp:
-        default: cluster-mgmt-ip
-        description: IP address or hostname of the ONTAP cluster management LIF
+- url: https://{clusterMgmtIp}/api
+  description: ONTAP cluster management endpoint
+  variables:
+    clusterMgmtIp:
+      default: cluster-mgmt-ip
+      description: IP address or hostname of the ONTAP cluster management LIF
 security:
-  - basicAuth: []
-  - bearerAuth: []
+- basicAuth: []
+- bearerAuth: []
 tags:
-  - name: Aggregates
-    description: Operations for managing storage aggregates (local tiers)
-  - name: Cluster
-    description: Operations for managing ONTAP cluster configuration, nodes, licensing, and health
-  - name: Network
-    description: Operations for managing network interfaces, ports, and IP configuration
-  - name: Snapshots
-    description: Operations for managing volume snapshots
-  - name: SVMs
-    description: Operations for managing storage virtual machines (SVMs / vservers)
-  - name: Volumes
-    description: Operations for creating, modifying, and managing storage volumes
+- name: Aggregates
+  description: Operations for managing storage aggregates (local tiers)
+- name: Cluster
+  description: Operations for managing ONTAP cluster configuration, nodes, licensing, and health
+- name: Network
+  description: Operations for managing network interfaces, ports, and IP configuration
+- name: Snapshots
+  description: Operations for managing volume snapshots
+- name: SVMs
+  description: Operations for managing storage virtual machines (SVMs / vservers)
+- name: Volumes
+  description: Operations for creating, modifying, and managing storage volumes
 paths:
   /cluster:
     get:
       operationId: getCluster
-      summary: NetApp Retrieve cluster information
+      summary: Netapp Retrieve Cluster Information
       description: >-
         Retrieves the cluster configuration including name, version, UUID,
         contact information, DNS domains, NTP servers, and management interfaces.
       tags:
-        - Cluster
+      - Cluster
       parameters:
-        - $ref: '#/components/parameters/fields'
-        - $ref: '#/components/parameters/return_records'
-        - $ref: '#/components/parameters/return_timeout'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
       responses:
         '200':
           description: Cluster information retrieved successfully
@@ -67,14 +67,17 @@ paths:
                 $ref: '#/components/schemas/Cluster'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateCluster
-      summary: NetApp Update cluster configuration
+      summary: Netapp Update Cluster Configuration
       description: >-
         Updates cluster-wide configuration properties such as name, contact,
         location, DNS, NTP, and timezone settings.
       tags:
-        - Cluster
+      - Cluster
       requestBody:
         required: true
         content:
@@ -90,21 +93,24 @@ paths:
                 $ref: '#/components/schemas/Cluster'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cluster/nodes:
     get:
       operationId: listClusterNodes
-      summary: NetApp List cluster nodes
+      summary: Netapp List Cluster Nodes
       description: >-
         Retrieves the list of nodes in the cluster, including node name, UUID,
         model, serial number, version, uptime, and health status.
       tags:
-        - Cluster
+      - Cluster
       parameters:
-        - $ref: '#/components/parameters/fields'
-        - $ref: '#/components/parameters/return_records'
-        - $ref: '#/components/parameters/return_timeout'
-        - $ref: '#/components/parameters/max_records'
-        - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
       responses:
         '200':
           description: List of cluster nodes retrieved successfully
@@ -136,18 +142,21 @@ paths:
                     $ref: '#/components/schemas/CollectionLinks'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cluster/nodes/{uuid}:
     get:
       operationId: getClusterNode
-      summary: NetApp Retrieve a specific cluster node
+      summary: Netapp Retrieve a Specific Cluster Node
       description: >-
         Retrieves information about a specific node in the cluster identified
         by its UUID.
       tags:
-        - Cluster
+      - Cluster
       parameters:
-        - $ref: '#/components/parameters/uuid'
-        - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/fields'
       responses:
         '200':
           description: Node information retrieved successfully
@@ -157,18 +166,21 @@ paths:
                 $ref: '#/components/schemas/ClusterNode'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cluster/licensing/licenses:
     get:
       operationId: listLicenses
-      summary: NetApp List cluster licenses
+      summary: Netapp List Cluster Licenses
       description: >-
         Retrieves information about the licenses installed on the cluster,
         including license name, scope, state, and compliance status.
       tags:
-        - Cluster
+      - Cluster
       parameters:
-        - $ref: '#/components/parameters/fields'
-        - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/max_records'
       responses:
         '200':
           description: License information retrieved successfully
@@ -187,51 +199,54 @@ paths:
                     $ref: '#/components/schemas/CollectionLinks'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /storage/volumes:
     get:
       operationId: listVolumes
-      summary: NetApp List storage volumes
+      summary: Netapp List Storage Volumes
       description: >-
         Retrieves a list of volumes across the cluster. Supports filtering by
         SVM, aggregate, state, type, and other attributes. Returns volume
         configuration, space usage, performance counters, and relationships.
       tags:
-        - Volumes
+      - Volumes
       parameters:
-        - $ref: '#/components/parameters/fields'
-        - $ref: '#/components/parameters/return_records'
-        - $ref: '#/components/parameters/return_timeout'
-        - $ref: '#/components/parameters/max_records'
-        - $ref: '#/components/parameters/order_by'
-        - name: svm.name
-          in: query
-          description: Filter by SVM name
-          schema:
-            type: string
-        - name: name
-          in: query
-          description: Filter by volume name
-          schema:
-            type: string
-        - name: state
-          in: query
-          description: Filter by volume state
-          schema:
-            type: string
-            enum:
-              - online
-              - offline
-              - restricted
-              - mixed
-        - name: type
-          in: query
-          description: Filter by volume type
-          schema:
-            type: string
-            enum:
-              - rw
-              - dp
-              - ls
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
+      - name: svm.name
+        in: query
+        description: Filter by SVM name
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: Filter by volume name
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: Filter by volume state
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+          - restricted
+          - mixed
+      - name: type
+        in: query
+        description: Filter by volume type
+        schema:
+          type: string
+          enum:
+          - rw
+          - dp
+          - ls
       responses:
         '200':
           description: List of volumes retrieved successfully
@@ -263,23 +278,26 @@ paths:
                     $ref: '#/components/schemas/CollectionLinks'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createVolume
-      summary: NetApp Create a new volume
+      summary: Netapp Create a New Volume
       description: >-
         Creates a new volume on the specified SVM and aggregate. The volume name,
         SVM, and aggregate are required. Optional parameters include size,
         security style, export policy, tiering policy, QoS policy, and snapshot
         policy.
       tags:
-        - Volumes
+      - Volumes
       parameters:
-        - name: return_records
-          in: query
-          description: Return the newly created record
-          schema:
-            type: boolean
-            default: false
+      - name: return_records
+        in: query
+        description: Return the newly created record
+        schema:
+          type: boolean
+          default: false
       requestBody:
         required: true
         content:
@@ -313,19 +331,22 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /storage/volumes/{uuid}:
     get:
       operationId: getVolume
-      summary: NetApp Retrieve a specific volume
+      summary: Netapp Retrieve a Specific Volume
       description: >-
         Retrieves detailed information about a specific volume including
         space utilization, configuration, state, associated SVM, aggregate,
         export policy, snapshot policy, and QoS settings.
       tags:
-        - Volumes
+      - Volumes
       parameters:
-        - $ref: '#/components/parameters/uuid'
-        - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/fields'
       responses:
         '200':
           description: Volume details retrieved successfully
@@ -338,17 +359,20 @@ paths:
                 $ref: '#/components/schemas/Volume'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateVolume
-      summary: NetApp Update a volume
+      summary: Netapp Update a Volume
       description: >-
         Updates the properties of an existing volume. Supports modifying
         the volume name, size, comment, state, export policy, snapshot
         policy, tiering policy, and QoS settings.
       tags:
-        - Volumes
+      - Volumes
       parameters:
-        - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/uuid'
       requestBody:
         required: true
         content:
@@ -376,16 +400,19 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteVolume
-      summary: NetApp Delete a volume
+      summary: Netapp Delete a Volume
       description: >-
         Deletes an existing volume. The volume must be offline or unmounted
         before deletion. This is an asynchronous operation.
       tags:
-        - Volumes
+      - Volumes
       parameters:
-        - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/uuid'
       responses:
         '200':
           description: Volume deleted successfully
@@ -407,26 +434,29 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /storage/volumes/{volume.uuid}/snapshots:
     get:
       operationId: listSnapshots
-      summary: NetApp List snapshots for a volume
+      summary: Netapp List Snapshots for a Volume
       description: >-
         Retrieves the list of snapshots for a specific volume, including
         snapshot name, UUID, creation time, and size.
       tags:
-        - Snapshots
+      - Snapshots
       parameters:
-        - name: volume.uuid
-          in: path
-          required: true
-          description: UUID of the volume
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/fields'
-        - $ref: '#/components/parameters/max_records'
-        - $ref: '#/components/parameters/order_by'
+      - name: volume.uuid
+        in: path
+        required: true
+        description: UUID of the volume
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
       responses:
         '200':
           description: List of snapshots retrieved successfully
@@ -445,22 +475,25 @@ paths:
                     $ref: '#/components/schemas/CollectionLinks'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createSnapshot
-      summary: NetApp Create a volume snapshot
+      summary: Netapp Create a Volume Snapshot
       description: >-
         Creates a new snapshot of the specified volume. The snapshot name
         is required. An optional comment and expiry time can be specified.
       tags:
-        - Snapshots
+      - Snapshots
       parameters:
-        - name: volume.uuid
-          in: path
-          required: true
-          description: UUID of the volume
-          schema:
-            type: string
-            format: uuid
+      - name: volume.uuid
+        in: path
+        required: true
+        description: UUID of the volume
+        schema:
+          type: string
+          format: uuid
       requestBody:
         required: true
         content:
@@ -488,58 +521,61 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /storage/aggregates:
     get:
       operationId: listAggregates
-      summary: NetApp List storage aggregates
+      summary: Netapp List Storage Aggregates
       description: >-
         Retrieves a list of aggregates (local tiers) in the cluster. Returns
         aggregate configuration, space usage, state, RAID details, and the
         owning node. Aggregates are the physical storage pools from which
         volumes are provisioned.
       tags:
-        - Aggregates
+      - Aggregates
       parameters:
-        - $ref: '#/components/parameters/fields'
-        - $ref: '#/components/parameters/return_records'
-        - $ref: '#/components/parameters/return_timeout'
-        - $ref: '#/components/parameters/max_records'
-        - $ref: '#/components/parameters/order_by'
-        - name: name
-          in: query
-          description: Filter by aggregate name
-          schema:
-            type: string
-        - name: node.name
-          in: query
-          description: Filter by owning node name
-          schema:
-            type: string
-        - name: state
-          in: query
-          description: Filter by aggregate state
-          schema:
-            type: string
-            enum:
-              - online
-              - offline
-              - restricted
-              - creating
-              - destroying
-              - failed
-              - frozen
-              - inconsistent
-              - iron_restricted
-              - mounting
-              - partial
-              - quiesced
-              - quiescing
-              - relocated
-              - relocating
-              - reverted
-              - unknown
-              - unmounted
-              - unmounting
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
+      - name: name
+        in: query
+        description: Filter by aggregate name
+        schema:
+          type: string
+      - name: node.name
+        in: query
+        description: Filter by owning node name
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: Filter by aggregate state
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+          - restricted
+          - creating
+          - destroying
+          - failed
+          - frozen
+          - inconsistent
+          - iron_restricted
+          - mounting
+          - partial
+          - quiesced
+          - quiescing
+          - relocated
+          - relocating
+          - reverted
+          - unknown
+          - unmounted
+          - unmounting
       responses:
         '200':
           description: List of aggregates retrieved successfully
@@ -570,14 +606,17 @@ paths:
                     $ref: '#/components/schemas/CollectionLinks'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createAggregate
-      summary: NetApp Create a new aggregate
+      summary: Netapp Create a New Aggregate
       description: >-
         Creates a new aggregate (local tier) on the specified node. The
         aggregate name, node, disk count, and RAID type are required.
       tags:
-        - Aggregates
+      - Aggregates
       requestBody:
         required: true
         content:
@@ -605,18 +644,21 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /storage/aggregates/{uuid}:
     get:
       operationId: getAggregate
-      summary: NetApp Retrieve a specific aggregate
+      summary: Netapp Retrieve a Specific Aggregate
       description: >-
         Retrieves detailed information about a specific aggregate including
         space usage, RAID configuration, state, and owning node.
       tags:
-        - Aggregates
+      - Aggregates
       parameters:
-        - $ref: '#/components/parameters/uuid'
-        - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/fields'
       responses:
         '200':
           description: Aggregate details retrieved successfully
@@ -629,16 +671,19 @@ paths:
                 $ref: '#/components/schemas/Aggregate'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateAggregate
-      summary: NetApp Update an aggregate
+      summary: Netapp Update an Aggregate
       description: >-
         Updates the properties of an existing aggregate. Supports modifying
         the name and adding disks to expand capacity.
       tags:
-        - Aggregates
+      - Aggregates
       parameters:
-        - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/uuid'
       requestBody:
         required: true
         content:
@@ -666,16 +711,19 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteAggregate
-      summary: NetApp Delete an aggregate
+      summary: Netapp Delete an Aggregate
       description: >-
         Deletes an existing aggregate. The aggregate must be empty (no volumes)
         and offline before deletion.
       tags:
-        - Aggregates
+      - Aggregates
       parameters:
-        - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/uuid'
       responses:
         '200':
           description: Aggregate deleted successfully
@@ -697,39 +745,42 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /svm/svms:
     get:
       operationId: listSvms
-      summary: NetApp List storage virtual machines
+      summary: Netapp List Storage Virtual Machines
       description: >-
         Retrieves a list of storage virtual machines (SVMs) in the cluster.
         SVMs are secure virtualized storage containers that provide data
         access to clients. Each SVM has its own volumes, network interfaces,
         protocols, and security configuration.
       tags:
-        - SVMs
+      - SVMs
       parameters:
-        - $ref: '#/components/parameters/fields'
-        - $ref: '#/components/parameters/return_records'
-        - $ref: '#/components/parameters/return_timeout'
-        - $ref: '#/components/parameters/max_records'
-        - $ref: '#/components/parameters/order_by'
-        - name: name
-          in: query
-          description: Filter by SVM name
-          schema:
-            type: string
-        - name: state
-          in: query
-          description: Filter by SVM state
-          schema:
-            type: string
-            enum:
-              - starting
-              - running
-              - stopping
-              - stopped
-              - deleting
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
+      - name: name
+        in: query
+        description: Filter by SVM name
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: Filter by SVM state
+        schema:
+          type: string
+          enum:
+          - starting
+          - running
+          - stopping
+          - stopped
+          - deleting
       responses:
         '200':
           description: List of SVMs retrieved successfully
@@ -760,15 +811,18 @@ paths:
                     $ref: '#/components/schemas/CollectionLinks'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createSvm
-      summary: NetApp Create a new SVM
+      summary: Netapp Create a New Svm
       description: >-
         Creates a new storage virtual machine (SVM). The SVM name is required.
         Optional parameters include allowed protocols (NFS, CIFS, iSCSI, FCP),
         aggregates, language, snapshot policy, and IP interface configuration.
       tags:
-        - SVMs
+      - SVMs
       requestBody:
         required: true
         content:
@@ -796,19 +850,22 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /svm/svms/{uuid}:
     get:
       operationId: getSvm
-      summary: NetApp Retrieve a specific SVM
+      summary: Netapp Retrieve a Specific Svm
       description: >-
         Retrieves detailed information about a specific SVM including name,
         state, allowed protocols, IP interfaces, aggregates, and CIFS/NFS
         configuration.
       tags:
-        - SVMs
+      - SVMs
       parameters:
-        - $ref: '#/components/parameters/uuid'
-        - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/fields'
       responses:
         '200':
           description: SVM details retrieved successfully
@@ -821,16 +878,19 @@ paths:
                 $ref: '#/components/schemas/Svm'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateSvm
-      summary: NetApp Update an SVM
+      summary: Netapp Update an Svm
       description: >-
         Updates the properties of an existing SVM. Supports modifying name,
         allowed protocols, language, comment, and snapshot policy.
       tags:
-        - SVMs
+      - SVMs
       parameters:
-        - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/uuid'
       requestBody:
         required: true
         content:
@@ -858,16 +918,19 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteSvm
-      summary: NetApp Delete an SVM
+      summary: Netapp Delete an Svm
       description: >-
         Deletes an existing SVM and all associated configuration. All volumes
         and network interfaces in the SVM must be deleted first.
       tags:
-        - SVMs
+      - SVMs
       parameters:
-        - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/uuid'
       responses:
         '200':
           description: SVM deleted successfully
@@ -889,30 +952,33 @@ paths:
                     $ref: '#/components/schemas/JobLink'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /network/ip/interfaces:
     get:
       operationId: listNetworkInterfaces
-      summary: NetApp List network interfaces
+      summary: Netapp List Network Interfaces
       description: >-
         Retrieves a list of network interfaces (LIFs) across the cluster.
         Network interfaces provide data access and management connectivity
         for SVMs and the cluster.
       tags:
-        - Network
+      - Network
       parameters:
-        - $ref: '#/components/parameters/fields'
-        - $ref: '#/components/parameters/max_records'
-        - $ref: '#/components/parameters/order_by'
-        - name: svm.name
-          in: query
-          description: Filter by SVM name
-          schema:
-            type: string
-        - name: name
-          in: query
-          description: Filter by interface name
-          schema:
-            type: string
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
+      - name: svm.name
+        in: query
+        description: Filter by SVM name
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: Filter by interface name
+        schema:
+          type: string
       responses:
         '200':
           description: List of network interfaces retrieved successfully
@@ -931,6 +997,9 @@ paths:
                     $ref: '#/components/schemas/CollectionLinks'
         default:
           $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -1018,17 +1087,20 @@ components:
           format: uuid
           description: Cluster UUID
           readOnly: true
+          example: '500123'
         name:
           type: string
           description: Cluster name
           examples:
-            - cluster1
+          - cluster1
         contact:
           type: string
           description: Contact information for the cluster administrator
+          example: example_value
         location:
           type: string
           description: Physical location of the cluster
+          example: example_value
         version:
           type: object
           description: ONTAP software version
@@ -1038,7 +1110,7 @@ components:
               type: string
               description: Full version string
               examples:
-                - NetApp Release 9.15.1
+              - NetApp Release 9.15.1
             generation:
               type: integer
               description: Major version generation
@@ -1048,16 +1120,19 @@ components:
             minor:
               type: integer
               description: Minor version number
+          example: example_value
         dns_domains:
           type: array
           description: DNS domain names for the cluster
           items:
             type: string
+          example: []
         ntp_servers:
           type: array
           description: NTP server addresses
           items:
             type: string
+          example: []
         timezone:
           type: object
           description: Cluster timezone setting
@@ -1066,7 +1141,8 @@ components:
               type: string
               description: Timezone name (Olson format)
               examples:
-                - America/New_York
+              - America/New_York
+          example: example_value
         management_interfaces:
           type: array
           description: Cluster management network interfaces
@@ -1081,12 +1157,14 @@ components:
                     type: string
                     format: ipv4
                     description: IPv4 address
+          example: []
         nodes:
           type: array
           description: Nodes in the cluster
           readOnly: true
           items:
             $ref: '#/components/schemas/ClusterNodeReference'
+          example: []
         _links:
           $ref: '#/components/schemas/SelfLink'
     ClusterNode:
@@ -1098,25 +1176,28 @@ components:
           format: uuid
           description: Node UUID
           readOnly: true
+          example: '500123'
         name:
           type: string
           description: Node name
           examples:
-            - node1
+          - node1
         model:
           type: string
           description: Hardware model of the node
           readOnly: true
           examples:
-            - AFF-A400
+          - AFF-A400
         serial_number:
           type: string
           description: System serial number
           readOnly: true
+          example: example_value
         uptime:
           type: integer
           description: Node uptime in seconds
           readOnly: true
+          example: 10
         version:
           type: object
           description: ONTAP version running on the node
@@ -1131,6 +1212,7 @@ components:
               type: integer
             minor:
               type: integer
+          example: example_value
         controller:
           type: object
           description: Node controller information
@@ -1153,17 +1235,19 @@ components:
               type: string
               description: Over-temperature status
               enum:
-                - over
-                - normal
+              - over
+              - normal
+          example: example_value
         state:
           type: string
           description: Current operational state of the node
           readOnly: true
           enum:
-            - up
-            - down
-            - taken_over
-            - waiting_for_giveback
+          - up
+          - down
+          - taken_over
+          - waiting_for_giveback
+          example: up
         _links:
           $ref: '#/components/schemas/SelfLink'
     ClusterNodeReference:
@@ -1173,8 +1257,10 @@ components:
         uuid:
           type: string
           format: uuid
+          example: '500123'
         name:
           type: string
+          example: Example Title
         _links:
           $ref: '#/components/schemas/SelfLink'
     Volume:
@@ -1189,55 +1275,62 @@ components:
           format: uuid
           description: Unique identifier for the volume
           readOnly: true
+          example: '500123'
         name:
           type: string
           description: Volume name (unique within the SVM)
           examples:
-            - vol1
+          - vol1
         type:
           type: string
           description: >-
             Volume type. rw = read-write, dp = data-protection,
             ls = load-sharing
           enum:
-            - rw
-            - dp
-            - ls
+          - rw
+          - dp
+          - ls
           readOnly: true
+          example: rw
         state:
           type: string
           description: Volume operational state
           enum:
-            - online
-            - offline
-            - restricted
-            - mixed
+          - online
+          - offline
+          - restricted
+          - mixed
+          example: online
         style:
           type: string
           description: Volume style
           enum:
-            - flexvol
-            - flexgroup
-            - flexgroup_constituent
+          - flexvol
+          - flexgroup
+          - flexgroup_constituent
           readOnly: true
+          example: flexvol
         size:
           type: integer
           format: int64
           description: Volume size in bytes
+          example: 10
         comment:
           type: string
           description: Optional comment or description for the volume
           maxLength: 1023
+          example: example_value
         language:
           type: string
           description: Language encoding for the volume
           examples:
-            - c.utf_8
+          - c.utf_8
         create_time:
           type: string
           format: date-time
           description: Time when the volume was created
           readOnly: true
+          example: '2026-01-15T10:30:00Z'
         svm:
           $ref: '#/components/schemas/SvmReference'
         aggregates:
@@ -1247,6 +1340,7 @@ components:
             FlexGroup can span multiple aggregates.
           items:
             $ref: '#/components/schemas/AggregateReference'
+          example: []
         space:
           type: object
           description: Volume space usage and configuration
@@ -1308,6 +1402,7 @@ components:
               format: int64
               description: Amount of space over-provisioned in bytes
               readOnly: true
+          example: example_value
         nas:
           type: object
           description: NAS protocol configuration
@@ -1316,20 +1411,20 @@ components:
               type: string
               description: Junction path where the volume is mounted in the SVM namespace
               examples:
-                - /vol1
+              - /vol1
             security_style:
               type: string
               description: Security style of the volume
               enum:
-                - unix
-                - ntfs
-                - mixed
-                - unified
+              - unix
+              - ntfs
+              - mixed
+              - unified
             unix_permissions:
               type: string
               description: UNIX permissions in octal format
               examples:
-                - '0755'
+              - '0755'
             export_policy:
               type: object
               description: Export policy controlling NFS access
@@ -1338,7 +1433,8 @@ components:
                   type: string
                   description: Export policy name
                   examples:
-                    - default
+                  - default
+          example: example_value
         guarantee:
           type: object
           description: Space guarantee configuration
@@ -1347,12 +1443,13 @@ components:
               type: string
               description: Type of space guarantee
               enum:
-                - volume
-                - none
+              - volume
+              - none
             honored:
               type: boolean
               description: Whether the guarantee is currently honored
               readOnly: true
+          example: example_value
         snapshot_policy:
           type: object
           description: Snapshot policy assigned to the volume
@@ -1361,10 +1458,11 @@ components:
               type: string
               description: Snapshot policy name
               examples:
-                - default
+              - default
             uuid:
               type: string
               format: uuid
+          example: example_value
         qos:
           type: object
           description: Quality of service configuration
@@ -1391,6 +1489,7 @@ components:
                 min_throughput_mbps:
                   type: integer
                   description: Minimum throughput in MB/s
+          example: example_value
         tiering:
           type: object
           description: FabricPool tiering configuration
@@ -1399,16 +1498,17 @@ components:
               type: string
               description: Tiering policy for the volume
               enum:
-                - all
-                - auto
-                - none
-                - snapshot_only
-                - backup
+              - all
+              - auto
+              - none
+              - snapshot_only
+              - backup
             min_cooling_days:
               type: integer
               description: Minimum number of days data must be inactive before tiering
               minimum: 2
               maximum: 183
+          example: example_value
         encryption:
           type: object
           description: Volume encryption configuration
@@ -1425,9 +1525,10 @@ components:
               description: Encryption type
               readOnly: true
               enum:
-                - none
-                - volume
-                - aggregate
+              - none
+              - volume
+              - aggregate
+          example: example_value
         autosize:
           type: object
           description: Volume autosize configuration
@@ -1436,9 +1537,9 @@ components:
               type: string
               description: Autosize mode
               enum:
-                - off
-                - grow
-                - grow_shrink
+              - off
+              - grow
+              - grow_shrink
             grow_threshold:
               type: integer
               description: Used space threshold percentage to trigger growth
@@ -1457,6 +1558,7 @@ components:
               type: integer
               format: int64
               description: Minimum size the volume can shrink to in bytes
+          example: example_value
         clone:
           type: object
           description: Clone information if this volume is a clone
@@ -1478,6 +1580,7 @@ components:
             split_initiated:
               type: boolean
               description: Whether clone split has been initiated
+          example: example_value
         _links:
           $ref: '#/components/schemas/SelfLink'
     VolumeReference:
@@ -1487,8 +1590,10 @@ components:
         uuid:
           type: string
           format: uuid
+          example: '500123'
         name:
           type: string
+          example: Example Title
         _links:
           $ref: '#/components/schemas/SelfLink'
     Aggregate:
@@ -1502,35 +1607,37 @@ components:
           format: uuid
           description: Aggregate UUID
           readOnly: true
+          example: '500123'
         name:
           type: string
           description: Aggregate name
           examples:
-            - aggr1
+          - aggr1
         state:
           type: string
           description: Aggregate operational state
           readOnly: true
           enum:
-            - online
-            - offline
-            - restricted
-            - creating
-            - destroying
-            - failed
-            - frozen
-            - inconsistent
-            - iron_restricted
-            - mounting
-            - partial
-            - quiesced
-            - quiescing
-            - relocated
-            - relocating
-            - reverted
-            - unknown
-            - unmounted
-            - unmounting
+          - online
+          - offline
+          - restricted
+          - creating
+          - destroying
+          - failed
+          - frozen
+          - inconsistent
+          - iron_restricted
+          - mounting
+          - partial
+          - quiesced
+          - quiescing
+          - relocated
+          - relocating
+          - reverted
+          - unknown
+          - unmounted
+          - unmounting
+          example: online
         node:
           $ref: '#/components/schemas/ClusterNodeReference'
         space:
@@ -1586,6 +1693,7 @@ components:
                   type: integer
                   format: int64
                   description: Logical space used before efficiency savings
+          example: example_value
         block_storage:
           type: object
           description: Block storage configuration
@@ -1600,22 +1708,22 @@ components:
                   type: string
                   description: Class of disks
                   enum:
-                    - capacity
-                    - performance
-                    - archive
-                    - solid_state
-                    - array
-                    - virtual
-                    - data_center
-                    - capacity_flash
+                  - capacity
+                  - performance
+                  - archive
+                  - solid_state
+                  - array
+                  - virtual
+                  - data_center
+                  - capacity_flash
                 raid_type:
                   type: string
                   description: RAID type
                   enum:
-                    - raid4
-                    - raid_dp
-                    - raid_tec
-                    - raid0
+                  - raid4
+                  - raid_dp
+                  - raid_tec
+                  - raid0
                 raid_size:
                   type: integer
                   description: Number of disks per RAID group
@@ -1623,8 +1731,8 @@ components:
                   type: string
                   description: Checksum style
                   enum:
-                    - block
-                    - advanced_zoned
+                  - block
+                  - advanced_zoned
             mirror:
               type: object
               properties:
@@ -1635,10 +1743,11 @@ components:
                   type: string
                   description: Mirror state
                   enum:
-                    - unmirrored
-                    - cp_count_check
-                    - limbo
-                    - mirrored
+                  - unmirrored
+                  - cp_count_check
+                  - limbo
+                  - mirrored
+          example: example_value
         data_encryption:
           type: object
           description: Aggregate encryption configuration
@@ -1649,6 +1758,7 @@ components:
             drive_protection_enabled:
               type: boolean
               description: Whether self-encrypting drives are used
+          example: example_value
         cloud_storage:
           type: object
           description: FabricPool configuration
@@ -1656,11 +1766,13 @@ components:
             attach_eligible:
               type: boolean
               description: Whether the aggregate is eligible for FabricPool attachment
+          example: example_value
         create_time:
           type: string
           format: date-time
           description: Time when the aggregate was created
           readOnly: true
+          example: '2026-01-15T10:30:00Z'
         _links:
           $ref: '#/components/schemas/SelfLink'
     AggregateReference:
@@ -1670,8 +1782,10 @@ components:
         uuid:
           type: string
           format: uuid
+          example: '500123'
         name:
           type: string
+          example: Example Title
         _links:
           $ref: '#/components/schemas/SelfLink'
     Svm:
@@ -1687,37 +1801,41 @@ components:
           format: uuid
           description: SVM UUID
           readOnly: true
+          example: '500123'
         name:
           type: string
           description: SVM name (unique within the cluster)
           examples:
-            - svm1
+          - svm1
         state:
           type: string
           description: SVM operational state
           enum:
-            - starting
-            - running
-            - stopping
-            - stopped
-            - deleting
+          - starting
+          - running
+          - stopping
+          - stopped
+          - deleting
+          example: starting
         subtype:
           type: string
           description: SVM subtype
           readOnly: true
           enum:
-            - default
-            - dp_destination
-            - sync_source
-            - sync_destination
+          - default
+          - dp_destination
+          - sync_source
+          - sync_destination
+          example: default
         language:
           type: string
           description: Default language encoding for volumes in the SVM
           examples:
-            - c.utf_8
+          - c.utf_8
         comment:
           type: string
           description: Optional comment or description for the SVM
+          example: example_value
         ipspace:
           type: object
           description: IPspace associated with the SVM
@@ -1726,21 +1844,24 @@ components:
               type: string
               description: IPspace name
               examples:
-                - Default
+              - Default
             uuid:
               type: string
               format: uuid
+          example: example_value
         aggregates:
           type: array
           description: Aggregates assigned to the SVM for volume provisioning
           items:
             $ref: '#/components/schemas/AggregateReference'
+          example: []
         ip_interfaces:
           type: array
           description: Network interfaces configured for the SVM
           readOnly: true
           items:
             $ref: '#/components/schemas/NetworkInterface'
+          example: []
         nfs:
           type: object
           description: NFS protocol configuration
@@ -1751,6 +1872,7 @@ components:
             allowed:
               type: boolean
               description: Whether NFS is allowed on the SVM
+          example: example_value
         cifs:
           type: object
           description: CIFS/SMB protocol configuration
@@ -1764,6 +1886,7 @@ components:
             name:
               type: string
               description: CIFS server name
+          example: example_value
         iscsi:
           type: object
           description: iSCSI protocol configuration
@@ -1774,6 +1897,7 @@ components:
             allowed:
               type: boolean
               description: Whether iSCSI is allowed on the SVM
+          example: example_value
         fcp:
           type: object
           description: Fibre Channel Protocol configuration
@@ -1784,6 +1908,7 @@ components:
             allowed:
               type: boolean
               description: Whether FCP is allowed on the SVM
+          example: example_value
         nvme:
           type: object
           description: NVMe over Fabrics protocol configuration
@@ -1794,6 +1919,7 @@ components:
             allowed:
               type: boolean
               description: Whether NVMe is allowed on the SVM
+          example: example_value
         snapshot_policy:
           type: object
           description: Default snapshot policy for the SVM
@@ -1803,6 +1929,7 @@ components:
             uuid:
               type: string
               format: uuid
+          example: example_value
         dns:
           type: object
           description: DNS configuration for the SVM
@@ -1817,6 +1944,7 @@ components:
               description: DNS server IP addresses
               items:
                 type: string
+          example: example_value
         certificate:
           type: object
           description: SSL/TLS certificate for the SVM
@@ -1826,9 +1954,11 @@ components:
               format: uuid
             name:
               type: string
+          example: example_value
         max_volumes:
           type: string
           description: Maximum number of volumes allowed on the SVM
+          example: example_value
         _links:
           $ref: '#/components/schemas/SelfLink'
     SvmReference:
@@ -1838,8 +1968,10 @@ components:
         uuid:
           type: string
           format: uuid
+          example: '500123'
         name:
           type: string
+          example: Example Title
         _links:
           $ref: '#/components/schemas/SelfLink'
     NetworkInterface:
@@ -1851,11 +1983,12 @@ components:
           format: uuid
           description: Network interface UUID
           readOnly: true
+          example: '500123'
         name:
           type: string
           description: Interface name
           examples:
-            - lif1
+          - lif1
         ip:
           type: object
           description: IP address configuration
@@ -1864,34 +1997,38 @@ components:
               type: string
               description: IP address
               examples:
-                - 192.168.1.100
+              - 192.168.1.100
             netmask:
               type: string
               description: Network mask
               examples:
-                - 255.255.255.0
+              - 255.255.255.0
             family:
               type: string
               description: IP address family
               enum:
-                - ipv4
-                - ipv6
+              - ipv4
+              - ipv6
+          example: example_value
         state:
           type: string
           description: Operational state of the interface
           readOnly: true
           enum:
-            - up
-            - down
+          - up
+          - down
+          example: up
         enabled:
           type: boolean
           description: Whether the interface is administratively enabled
+          example: true
         scope:
           type: string
           description: Interface scope
           enum:
-            - svm
-            - cluster
+          - svm
+          - cluster
+          example: svm
         service_policy:
           type: object
           description: Service policy governing the interface
@@ -1900,7 +2037,8 @@ components:
               type: string
               description: Service policy name
               examples:
-                - default-data-files
+              - default-data-files
+          example: example_value
         svm:
           $ref: '#/components/schemas/SvmReference'
         location:
@@ -1916,7 +2054,7 @@ components:
                   type: string
                   description: Port name
                   examples:
-                    - e0d
+                  - e0d
                 node:
                   $ref: '#/components/schemas/ClusterNodeReference'
             node:
@@ -1931,6 +2069,7 @@ components:
             is_home:
               type: boolean
               description: Whether the interface is on its home port
+          example: example_value
         _links:
           $ref: '#/components/schemas/SelfLink'
     Snapshot:
@@ -1942,40 +2081,47 @@ components:
           format: uuid
           description: Snapshot UUID
           readOnly: true
+          example: '500123'
         name:
           type: string
           description: Snapshot name
           examples:
-            - hourly.2024-01-15_0815
+          - hourly.2024-01-15_0815
         create_time:
           type: string
           format: date-time
           description: Time when the snapshot was created
           readOnly: true
+          example: '2026-01-15T10:30:00Z'
         expiry_time:
           type: string
           format: date-time
           description: Time when the snapshot expires and can be automatically deleted
+          example: '2026-01-15T10:30:00Z'
         comment:
           type: string
           description: Optional comment for the snapshot
+          example: example_value
         size:
           type: integer
           format: int64
           description: Amount of space consumed by the snapshot in bytes
           readOnly: true
+          example: 10
         state:
           type: string
           description: Snapshot state
           readOnly: true
           enum:
-            - valid
-            - invalid
-            - partial
-            - unknown
+          - valid
+          - invalid
+          - partial
+          - unknown
+          example: valid
         snapmirror_label:
           type: string
           description: SnapMirror label used for policy-based selection
+          example: example_value
         volume:
           $ref: '#/components/schemas/VolumeReference'
         _links:
@@ -1988,30 +2134,32 @@ components:
           type: string
           description: License name
           examples:
-            - NFS
-            - CIFS
-            - iSCSI
-            - FCP
-            - SnapMirror
-            - SnapRestore
-            - FlexClone
-            - SnapVault
-            - FabricPool
+          - NFS
+          - CIFS
+          - iSCSI
+          - FCP
+          - SnapMirror
+          - SnapRestore
+          - FlexClone
+          - SnapVault
+          - FabricPool
         scope:
           type: string
           description: License scope
           enum:
-            - cluster
-            - node
-            - not_available
+          - cluster
+          - node
+          - not_available
+          example: cluster
         state:
           type: string
           description: License compliance state
           enum:
-            - compliant
-            - noncompliant
-            - unlicensed
-            - unknown
+          - compliant
+          - noncompliant
+          - unlicensed
+          - unknown
+          example: compliant
         licenses:
           type: array
           description: Individual license entries
@@ -2030,8 +2178,9 @@ components:
                   state:
                     type: string
                     enum:
-                      - compliant
-                      - noncompliant
+                    - compliant
+                    - noncompliant
+          example: []
         _links:
           $ref: '#/components/schemas/SelfLink'
     JobLink:
@@ -2042,6 +2191,7 @@ components:
           type: string
           format: uuid
           description: Job UUID
+          example: '500123'
         _links:
           type: object
           properties:
@@ -2052,6 +2202,7 @@ components:
                   type: string
                   format: uri
                   description: URL to retrieve the job status
+          example: example_value
     SelfLink:
       type: object
       description: HAL self link
@@ -2063,6 +2214,7 @@ components:
               type: string
               format: uri
               description: URL of this resource
+          example: example_value
     CollectionLinks:
       type: object
       description: Pagination links for collection responses
@@ -2073,6 +2225,7 @@ components:
             href:
               type: string
               format: uri
+          example: example_value
         next:
           type: object
           description: Link to the next page of results
@@ -2080,6 +2233,7 @@ components:
             href:
               type: string
               format: uri
+          example: example_value
     ErrorResponse:
       type: object
       description: ONTAP REST API error response
@@ -2096,3 +2250,4 @@ components:
             target:
               type: string
               description: The field or resource that caused the error
+          example: example_value

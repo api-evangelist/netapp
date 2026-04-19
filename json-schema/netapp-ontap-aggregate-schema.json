@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aggregate",
+  "type": "object",
+  "description": "An aggregate (local tier) is a collection of physical disks that provides a pool of storage from which FlexVol volumes are provisioned.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "Aggregate UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Aggregate name"
+    },
+    "state": {
+      "type": "string",
+      "description": "Aggregate operational state"
+    },
+    "space": {
+      "type": "object",
+      "description": "Aggregate space usage"
+    },
+    "block_storage": {
+      "type": "object",
+      "description": "Block storage configuration"
+    },
+    "data_encryption": {
+      "type": "object",
+      "description": "Aggregate encryption configuration"
+    },
+    "cloud_storage": {
+      "type": "object",
+      "description": "FabricPool configuration"
+    },
+    "create_time": {
+      "type": "string",
+      "description": "Time when the aggregate was created"
+    }
+  }
+}

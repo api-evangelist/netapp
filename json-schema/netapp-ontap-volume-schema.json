@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Volume",
+  "type": "object",
+  "description": "A storage volume is a logical container for data. Volumes are created within SVMs and reside on aggregates. They provide the primary unit of data management in ONTAP.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "Unique identifier for the volume"
+    },
+    "name": {
+      "type": "string",
+      "description": "Volume name (unique within the SVM)"
+    },
+    "type": {
+      "type": "string",
+      "description": "Volume type. rw = read-write, dp = data-protection, ls = load-sharing"
+    },
+    "state": {
+      "type": "string",
+      "description": "Volume operational state"
+    },
+    "style": {
+      "type": "string",
+      "description": "Volume style"
+    },
+    "size": {
+      "type": "integer",
+      "description": "Volume size in bytes"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment or description for the volume"
+    },
+    "language": {
+      "type": "string",
+      "description": "Language encoding for the volume"
+    },
+    "create_time": {
+      "type": "string",
+      "description": "Time when the volume was created"
+    },
+    "aggregates": {
+      "type": "array",
+      "description": "Aggregates hosting the volume. A FlexVol has one aggregate; a FlexGroup can span multiple aggregates."
+    },
+    "space": {
+      "type": "object",
+      "description": "Volume space usage and configuration"
+    },
+    "nas": {
+      "type": "object",
+      "description": "NAS protocol configuration"
+    },
+    "guarantee": {
+      "type": "object",
+      "description": "Space guarantee configuration"
+    },
+    "snapshot_policy": {
+      "type": "object",
+      "description": "Snapshot policy assigned to the volume"
+    },
+    "qos": {
+      "type": "object",
+      "description": "Quality of service configuration"
+    },
+    "tiering": {
+      "type": "object",
+      "description": "FabricPool tiering configuration"
+    },
+    "encryption": {
+      "type": "object",
+      "description": "Volume encryption configuration"
+    },
+    "autosize": {
+      "type": "object",
+      "description": "Volume autosize configuration"
+    },
+    "clone": {
+      "type": "object",
+      "description": "Clone information if this volume is a clone"
+    }
+  }
+}

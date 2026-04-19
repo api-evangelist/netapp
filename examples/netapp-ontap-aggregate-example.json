@@ -1,0 +1,10 @@
+{
+  "uuid": "500123",
+  "name": "Example Title",
+  "state": "example_value",
+  "space": "example_value",
+  "block_storage": "example_value",
+  "data_encryption": "example_value",
+  "cloud_storage": "example_value",
+  "create_time": "example_value"
+}

@@ -1,0 +1,13 @@
+name: netapp API Vocabulary
+provider: netapp
+created: '2026-04-19'
+modified: '2026-04-19'
+operations: 23
+schemas: 16
+tags:
+- Aggregates
+- Cluster
+- Network
+- SVMs
+- Snapshots
+- Volumes

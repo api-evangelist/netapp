@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Volume",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "style": {
+      "type": "string"
+    },
+    "size": {
+      "type": "integer"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "create_time": {
+      "type": "string"
+    },
+    "aggregates": {
+      "type": "array"
+    },
+    "space": {
+      "type": "object"
+    },
+    "nas": {
+      "type": "object"
+    },
+    "guarantee": {
+      "type": "object"
+    },
+    "snapshot_policy": {
+      "type": "object"
+    },
+    "qos": {
+      "type": "object"
+    },
+    "tiering": {
+      "type": "object"
+    },
+    "encryption": {
+      "type": "object"
+    },
+    "autosize": {
+      "type": "object"
+    },
+    "clone": {
+      "type": "object"
+    }
+  }
+}

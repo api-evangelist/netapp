@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cluster",
+  "type": "object",
+  "description": "ONTAP cluster configuration and status",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "Cluster UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Cluster name"
+    },
+    "contact": {
+      "type": "string",
+      "description": "Contact information for the cluster administrator"
+    },
+    "location": {
+      "type": "string",
+      "description": "Physical location of the cluster"
+    },
+    "version": {
+      "type": "object",
+      "description": "ONTAP software version"
+    },
+    "dns_domains": {
+      "type": "array",
+      "description": "DNS domain names for the cluster"
+    },
+    "ntp_servers": {
+      "type": "array",
+      "description": "NTP server addresses"
+    },
+    "timezone": {
+      "type": "object",
+      "description": "Cluster timezone setting"
+    },
+    "management_interfaces": {
+      "type": "array",
+      "description": "Cluster management network interfaces"
+    },
+    "nodes": {
+      "type": "array",
+      "description": "Nodes in the cluster"
+    }
+  }
+}

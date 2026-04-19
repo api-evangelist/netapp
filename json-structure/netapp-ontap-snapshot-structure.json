@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Snapshot",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "create_time": {
+      "type": "string"
+    },
+    "expiry_time": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "size": {
+      "type": "integer"
+    },
+    "state": {
+      "type": "string"
+    },
+    "snapmirror_label": {
+      "type": "string"
+    }
+  }
+}

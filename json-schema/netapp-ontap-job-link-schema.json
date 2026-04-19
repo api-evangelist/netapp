@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JobLink",
+  "type": "object",
+  "description": "Reference to an asynchronous job",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "Job UUID"
+    },
+    "_links": {
+      "type": "object"
+    }
+  }
+}

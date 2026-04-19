@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NetworkInterface",
+  "type": "object",
+  "description": "A network interface (LIF) providing data or management access",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "Network interface UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Interface name"
+    },
+    "ip": {
+      "type": "object",
+      "description": "IP address configuration"
+    },
+    "state": {
+      "type": "string",
+      "description": "Operational state of the interface"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the interface is administratively enabled"
+    },
+    "scope": {
+      "type": "string",
+      "description": "Interface scope"
+    },
+    "service_policy": {
+      "type": "object",
+      "description": "Service policy governing the interface"
+    },
+    "location": {
+      "type": "object",
+      "description": "Current location of the interface"
+    }
+  }
+}

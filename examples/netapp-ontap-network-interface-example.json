@@ -1,0 +1,10 @@
+{
+  "uuid": "500123",
+  "name": "Example Title",
+  "ip": "example_value",
+  "state": "example_value",
+  "enabled": true,
+  "scope": "example_value",
+  "service_policy": "example_value",
+  "location": "example_value"
+}

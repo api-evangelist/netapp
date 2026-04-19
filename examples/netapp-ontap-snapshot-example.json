@@ -1,0 +1,10 @@
+{
+  "uuid": "500123",
+  "name": "Example Title",
+  "create_time": "example_value",
+  "expiry_time": "example_value",
+  "comment": "example_value",
+  "size": 10,
+  "state": "example_value",
+  "snapmirror_label": "example_value"
+}

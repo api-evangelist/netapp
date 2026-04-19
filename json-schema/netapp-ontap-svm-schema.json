@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Svm",
+  "type": "object",
+  "description": "A storage virtual machine (SVM), also known as a vserver, is a secure virtual storage server that provides isolated data access to clients. Each SVM has its own set of volumes, network interfaces, and protocol configurations.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "SVM UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "SVM name (unique within the cluster)"
+    },
+    "state": {
+      "type": "string",
+      "description": "SVM operational state"
+    },
+    "subtype": {
+      "type": "string",
+      "description": "SVM subtype"
+    },
+    "language": {
+      "type": "string",
+      "description": "Default language encoding for volumes in the SVM"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment or description for the SVM"
+    },
+    "ipspace": {
+      "type": "object",
+      "description": "IPspace associated with the SVM"
+    },
+    "aggregates": {
+      "type": "array",
+      "description": "Aggregates assigned to the SVM for volume provisioning"
+    },
+    "ip_interfaces": {
+      "type": "array",
+      "description": "Network interfaces configured for the SVM"
+    },
+    "nfs": {
+      "type": "object",
+      "description": "NFS protocol configuration"
+    },
+    "cifs": {
+      "type": "object",
+      "description": "CIFS/SMB protocol configuration"
+    },
+    "iscsi": {
+      "type": "object",
+      "description": "iSCSI protocol configuration"
+    },
+    "fcp": {
+      "type": "object",
+      "description": "Fibre Channel Protocol configuration"
+    },
+    "nvme": {
+      "type": "object",
+      "description": "NVMe over Fabrics protocol configuration"
+    },
+    "snapshot_policy": {
+      "type": "object",
+      "description": "Default snapshot policy for the SVM"
+    },
+    "dns": {
+      "type": "object",
+      "description": "DNS configuration for the SVM"
+    },
+    "certificate": {
+      "type": "object",
+      "description": "SSL/TLS certificate for the SVM"
+    },
+    "max_volumes": {
+      "type": "string",
+      "description": "Maximum number of volumes allowed on the SVM"
+    }
+  }
+}

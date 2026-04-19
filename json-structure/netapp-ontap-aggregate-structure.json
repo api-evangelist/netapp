@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Aggregate",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "space": {
+      "type": "object"
+    },
+    "block_storage": {
+      "type": "object"
+    },
+    "data_encryption": {
+      "type": "object"
+    },
+    "cloud_storage": {
+      "type": "object"
+    },
+    "create_time": {
+      "type": "string"
+    }
+  }
+}

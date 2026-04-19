@@ -4,7 +4,10 @@ description: >-
 image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
 url: https://www.netapp.com
 created: '2024'
-modified: '2026-03-16'
+modified: '2026-04-19'
+specificationVersion: '0.18'
+type: Index
+access: 3rd-Party
 tags:
   - Cloud
   - Data Management
@@ -29,10 +32,8 @@ apis:
         url: https://docs.netapp.com/us-en/cloud-manager-automation/api/openapi.yaml
       - type: Authentication
         url: https://docs.netapp.com/us-en/cloud-manager-automation/platform/get_identifiers.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.netapp.com/us-en/cloud-manager-automation/cm/your_api_call.html
-      - type: Cloud Volumes ONTAP Overview
-        url: https://docs.netapp.com/us-en/cloud-manager-automation/cm/overview.html
   - name: NetApp ONTAP REST API
     description: >-
       REST API for NetApp ONTAP storage management system.
@@ -46,27 +47,23 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.netapp.com/us-en/ontap-automation/
-      - type: Reference
+      - type: APIReference
         url: https://docs.netapp.com/us-en/ontap-automation/reference/api_reference.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.netapp.com/us-en/ontap-automation/getting_started_with_the_ontap_rest_api.html
       - type: Authentication
         url: https://docs.netapp.com/us-en/ontap-automation/rest/authentication.html
-      - type: What's New
+      - type: ReleaseNotes
         url: https://docs.netapp.com/us-en/ontap-automation/whats-new.html
-      - type: REST API Reference (ONTAP 9.18.1)
+      - type: APIReference
         url: https://docs.netapp.com/us-en/ontap-restapi/
-      - type: Access REST API
-        url: https://docs.netapp.com/us-en/ontap-automation/get-started/access_rest_api.html
-      - type: GitHub
+      - type: GitHubRepository
         url: https://github.com/NetApp/ontap-rest-python
-      - type: DevNet
-        url: https://devnet.netapp.com/restapi.php
       - type: OpenAPI
         url: openapi/netapp-ontap-openapi.yml
       - type: JSONSchema
         url: json-schema/netapp-volume-schema.json
-      - type: JSONLDContext
+      - type: JSONLD
         url: json-ld/netapp-context.jsonld
   - name: NetApp Cloud Volumes Service API
     description: >-
@@ -82,12 +79,10 @@ apis:
     properties:
       - type: Documentation
         url: https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api
-      - type: API Reference
+      - type: APIReference
         url: https://cloud.google.com/architecture/partners/netapp-cloud-volumes/reference
-      - type: Google Cloud NetApp Volumes REST Reference
+      - type: APIReference
         url: https://docs.cloud.google.com/netapp/volumes/docs/reference/rest
-      - type: APIs and Reference
-        url: https://cloud.google.com/netapp/volumes/docs/apis
   - name: NetApp Astra Control API
     description: >-
       API for Kubernetes-native application data management.
@@ -102,9 +97,9 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.netapp.com/us-en/astra-automation/
-      - type: API Reference
+      - type: APIReference
         url: https://docs.netapp.com/us-en/astra-automation/reference/overview.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.netapp.com/us-en/astra-automation/get-started/overview.html
   - name: NetApp StorageGRID API
     description: >-
@@ -119,14 +114,10 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.netapp.com/us-en/storagegrid-116/admin/using-grid-management-api.html
-      - type: S3 API
-        url: https://docs.netapp.com/us-en/storagegrid-116/s3/index.html
-      - type: Grid Management API (Latest)
+      - type: Documentation
         url: https://docs.netapp.com/us-en/storagegrid/admin/using-grid-management-api.html
-      - type: S3 REST API Versions and Updates
+      - type: Documentation
         url: https://docs.netapp.com/us-en/storagegrid/s3/
-      - type: Installation REST APIs
-        url: https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/overview-of-installation-rest-apis.html
   - name: NetApp Element API
     description: >-
       API for NetApp Element software and NetApp HCI storage management.
@@ -141,7 +132,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.netapp.com/us-en/element-software/api/index.html
-      - type: API Reference
+      - type: APIReference
         url: https://docs.netapp.com/us-en/element-software/api/reference_element_api_reference.html
   - name: NetApp Cloud Insights API
     description: >-
@@ -171,12 +162,10 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.netapp.com/us-en/bluexp-automation/
-      - type: API Reference
+      - type: APIReference
         url: https://docs.netapp.com/us-en/bluexp-automation/cm/api_reference.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.netapp.com/us-en/bluexp-automation/cm/your_api_call.html
-      - type: Platform Concepts
-        url: https://docs.netapp.com/us-en/bluexp-automation/platform/concepts.html
       - type: Portal
         url: https://bluexp.netapp.com/
   - name: NetApp Active IQ Unified Manager API
@@ -194,10 +183,6 @@ apis:
         url: https://docs.netapp.com/us-en/active-iq-unified-manager/api-automation/concept_get_started_with_um_apis.html
       - type: Authentication
         url: https://docs.netapp.com/us-en/active-iq-unified-manager/api-automation/concept_rest_api_access_and_authentication_in_um_apis.html
-      - type: Gateway APIs
-        url: https://docs.netapp.com/us-en/active-iq-unified-manager/api-automation/concept_gateway_apis.html
-      - type: DevNet
-        url: https://devnet.netapp.com/aiqum.php
   - name: NetApp Active IQ Digital Advisor API
     description: API services for NetApp Active IQ Digital Advisor providing system information, storage efficiency, performance, health, and upgrade insights across your NetApp installed base.
     image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
@@ -226,12 +211,10 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.netapp.com/us-en/snapcenter/sc-automation/overview_rest_apis.html
-      - type: API Reference
+      - type: APIReference
         url: https://docs.netapp.com/us-en/snapcenter/sc-automation/reference_supported_rest_apis.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.netapp.com/us-en/snapcenter/sc-automation/task_get_started_with_the_rest_api.html
-      - type: Swagger Access
-        url: https://docs.netapp.com/us-en/snapcenter/sc-automation/task_how%20to_access_rest_apis_using_the_swagger_api_web_page.html
   - name: NetApp E-Series SANtricity Web Services API
     description: RESTful API for managing and monitoring NetApp E-Series and EF-Series storage systems through the SANtricity Web Services Proxy.
     image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
@@ -245,9 +228,9 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.netapp.com/us-en/e-series/web-services-proxy/index.html
-      - type: API Reference
+      - type: APIReference
         url: https://library.netapp.com/ecmdocs/ECMLP2839901/html/v2.html
-      - type: E-Series Documentation
+      - type: Documentation
         url: https://docs.netapp.com/us-en/e-series-family/
   - name: Azure NetApp Files REST API
     description: REST API for managing Azure NetApp Files resources including NetApp accounts, capacity pools, volumes, and snapshots in Microsoft Azure.
@@ -262,10 +245,8 @@ apis:
     properties:
       - type: Documentation
         url: https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-develop-with-rest-api
-      - type: API Reference
+      - type: APIReference
         url: https://learn.microsoft.com/en-us/rest/api/netapp/
-      - type: PowerShell Development Guide
-        url: https://learn.microsoft.com/en-us/azure/azure-netapp-files/develop-rest-api-powershell
   - name: NetApp ONTAP Tools for VMware vSphere API
     description: REST API for managing ONTAP tools for VMware vSphere, enabling storage provisioning, virtual machine lifecycle management, and vSphere integration.
     image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
@@ -279,33 +260,27 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/
-      - type: API Reference
+      - type: APIReference
         url: https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-104/automation/api-reference.html
-      - type: REST API Overview
-        url: https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-102/automation/overview-rest-apis.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/automation/get-started-with-the-rest-api.html
 common:
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://devnet.netapp.com/
   - type: Support
     url: https://www.netapp.com/support-and-training/
   - type: Blog
     url: https://netapp.io/
-  - type: GitHub
+  - type: GitHubOrganization
     url: https://github.com/NetApp
-  - type: Community
-    url: https://community.netapp.com/
-  - type: Developer Community
-    url: https://community.netapp.com/t5/Developer-Network/ct-p/developer-network
-  - type: SDK and API Discussions
-    url: https://community.netapp.com/t5/Software-Development-Kit-SDK-and-API-Discussions/bd-p/sdk-and-api-discussions
-  - type: ONTAP REST API Discussions
-    url: https://community.netapp.com/t5/ONTAP-Rest-API-Discussions/bd-p/ontap-restapi-discussions
-  - type: NetApp Automation Documentation
-    url: https://docs.netapp.com/us-en/netapp-automation/api/bluexp.html
-  - type: NetApp Blog
+  - type: Blog
     url: https://blog.netapp.com/
+  - type: Features
+    url: https://www.netapp.com/data-management/
+  - type: UseCases
+    url: https://www.netapp.com/solutions/
+  - type: Integrations
+    url: https://bluexp.netapp.com/
 maintainers:
   - name: Kin Lane
     email: kin@apievangelist.com

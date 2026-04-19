@@ -1,0 +1,12 @@
+{
+  "uuid": "500123",
+  "name": "Example Title",
+  "contact": "example_value",
+  "location": "example_value",
+  "version": "example_value",
+  "dns_domains": [],
+  "ntp_servers": [],
+  "timezone": "example_value",
+  "management_interfaces": [],
+  "nodes": []
+}

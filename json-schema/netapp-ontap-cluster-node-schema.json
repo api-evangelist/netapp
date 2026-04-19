@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClusterNode",
+  "type": "object",
+  "description": "A node in the ONTAP cluster",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "Node UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Node name"
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model of the node"
+    },
+    "serial_number": {
+      "type": "string",
+      "description": "System serial number"
+    },
+    "uptime": {
+      "type": "integer",
+      "description": "Node uptime in seconds"
+    },
+    "version": {
+      "type": "object",
+      "description": "ONTAP version running on the node"
+    },
+    "controller": {
+      "type": "object",
+      "description": "Node controller information"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current operational state of the node"
+    }
+  }
+}

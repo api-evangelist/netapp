@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CollectionLinks",
+  "type": "object",
+  "description": "Pagination links for collection responses",
+  "properties": {
+    "self": {
+      "type": "object"
+    },
+    "next": {
+      "type": "object",
+      "description": "Link to the next page of results"
+    }
+  }
+}

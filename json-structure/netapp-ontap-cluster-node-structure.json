@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ClusterNode",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "serial_number": {
+      "type": "string"
+    },
+    "uptime": {
+      "type": "integer"
+    },
+    "version": {
+      "type": "object"
+    },
+    "controller": {
+      "type": "object"
+    },
+    "state": {
+      "type": "string"
+    }
+  }
+}

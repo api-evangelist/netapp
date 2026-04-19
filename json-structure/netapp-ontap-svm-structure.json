@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Svm",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "subtype": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "ipspace": {
+      "type": "object"
+    },
+    "aggregates": {
+      "type": "array"
+    },
+    "ip_interfaces": {
+      "type": "array"
+    },
+    "nfs": {
+      "type": "object"
+    },
+    "cifs": {
+      "type": "object"
+    },
+    "iscsi": {
+      "type": "object"
+    },
+    "fcp": {
+      "type": "object"
+    },
+    "nvme": {
+      "type": "object"
+    },
+    "snapshot_policy": {
+      "type": "object"
+    },
+    "dns": {
+      "type": "object"
+    },
+    "certificate": {
+      "type": "object"
+    },
+    "max_volumes": {
+      "type": "string"
+    }
+  }
+}

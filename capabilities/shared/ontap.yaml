@@ -1,0 +1,594 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "NetApp ONTAP REST API"
+  description: "REST API for managing NetApp ONTAP storage systems including cluster administration, storage provisioning, data protection, and networking configuration."
+  tags:
+    - NetApp
+    - ONTAP
+    - Storage Management
+    - Data Protection
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      NETAPP_USERNAME: NETAPP_USERNAME
+      NETAPP_PASSWORD: NETAPP_PASSWORD
+
+capability:
+  consumes:
+    - type: http
+      namespace: ontap
+      baseUri: https://{clusterMgmtIp}/api
+      description: "NetApp ONTAP REST API for storage management"
+      authentication:
+        type: basic
+        username: "{{NETAPP_USERNAME}}"
+        password: "{{NETAPP_PASSWORD}}"
+      resources:
+        - name: cluster
+          path: /cluster
+          description: "Cluster configuration and node management"
+          operations:
+            - name: get-cluster
+              method: GET
+              description: "Retrieve cluster information"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated list of fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-cluster
+              method: PATCH
+              description: "Update cluster configuration"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+        - name: cluster-nodes
+          path: /cluster/nodes
+          description: "Cluster node management"
+          operations:
+            - name: list-cluster-nodes
+              method: GET
+              description: "List cluster nodes"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Fields to return"
+                - name: max_records
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum records to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: cluster-node
+          path: /cluster/nodes/{uuid}
+          description: "Individual cluster node operations"
+          operations:
+            - name: get-cluster-node
+              method: GET
+              description: "Retrieve a specific cluster node"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Node UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: licenses
+          path: /cluster/licensing/licenses
+          description: "License management"
+          operations:
+            - name: list-licenses
+              method: GET
+              description: "List cluster licenses"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: volumes
+          path: /storage/volumes
+          description: "Storage volume management"
+          operations:
+            - name: list-volumes
+              method: GET
+              description: "List storage volumes"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Fields to return"
+                - name: max_records
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum records to return"
+                - name: svm.name
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by SVM name"
+                - name: name
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by volume name"
+                - name: state
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by volume state"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-volume
+              method: POST
+              description: "Create a new volume"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  svm: "{{tools.svm}}"
+        - name: volume
+          path: /storage/volumes/{uuid}
+          description: "Individual volume operations"
+          operations:
+            - name: get-volume
+              method: GET
+              description: "Retrieve a specific volume"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Volume UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-volume
+              method: PATCH
+              description: "Update a volume"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Volume UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+            - name: delete-volume
+              method: DELETE
+              description: "Delete a volume"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Volume UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: snapshots
+          path: /storage/volumes/{volume.uuid}/snapshots
+          description: "Volume snapshot management"
+          operations:
+            - name: list-snapshots
+              method: GET
+              description: "List snapshots for a volume"
+              inputParameters:
+                - name: volume.uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Volume UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-snapshot
+              method: POST
+              description: "Create a volume snapshot"
+              inputParameters:
+                - name: volume.uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Volume UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+        - name: aggregates
+          path: /storage/aggregates
+          description: "Aggregate (local tier) management"
+          operations:
+            - name: list-aggregates
+              method: GET
+              description: "List storage aggregates"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Fields to return"
+                - name: max_records
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum records to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-aggregate
+              method: POST
+              description: "Create a new aggregate"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+        - name: aggregate
+          path: /storage/aggregates/{uuid}
+          description: "Individual aggregate operations"
+          operations:
+            - name: get-aggregate
+              method: GET
+              description: "Retrieve a specific aggregate"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Aggregate UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-aggregate
+              method: PATCH
+              description: "Update an aggregate"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Aggregate UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+            - name: delete-aggregate
+              method: DELETE
+              description: "Delete an aggregate"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Aggregate UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: svms
+          path: /svm/svms
+          description: "Storage virtual machine management"
+          operations:
+            - name: list-svms
+              method: GET
+              description: "List storage virtual machines"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Fields to return"
+                - name: max_records
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum records to return"
+                - name: name
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by SVM name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-svm
+              method: POST
+              description: "Create a new SVM"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+        - name: svm
+          path: /svm/svms/{uuid}
+          description: "Individual SVM operations"
+          operations:
+            - name: get-svm
+              method: GET
+              description: "Retrieve a specific SVM"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "SVM UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-svm
+              method: PATCH
+              description: "Update an SVM"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "SVM UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+            - name: delete-svm
+              method: DELETE
+              description: "Delete an SVM"
+              inputParameters:
+                - name: uuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "SVM UUID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: network-interfaces
+          path: /network/ip/interfaces
+          description: "Network interface management"
+          operations:
+            - name: list-network-interfaces
+              method: GET
+              description: "List network interfaces"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Fields to return"
+                - name: max_records
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum records to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: ontap-rest
+      resources:
+        - path: /v1/cluster
+          name: cluster
+          description: "Cluster information"
+          operations:
+            - method: GET
+              name: get-cluster
+              description: "Retrieve cluster information"
+              call: "ontap.get-cluster"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/volumes
+          name: volumes
+          description: "Storage volumes"
+          operations:
+            - method: GET
+              name: list-volumes
+              description: "List storage volumes"
+              call: "ontap.list-volumes"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: ontap-mcp
+      transport: http
+      tools:
+        - name: get-cluster
+          description: "Retrieve ONTAP cluster information"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.get-cluster"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-cluster-nodes
+          description: "List all nodes in the ONTAP cluster"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-cluster-nodes"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-volumes
+          description: "List all storage volumes"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-volumes"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-volume
+          description: "Retrieve a specific volume by UUID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.get-volume"
+          with:
+            uuid: "tools.uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-volume
+          description: "Create a new storage volume"
+          hints:
+            readOnly: false
+          call: "ontap.create-volume"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-volume
+          description: "Delete a storage volume"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "ontap.delete-volume"
+          with:
+            uuid: "tools.uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-snapshots
+          description: "List snapshots for a volume"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-snapshots"
+          with:
+            volume.uuid: "tools.volume_uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-snapshot
+          description: "Create a volume snapshot"
+          hints:
+            readOnly: false
+          call: "ontap.create-snapshot"
+          with:
+            volume.uuid: "tools.volume_uuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-aggregates
+          description: "List storage aggregates"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-aggregates"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-svms
+          description: "List storage virtual machines"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-svms"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-network-interfaces
+          description: "List network interfaces"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "ontap.list-network-interfaces"
+          outputParameters:
+            - type: object
+              mapping: "$."
