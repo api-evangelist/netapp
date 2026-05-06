@@ -4,152 +4,54 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: NetApp
 providerId: netapp
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - Cloud
-  - Data Management
-  - Hybrid Cloud
-  - Infrastructure
-  - Storage
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the NetApp API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Cloud
+  - Storage
+  - Data Management
+notes: NetApp does not publish per-second HTTP rate limits for BlueXP, Cloud Manager, ONTAP REST API,
+  or Cloud Insights APIs. Throttling is implementation-specific by service and infrastructure. Reconcile
+  against NetApp service-specific docs once published.
+description: NetApp's various REST APIs (BlueXP / Cloud Manager, ONTAP REST API on Cloud Volumes ONTAP
+  and FSx, Cloud Insights, Spot) do not publish concrete request-per-second limits in public documentation.
+  Limits vary by service and are typically governed by underlying cloud-provider quotas (AWS, Azure,
+  GCP) and per-account fair-use policies.
+sources:
+  - https://docs.netapp.com/us-en/cloud-manager-automation/
+  - https://docs.netapp.com/us-en/cloudinsights/
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - NetApp Cloud Manager API
-      - NetApp ONTAP REST API
-      - NetApp Cloud Volumes Service API
-      - NetApp Astra Control API
-      - NetApp StorageGRID API
-      - NetApp Element API
-      - NetApp Cloud Insights API
-      - NetApp BlueXP Automation API
-      - NetApp Active IQ Unified Manager API
-      - NetApp Active IQ Digital Advisor API
-      - NetApp SnapCenter API
-      - NetApp E-Series SANtricity Web Services API
-      - Azure NetApp Files REST API
-      - NetApp ONTAP Tools for VMware vSphere API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - NetApp Cloud Manager API
-      - NetApp ONTAP REST API
-      - NetApp Cloud Volumes Service API
-      - NetApp Astra Control API
-      - NetApp StorageGRID API
-      - NetApp Element API
-      - NetApp Cloud Insights API
-      - NetApp BlueXP Automation API
-      - NetApp Active IQ Unified Manager API
-      - NetApp Active IQ Digital Advisor API
-      - NetApp SnapCenter API
-      - NetApp E-Series SANtricity Web Services API
-      - Azure NetApp Files REST API
-      - NetApp ONTAP Tools for VMware vSphere API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - NetApp Cloud Manager API
-      - NetApp ONTAP REST API
-      - NetApp Cloud Volumes Service API
-      - NetApp Astra Control API
-      - NetApp StorageGRID API
-      - NetApp Element API
-      - NetApp Cloud Insights API
-      - NetApp BlueXP Automation API
-      - NetApp Active IQ Unified Manager API
-      - NetApp Active IQ Digital Advisor API
-      - NetApp SnapCenter API
-      - NetApp E-Series SANtricity Web Services API
-      - Azure NetApp Files REST API
-      - NetApp ONTAP Tools for VMware vSphere API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - NetApp Cloud Manager API
-      - NetApp ONTAP REST API
-      - NetApp Cloud Volumes Service API
-      - NetApp Astra Control API
-      - NetApp StorageGRID API
-      - NetApp Element API
-      - NetApp Cloud Insights API
-      - NetApp BlueXP Automation API
-      - NetApp Active IQ Unified Manager API
-      - NetApp Active IQ Digital Advisor API
-      - NetApp SnapCenter API
-      - NetApp E-Series SANtricity Web Services API
-      - Azure NetApp Files REST API
-      - NetApp ONTAP Tools for VMware vSphere API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - NetApp Cloud Manager API
-      - NetApp ONTAP REST API
-      - NetApp Cloud Volumes Service API
-      - NetApp Astra Control API
-      - NetApp StorageGRID API
-      - NetApp Element API
-      - NetApp Cloud Insights API
-      - NetApp BlueXP Automation API
-      - NetApp Active IQ Unified Manager API
-      - NetApp Active IQ Digital Advisor API
-      - NetApp SnapCenter API
-      - NetApp E-Series SANtricity Web Services API
-      - Azure NetApp Files REST API
-      - NetApp ONTAP Tools for VMware vSphere API
+  - name: BlueXP / Cloud Manager API
+    scope: account
+    metric: varies
+    limit: see BlueXP API documentation
+    notes: Public docs do not specify RPS limits.
+  - name: ONTAP REST API
+    scope: cluster
+    metric: varies
+    limit: see ONTAP REST API documentation
+    notes: Per-cluster; constrained by ONTAP node CPU and memory rather than published RPS.
+  - name: Cloud Insights API
+    scope: tenant
+    metric: varies
+    limit: see Cloud Insights API documentation
+  - name: Spot by NetApp API
+    scope: account
+    metric: varies
+    limit: see Spot API documentation
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Service-specific quotas
+    description: Each NetApp cloud service applies its own throttling. Use exponential backoff and honor
+      Retry-After when present.
+  - name: Cloud-provider quotas
+    description: Cloud Volumes ONTAP, FSx, ANF, and Cloud Volumes are subject to AWS, Azure, and GCP
+      provider-side API and capacity quotas.
+  - name: Authentication tokens
+    description: BlueXP / Cloud Manager uses refresh tokens; clients must re-authenticate periodically.
 maintainers:
-  - name: Kin Lane
+  - FN: Kin Lane
     email: kin@apievangelist.com
-    url: https://apievangelist.com
