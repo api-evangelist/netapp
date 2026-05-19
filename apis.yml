@@ -4,7 +4,7 @@ description: >-
 image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
 url: https://www.netapp.com
 created: '2024'
-modified: '2026-04-19'
+modified: '2026-05-19'
 specificationVersion: '0.18'
 type: Index
 access: 3rd-Party
@@ -281,6 +281,9 @@ common:
     url: https://www.netapp.com/solutions/
   - type: Integrations
     url: https://bluexp.netapp.com/
+  - name: MCP Server
+    url: https://github.com/NetApp/mcp
+    type: MCPServer
 maintainers:
   - name: Kin Lane
     email: kin@apievangelist.com
