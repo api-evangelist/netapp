@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClusterNodeReference",
+  "title": "ClusterNodeReference",
+  "type": "object",
+  "description": "Reference to a cluster node",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

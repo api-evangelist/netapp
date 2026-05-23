@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/License",
+  "title": "License",
+  "type": "object",
+  "description": "Cluster feature license",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "License name",
+      "examples": [
+        "NFS",
+        "CIFS",
+        "iSCSI",
+        "FCP",
+        "SnapMirror",
+        "SnapRestore",
+        "FlexClone",
+        "SnapVault",
+        "FabricPool"
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "description": "License scope",
+      "enum": [
+        "cluster",
+        "node",
+        "not_available"
+      ],
+      "example": "cluster"
+    },
+    "state": {
+      "type": "string",
+      "description": "License compliance state",
+      "enum": [
+        "compliant",
+        "noncompliant",
+        "unlicensed",
+        "unknown"
+      ],
+      "example": "compliant"
+    },
+    "licenses": {
+      "type": "array",
+      "description": "Individual license entries",
+      "items": {
+        "type": "object",
+        "properties": {
+          "serial_number": {
+            "type": "string",
+            "description": "License serial number"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Node or cluster that owns the license"
+          },
+          "compliance": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string",
+                "enum": [
+                  "compliant",
+                  "noncompliant"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "example": []
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobLink",
+  "title": "JobLink",
+  "type": "object",
+  "description": "Reference to an asynchronous job",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Job UUID",
+      "example": "500123"
+    },
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL to retrieve the job status"
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

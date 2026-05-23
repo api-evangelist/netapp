@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Aggregate",
+  "title": "Aggregate",
+  "type": "object",
+  "description": "An aggregate (local tier) is a collection of physical disks that provides a pool of storage from which FlexVol volumes are provisioned.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Aggregate UUID",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Aggregate name",
+      "examples": [
+        "aggr1"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "description": "Aggregate operational state",
+      "readOnly": true,
+      "enum": [
+        "online",
+        "offline",
+        "restricted",
+        "creating",
+        "destroying",
+        "failed",
+        "frozen",
+        "inconsistent",
+        "iron_restricted",
+        "mounting",
+        "partial",
+        "quiesced",
+        "quiescing",
+        "relocated",
+        "relocating",
+        "reverted",
+        "unknown",
+        "unmounted",
+        "unmounting"
+      ],
+      "example": "online"
+    },
+    "node": {
+      "$ref": "#/components/schemas/ClusterNodeReference"
+    },
+    "space": {
+      "type": "object",
+      "description": "Aggregate space usage",
+      "properties": {
+        "block_storage": {
+          "type": "object",
+          "description": "Block storage space",
+          "properties": {
+            "size": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Total usable space in bytes"
+            },
+            "available": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Available space in bytes"
+            },
+            "used": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Used space in bytes"
+            },
+            "percent_used": {
+              "type": "integer",
+              "description": "Percentage of block storage used"
+            },
+            "full_threshold_percent": {
+              "type": "integer",
+              "description": "Threshold percentage at which the aggregate is considered full"
+            },
+            "nearly_full_threshold_percent": {
+              "type": "integer",
+              "description": "Threshold percentage for nearly full warning"
+            }
+          }
+        },
+        "cloud_storage": {
+          "type": "object",
+          "description": "FabricPool cloud tier space",
+          "properties": {
+            "used": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Space used in the cloud tier in bytes"
+            }
+          }
+        },
+        "efficiency": {
+          "type": "object",
+          "description": "Storage efficiency information",
+          "properties": {
+            "savings": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Total space saved through efficiency"
+            },
+            "ratio": {
+              "type": "number",
+              "format": "double",
+              "description": "Data reduction ratio"
+            },
+            "logical_used": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Logical space used before efficiency savings"
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "block_storage": {
+      "type": "object",
+      "description": "Block storage configuration",
+      "properties": {
+        "primary": {
+          "type": "object",
+          "properties": {
+            "disk_count": {
+              "type": "integer",
+              "description": "Number of disks in the aggregate"
+            },
+            "disk_class": {
+              "type": "string",
+              "description": "Class of disks",
+              "enum": [
+                "capacity",
+                "performance",
+                "archive",
+                "solid_state",
+                "array",
+                "virtual",
+                "data_center",
+                "capacity_flash"
+              ]
+            },
+            "raid_type": {
+              "type": "string",
+              "description": "RAID type",
+              "enum": [
+                "raid4",
+                "raid_dp",
+                "raid_tec",
+                "raid0"
+              ]
+            },
+            "raid_size": {
+              "type": "integer",
+              "description": "Number of disks per RAID group"
+            },
+            "checksum_style": {
+              "type": "string",
+              "description": "Checksum style",
+              "enum": [
+                "block",
+                "advanced_zoned"
+              ]
+            }
+          }
+        },
+        "mirror": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether SyncMirror is enabled"
+            },
+            "state": {
+              "type": "string",
+              "description": "Mirror state",
+              "enum": [
+                "unmirrored",
+                "cp_count_check",
+                "limbo",
+                "mirrored"
+              ]
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "data_encryption": {
+      "type": "object",
+      "description": "Aggregate encryption configuration",
+      "properties": {
+        "software_encryption_enabled": {
+          "type": "boolean",
+          "description": "Whether software encryption is enabled on the aggregate"
+        },
+        "drive_protection_enabled": {
+          "type": "boolean",
+          "description": "Whether self-encrypting drives are used"
+        }
+      },
+      "example": "example_value"
+    },
+    "cloud_storage": {
+      "type": "object",
+      "description": "FabricPool configuration",
+      "properties": {
+        "attach_eligible": {
+          "type": "boolean",
+          "description": "Whether the aggregate is eligible for FabricPool attachment"
+        }
+      },
+      "example": "example_value"
+    },
+    "create_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time when the aggregate was created",
+      "readOnly": true,
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

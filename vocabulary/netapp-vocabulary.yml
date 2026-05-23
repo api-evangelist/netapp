@@ -1,0 +1,17 @@
+name: NetApp Domain Vocabulary
+provider: NetApp
+providerId: netapp
+description: Tag-derived vocabulary for the NetApp API surface; sourced from openapi/ tags.
+terms:
+- term: Aggregates
+  description: Operations for managing storage aggregates (local tiers)
+- term: Cluster
+  description: Operations for managing ONTAP cluster configuration, nodes, licensing, and health
+- term: Network
+  description: Operations for managing network interfaces, ports, and IP configuration
+- term: Snapshots
+  description: Operations for managing volume snapshots
+- term: SVMs
+  description: Operations for managing storage virtual machines (SVMs / vservers)
+- term: Volumes
+  description: Operations for creating, modifying, and managing storage volumes

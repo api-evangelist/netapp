@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CollectionLinks",
+  "title": "CollectionLinks",
+  "type": "object",
+  "description": "Pagination links for collection responses",
+  "properties": {
+    "self": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "example": "example_value"
+    },
+    "next": {
+      "type": "object",
+      "description": "Link to the next page of results",
+      "properties": {
+        "href": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

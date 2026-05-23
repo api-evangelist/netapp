@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Svm",
+  "title": "Svm",
+  "type": "object",
+  "description": "A storage virtual machine (SVM), also known as a vserver, is a secure virtual storage server that provides isolated data access to clients. Each SVM has its own set of volumes, network interfaces, and protocol configurations.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "SVM UUID",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "SVM name (unique within the cluster)",
+      "examples": [
+        "svm1"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "description": "SVM operational state",
+      "enum": [
+        "starting",
+        "running",
+        "stopping",
+        "stopped",
+        "deleting"
+      ],
+      "example": "starting"
+    },
+    "subtype": {
+      "type": "string",
+      "description": "SVM subtype",
+      "readOnly": true,
+      "enum": [
+        "default",
+        "dp_destination",
+        "sync_source",
+        "sync_destination"
+      ],
+      "example": "default"
+    },
+    "language": {
+      "type": "string",
+      "description": "Default language encoding for volumes in the SVM",
+      "examples": [
+        "c.utf_8"
+      ]
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment or description for the SVM",
+      "example": "example_value"
+    },
+    "ipspace": {
+      "type": "object",
+      "description": "IPspace associated with the SVM",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "IPspace name",
+          "examples": [
+            "Default"
+          ]
+        },
+        "uuid": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "example": "example_value"
+    },
+    "aggregates": {
+      "type": "array",
+      "description": "Aggregates assigned to the SVM for volume provisioning",
+      "items": {
+        "$ref": "#/components/schemas/AggregateReference"
+      },
+      "example": []
+    },
+    "ip_interfaces": {
+      "type": "array",
+      "description": "Network interfaces configured for the SVM",
+      "readOnly": true,
+      "items": {
+        "$ref": "#/components/schemas/NetworkInterface"
+      },
+      "example": []
+    },
+    "nfs": {
+      "type": "object",
+      "description": "NFS protocol configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether NFS is enabled on the SVM"
+        },
+        "allowed": {
+          "type": "boolean",
+          "description": "Whether NFS is allowed on the SVM"
+        }
+      },
+      "example": "example_value"
+    },
+    "cifs": {
+      "type": "object",
+      "description": "CIFS/SMB protocol configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether CIFS is enabled on the SVM"
+        },
+        "allowed": {
+          "type": "boolean",
+          "description": "Whether CIFS is allowed on the SVM"
+        },
+        "name": {
+          "type": "string",
+          "description": "CIFS server name"
+        }
+      },
+      "example": "example_value"
+    },
+    "iscsi": {
+      "type": "object",
+      "description": "iSCSI protocol configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether iSCSI is enabled on the SVM"
+        },
+        "allowed": {
+          "type": "boolean",
+          "description": "Whether iSCSI is allowed on the SVM"
+        }
+      },
+      "example": "example_value"
+    },
+    "fcp": {
+      "type": "object",
+      "description": "Fibre Channel Protocol configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether FCP is enabled on the SVM"
+        },
+        "allowed": {
+          "type": "boolean",
+          "description": "Whether FCP is allowed on the SVM"
+        }
+      },
+      "example": "example_value"
+    },
+    "nvme": {
+      "type": "object",
+      "description": "NVMe over Fabrics protocol configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether NVMe is enabled on the SVM"
+        },
+        "allowed": {
+          "type": "boolean",
+          "description": "Whether NVMe is allowed on the SVM"
+        }
+      },
+      "example": "example_value"
+    },
+    "snapshot_policy": {
+      "type": "object",
+      "description": "Default snapshot policy for the SVM",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "example": "example_value"
+    },
+    "dns": {
+      "type": "object",
+      "description": "DNS configuration for the SVM",
+      "properties": {
+        "domains": {
+          "type": "array",
+          "description": "DNS domain names",
+          "items": {
+            "type": "string"
+          }
+        },
+        "servers": {
+          "type": "array",
+          "description": "DNS server IP addresses",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "certificate": {
+      "type": "object",
+      "description": "SSL/TLS certificate for the SVM",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "example": "example_value"
+    },
+    "max_volumes": {
+      "type": "string",
+      "description": "Maximum number of volumes allowed on the SVM",
+      "example": "example_value"
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

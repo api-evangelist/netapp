@@ -1,0 +1,315 @@
+{
+  "provider": "NetApp",
+  "providerId": "netapp",
+  "kind": "json-structure",
+  "description": "Structural overview of the NetApp API surface; extracted from openapi/.",
+  "schemaCount": 16,
+  "operationCount": 23,
+  "schemas": [
+    {
+      "name": "Cluster",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "ClusterNode",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "ClusterNodeReference",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Volume",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "VolumeReference",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Aggregate",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "AggregateReference",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Svm",
+      "type": "object",
+      "propertyCount": 19,
+      "required": []
+    },
+    {
+      "name": "SvmReference",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "NetworkInterface",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "Snapshot",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "License",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "JobLink",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "SelfLink",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CollectionLinks",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/cluster",
+      "operationId": "getCluster",
+      "summary": "Netapp Retrieve Cluster Information",
+      "tags": [
+        "Cluster"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/cluster",
+      "operationId": "updateCluster",
+      "summary": "Netapp Update Cluster Configuration",
+      "tags": [
+        "Cluster"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cluster/nodes",
+      "operationId": "listClusterNodes",
+      "summary": "Netapp List Cluster Nodes",
+      "tags": [
+        "Cluster"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cluster/nodes/{uuid}",
+      "operationId": "getClusterNode",
+      "summary": "Netapp Retrieve a Specific Cluster Node",
+      "tags": [
+        "Cluster"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cluster/licensing/licenses",
+      "operationId": "listLicenses",
+      "summary": "Netapp List Cluster Licenses",
+      "tags": [
+        "Cluster"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/storage/volumes",
+      "operationId": "listVolumes",
+      "summary": "Netapp List Storage Volumes",
+      "tags": [
+        "Volumes"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/storage/volumes",
+      "operationId": "createVolume",
+      "summary": "Netapp Create a New Volume",
+      "tags": [
+        "Volumes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/storage/volumes/{uuid}",
+      "operationId": "getVolume",
+      "summary": "Netapp Retrieve a Specific Volume",
+      "tags": [
+        "Volumes"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/storage/volumes/{uuid}",
+      "operationId": "deleteVolume",
+      "summary": "Netapp Delete a Volume",
+      "tags": [
+        "Volumes"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/storage/volumes/{uuid}",
+      "operationId": "updateVolume",
+      "summary": "Netapp Update a Volume",
+      "tags": [
+        "Volumes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/storage/volumes/{volume.uuid}/snapshots",
+      "operationId": "listSnapshots",
+      "summary": "Netapp List Snapshots for a Volume",
+      "tags": [
+        "Snapshots"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/storage/volumes/{volume.uuid}/snapshots",
+      "operationId": "createSnapshot",
+      "summary": "Netapp Create a Volume Snapshot",
+      "tags": [
+        "Snapshots"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/storage/aggregates",
+      "operationId": "listAggregates",
+      "summary": "Netapp List Storage Aggregates",
+      "tags": [
+        "Aggregates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/storage/aggregates",
+      "operationId": "createAggregate",
+      "summary": "Netapp Create a New Aggregate",
+      "tags": [
+        "Aggregates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/storage/aggregates/{uuid}",
+      "operationId": "getAggregate",
+      "summary": "Netapp Retrieve a Specific Aggregate",
+      "tags": [
+        "Aggregates"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/storage/aggregates/{uuid}",
+      "operationId": "deleteAggregate",
+      "summary": "Netapp Delete an Aggregate",
+      "tags": [
+        "Aggregates"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/storage/aggregates/{uuid}",
+      "operationId": "updateAggregate",
+      "summary": "Netapp Update an Aggregate",
+      "tags": [
+        "Aggregates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/svm/svms",
+      "operationId": "listSvms",
+      "summary": "Netapp List Storage Virtual Machines",
+      "tags": [
+        "SVMs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/svm/svms",
+      "operationId": "createSvm",
+      "summary": "Netapp Create a New Svm",
+      "tags": [
+        "SVMs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/svm/svms/{uuid}",
+      "operationId": "getSvm",
+      "summary": "Netapp Retrieve a Specific Svm",
+      "tags": [
+        "SVMs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/svm/svms/{uuid}",
+      "operationId": "deleteSvm",
+      "summary": "Netapp Delete an Svm",
+      "tags": [
+        "SVMs"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/svm/svms/{uuid}",
+      "operationId": "updateSvm",
+      "summary": "Netapp Update an Svm",
+      "tags": [
+        "SVMs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/network/ip/interfaces",
+      "operationId": "listNetworkInterfaces",
+      "summary": "Netapp List Network Interfaces",
+      "tags": [
+        "Network"
+      ]
+    }
+  ]
+}

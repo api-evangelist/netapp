@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClusterNode",
+  "title": "ClusterNode",
+  "type": "object",
+  "description": "A node in the ONTAP cluster",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Node UUID",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Node name",
+      "examples": [
+        "node1"
+      ]
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model of the node",
+      "readOnly": true,
+      "examples": [
+        "AFF-A400"
+      ]
+    },
+    "serial_number": {
+      "type": "string",
+      "description": "System serial number",
+      "readOnly": true,
+      "example": "example_value"
+    },
+    "uptime": {
+      "type": "integer",
+      "description": "Node uptime in seconds",
+      "readOnly": true,
+      "example": 10
+    },
+    "version": {
+      "type": "object",
+      "description": "ONTAP version running on the node",
+      "readOnly": true,
+      "properties": {
+        "full": {
+          "type": "string",
+          "description": "Full version string"
+        },
+        "generation": {
+          "type": "integer"
+        },
+        "major": {
+          "type": "integer"
+        },
+        "minor": {
+          "type": "integer"
+        }
+      },
+      "example": "example_value"
+    },
+    "controller": {
+      "type": "object",
+      "description": "Node controller information",
+      "readOnly": true,
+      "properties": {
+        "cpu": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Number of CPU cores"
+            },
+            "processor": {
+              "type": "string",
+              "description": "CPU processor model"
+            }
+          }
+        },
+        "memory_size": {
+          "type": "integer",
+          "description": "Total memory in bytes",
+          "format": "int64"
+        },
+        "over_temperature": {
+          "type": "string",
+          "description": "Over-temperature status",
+          "enum": [
+            "over",
+            "normal"
+          ]
+        }
+      },
+      "example": "example_value"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current operational state of the node",
+      "readOnly": true,
+      "enum": [
+        "up",
+        "down",
+        "taken_over",
+        "waiting_for_giveback"
+      ],
+      "example": "up"
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

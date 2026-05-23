@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AggregateReference",
+  "title": "AggregateReference",
+  "type": "object",
+  "description": "Reference to an aggregate",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkInterface",
+  "title": "NetworkInterface",
+  "type": "object",
+  "description": "A network interface (LIF) providing data or management access",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Network interface UUID",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Interface name",
+      "examples": [
+        "lif1"
+      ]
+    },
+    "ip": {
+      "type": "object",
+      "description": "IP address configuration",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "IP address",
+          "examples": [
+            "192.168.1.100"
+          ]
+        },
+        "netmask": {
+          "type": "string",
+          "description": "Network mask",
+          "examples": [
+            "255.255.255.0"
+          ]
+        },
+        "family": {
+          "type": "string",
+          "description": "IP address family",
+          "enum": [
+            "ipv4",
+            "ipv6"
+          ]
+        }
+      },
+      "example": "example_value"
+    },
+    "state": {
+      "type": "string",
+      "description": "Operational state of the interface",
+      "readOnly": true,
+      "enum": [
+        "up",
+        "down"
+      ],
+      "example": "up"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the interface is administratively enabled",
+      "example": true
+    },
+    "scope": {
+      "type": "string",
+      "description": "Interface scope",
+      "enum": [
+        "svm",
+        "cluster"
+      ],
+      "example": "svm"
+    },
+    "service_policy": {
+      "type": "object",
+      "description": "Service policy governing the interface",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Service policy name",
+          "examples": [
+            "default-data-files"
+          ]
+        }
+      },
+      "example": "example_value"
+    },
+    "svm": {
+      "$ref": "#/components/schemas/SvmReference"
+    },
+    "location": {
+      "type": "object",
+      "description": "Current location of the interface",
+      "properties": {
+        "home_node": {
+          "$ref": "#/components/schemas/ClusterNodeReference"
+        },
+        "home_port": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Port name",
+              "examples": [
+                "e0d"
+              ]
+            },
+            "node": {
+              "$ref": "#/components/schemas/ClusterNodeReference"
+            }
+          }
+        },
+        "node": {
+          "$ref": "#/components/schemas/ClusterNodeReference"
+        },
+        "port": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "node": {
+              "$ref": "#/components/schemas/ClusterNodeReference"
+            }
+          }
+        },
+        "is_home": {
+          "type": "boolean",
+          "description": "Whether the interface is on its home port"
+        }
+      },
+      "example": "example_value"
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

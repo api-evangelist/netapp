@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Cluster",
+  "title": "Cluster",
+  "type": "object",
+  "description": "ONTAP cluster configuration and status",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Cluster UUID",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Cluster name",
+      "examples": [
+        "cluster1"
+      ]
+    },
+    "contact": {
+      "type": "string",
+      "description": "Contact information for the cluster administrator",
+      "example": "example_value"
+    },
+    "location": {
+      "type": "string",
+      "description": "Physical location of the cluster",
+      "example": "example_value"
+    },
+    "version": {
+      "type": "object",
+      "description": "ONTAP software version",
+      "readOnly": true,
+      "properties": {
+        "full": {
+          "type": "string",
+          "description": "Full version string",
+          "examples": [
+            "NetApp Release 9.15.1"
+          ]
+        },
+        "generation": {
+          "type": "integer",
+          "description": "Major version generation"
+        },
+        "major": {
+          "type": "integer",
+          "description": "Major version number"
+        },
+        "minor": {
+          "type": "integer",
+          "description": "Minor version number"
+        }
+      },
+      "example": "example_value"
+    },
+    "dns_domains": {
+      "type": "array",
+      "description": "DNS domain names for the cluster",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "ntp_servers": {
+      "type": "array",
+      "description": "NTP server addresses",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "timezone": {
+      "type": "object",
+      "description": "Cluster timezone setting",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Timezone name (Olson format)",
+          "examples": [
+            "America/New_York"
+          ]
+        }
+      },
+      "example": "example_value"
+    },
+    "management_interfaces": {
+      "type": "array",
+      "description": "Cluster management network interfaces",
+      "readOnly": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string",
+                "format": "ipv4",
+                "description": "IPv4 address"
+              }
+            }
+          }
+        }
+      },
+      "example": []
+    },
+    "nodes": {
+      "type": "array",
+      "description": "Nodes in the cluster",
+      "readOnly": true,
+      "items": {
+        "$ref": "#/components/schemas/ClusterNodeReference"
+      },
+      "example": []
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

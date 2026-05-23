@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Snapshot",
+  "title": "Snapshot",
+  "type": "object",
+  "description": "A point-in-time copy of a volume",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Snapshot UUID",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Snapshot name",
+      "examples": [
+        "hourly.2024-01-15_0815"
+      ]
+    },
+    "create_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time when the snapshot was created",
+      "readOnly": true,
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "expiry_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time when the snapshot expires and can be automatically deleted",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment for the snapshot",
+      "example": "example_value"
+    },
+    "size": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Amount of space consumed by the snapshot in bytes",
+      "readOnly": true,
+      "example": 10
+    },
+    "state": {
+      "type": "string",
+      "description": "Snapshot state",
+      "readOnly": true,
+      "enum": [
+        "valid",
+        "invalid",
+        "partial",
+        "unknown"
+      ],
+      "example": "valid"
+    },
+    "snapmirror_label": {
+      "type": "string",
+      "description": "SnapMirror label used for policy-based selection",
+      "example": "example_value"
+    },
+    "volume": {
+      "$ref": "#/components/schemas/VolumeReference"
+    },
+    "_links": {
+      "$ref": "#/components/schemas/SelfLink"
+    }
+  }
+}

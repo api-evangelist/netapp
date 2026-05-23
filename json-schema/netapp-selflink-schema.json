@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SelfLink",
+  "title": "SelfLink",
+  "type": "object",
+  "description": "HAL self link",
+  "properties": {
+    "self": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of this resource"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}
