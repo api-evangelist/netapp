@@ -2,20 +2,17 @@
   "repo": "netapp",
   "feeds": [
     {
-      "source": "https://netapp.io/",
-      "feed_url": "",
-      "title": "",
-      "saved": 0,
-      "error": "no_feed"
+      "source": "https://www.netapp.com/support-and-training/",
+      "error": "HTTPError"
     },
     {
-      "source": "https://blog.netapp.com/",
-      "feed_url": "",
+      "source": "https://github.com/NetApp",
+      "feed_url": "https://github.com/NetApp",
       "title": "",
       "saved": 0,
-      "error": "no_feed"
+      "method": "none"
     }
   ],
-  "fetched": "2026-05-17T20:48:52Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }
