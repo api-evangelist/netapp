@@ -1,0 +1,744 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NetApp ONTAP REST API",
+    "version": "9.15.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cluster",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp Retrieve Cluster Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/cluster",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              }
+            ]
+          },
+          "docs": "Retrieves the cluster configuration including name, version, UUID, contact information, DNS domains, NTP servers, and management interfaces."
+        },
+        {
+          "info": {
+            "name": "Netapp Update Cluster Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{clusterMgmtIp}/api/cluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates cluster-wide configuration properties such as name, contact, location, DNS, NTP, and timezone settings."
+        },
+        {
+          "info": {
+            "name": "Netapp List Cluster Nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/cluster/nodes",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              }
+            ]
+          },
+          "docs": "Retrieves the list of nodes in the cluster, including node name, UUID, model, serial number, version, uptime, and health status."
+        },
+        {
+          "info": {
+            "name": "Netapp Retrieve a Specific Cluster Node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/cluster/nodes/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              }
+            ]
+          },
+          "docs": "Retrieves information about a specific node in the cluster identified by its UUID."
+        },
+        {
+          "info": {
+            "name": "Netapp List Cluster Licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/cluster/licensing/licenses",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              }
+            ]
+          },
+          "docs": "Retrieves information about the licenses installed on the cluster, including license name, scope, state, and compliance status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Volumes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Storage Volumes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              },
+              {
+                "name": "svm.name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SVM name"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by volume name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by volume state"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by volume type"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of volumes across the cluster. Supports filtering by SVM, aggregate, state, type, and other attributes. Returns volume configuration, space usage, performance counters, and relationships."
+        },
+        {
+          "info": {
+            "name": "Netapp Create a New Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes",
+            "params": [
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "Return the newly created record"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new volume on the specified SVM and aggregate. The volume name, SVM, and aggregate are required. Optional parameters include size, security style, export policy, tiering policy, QoS policy, and snapshot policy."
+        },
+        {
+          "info": {
+            "name": "Netapp Retrieve a Specific Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific volume including space utilization, configuration, state, associated SVM, aggregate, export policy, snapshot policy, and QoS settings."
+        },
+        {
+          "info": {
+            "name": "Netapp Update a Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the properties of an existing volume. Supports modifying the volume name, size, comment, state, export policy, snapshot policy, tiering policy, and QoS settings."
+        },
+        {
+          "info": {
+            "name": "Netapp Delete a Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes an existing volume. The volume must be offline or unmounted before deletion. This is an asynchronous operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Snapshots for a Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:volume.uuid/snapshots",
+            "params": [
+              {
+                "name": "volume.uuid",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the volume"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              }
+            ]
+          },
+          "docs": "Retrieves the list of snapshots for a specific volume, including snapshot name, UUID, creation time, and size."
+        },
+        {
+          "info": {
+            "name": "Netapp Create a Volume Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:volume.uuid/snapshots",
+            "params": [
+              {
+                "name": "volume.uuid",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the volume"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new snapshot of the specified volume. The snapshot name is required. An optional comment and expiry time can be specified."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Aggregates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Storage Aggregates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by aggregate name"
+              },
+              {
+                "name": "node.name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by owning node name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by aggregate state"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of aggregates (local tiers) in the cluster. Returns aggregate configuration, space usage, state, RAID details, and the owning node. Aggregates are the physical storage pools from which volumes are provisioned."
+        },
+        {
+          "info": {
+            "name": "Netapp Create a New Aggregate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new aggregate (local tier) on the specified node. The aggregate name, node, disk count, and RAID type are required."
+        },
+        {
+          "info": {
+            "name": "Netapp Retrieve a Specific Aggregate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific aggregate including space usage, RAID configuration, state, and owning node."
+        },
+        {
+          "info": {
+            "name": "Netapp Update an Aggregate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the properties of an existing aggregate. Supports modifying the name and adding disks to expand capacity."
+        },
+        {
+          "info": {
+            "name": "Netapp Delete an Aggregate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes an existing aggregate. The aggregate must be empty (no volumes) and offline before deletion."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SVMs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Storage Virtual Machines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/svm/svms",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SVM name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SVM state"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of storage virtual machines (SVMs) in the cluster. SVMs are secure virtualized storage containers that provide data access to clients. Each SVM has its own volumes, network interfaces, protocols, and security configuration."
+        },
+        {
+          "info": {
+            "name": "Netapp Create a New Svm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{clusterMgmtIp}/api/svm/svms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new storage virtual machine (SVM). The SVM name is required. Optional parameters include allowed protocols (NFS, CIFS, iSCSI, FCP), aggregates, language, snapshot policy, and IP interface configuration."
+        },
+        {
+          "info": {
+            "name": "Netapp Retrieve a Specific Svm",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/svm/svms/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific SVM including name, state, allowed protocols, IP interfaces, aggregates, and CIFS/NFS configuration."
+        },
+        {
+          "info": {
+            "name": "Netapp Update an Svm",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{clusterMgmtIp}/api/svm/svms/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the properties of an existing SVM. Supports modifying name, allowed protocols, language, comment, and snapshot policy."
+        },
+        {
+          "info": {
+            "name": "Netapp Delete an Svm",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{clusterMgmtIp}/api/svm/svms/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes an existing SVM and all associated configuration. All volumes and network interfaces in the SVM must be deleted first."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Network",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Network Interfaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/network/ip/interfaces",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              },
+              {
+                "name": "svm.name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SVM name"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by interface name"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of network interfaces (LIFs) across the cluster. Network interfaces provide data access and management connectivity for SVMs and the cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
