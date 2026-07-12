@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/netapp-ontap-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP basic authentication using ONTAP user credentials. Provide the cluster or
+    SVM administrator username and password.
+  sources:
+  - openapi/netapp-ontap-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: OAuth 2.0 bearer token authentication. Supported in ONTAP 9.8 and later.
+  sources:
+  - openapi/netapp-ontap-openapi.yml

@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://trust.netapp.com/
+url: https://trust.netapp.com/
+certifications:
+- SOC 2
+- ISO 27001
+- PCI DSS
+- HIPAA
+- GDPR
+- FIPS 140
+evidence:
+- source: https://trust.netapp.com/
+  keywords:
+  - soc 2
+  - iso/iec 27001
+  - pci dss
+  - hipaa
+  - trust center
+  - gdpr

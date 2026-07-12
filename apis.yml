@@ -273,6 +273,12 @@ apis:
       - type: GettingStarted
         url: https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/automation/get-started-with-the-rest-api.html
 common:
+  - type: TrustCenter
+    url: security/netapp-trust-center.yml
+  - type: DomainSecurity
+    url: security/netapp-domain-security.yml
+  - type: Authentication
+    url: authentication/netapp-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/netapp
   - type: DeveloperPortal
