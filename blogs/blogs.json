@@ -2,23 +2,17 @@
   "repo": "netapp",
   "feeds": [
     {
-      "source": "https://netapp.io/",
-      "saved": 0,
-      "error": "redirect to www.netapp.com/developer/ returned 403"
-    },
-    {
-      "source": "https://blog.netapp.com/",
-      "saved": 0,
-      "error": "HTTP 403 Forbidden"
-    },
-    {
       "source": "https://github.com/NetApp",
       "feed_url": "https://github.com/NetApp",
       "title": "",
       "saved": 0,
       "method": "none"
+    },
+    {
+      "source": "https://www.netapp.com/support-and-training/",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T12:55:39Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0
 }
