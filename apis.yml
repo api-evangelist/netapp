@@ -273,6 +273,8 @@ apis:
       - type: GettingStarted
         url: https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/automation/get-started-with-the-rest-api.html
 common:
+  - type: AgenticAccess
+    url: agentic-access/netapp-agentic-access.yml
   - type: TrustCenter
     url: security/netapp-trust-center.yml
   - type: DomainSecurity
