@@ -1,0 +1,737 @@
+openapi: 3.1.0
+info:
+  title: NetApp ONTAP REST Aggregates Volumes API
+  description: REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.
+  version: 9.15.1
+  contact:
+    name: NetApp Developer Resources
+    url: https://devnet.netapp.com/
+  license:
+    name: NetApp Terms of Use
+    url: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  termsOfService: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  x-logo:
+    url: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+servers:
+- url: https://{clusterMgmtIp}/api
+  description: ONTAP cluster management endpoint
+  variables:
+    clusterMgmtIp:
+      default: cluster-mgmt-ip
+      description: IP address or hostname of the ONTAP cluster management LIF
+security:
+- basicAuth: []
+- bearerAuth: []
+tags:
+- name: Volumes
+  description: Operations for creating, modifying, and managing storage volumes
+paths:
+  /storage/volumes:
+    get:
+      operationId: listVolumes
+      summary: Netapp List Storage Volumes
+      description: Retrieves a list of volumes across the cluster. Supports filtering by SVM, aggregate, state, type, and other attributes. Returns volume configuration, space usage, performance counters, and relationships.
+      tags:
+      - Volumes
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
+      - name: svm.name
+        in: query
+        description: Filter by SVM name
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: Filter by volume name
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: Filter by volume state
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+          - restricted
+          - mixed
+      - name: type
+        in: query
+        description: Filter by volume type
+        schema:
+          type: string
+          enum:
+          - rw
+          - dp
+          - ls
+      responses:
+        '200':
+          description: List of volumes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Volume'
+                  num_records:
+                    type: integer
+                    description: Number of records in this response
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Volume'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createVolume
+      summary: Netapp Create a New Volume
+      description: Creates a new volume on the specified SVM and aggregate. The volume name, SVM, and aggregate are required. Optional parameters include size, security style, export policy, tiering policy, QoS policy, and snapshot policy.
+      tags:
+      - Volumes
+      parameters:
+      - name: return_records
+        in: query
+        description: Return the newly created record
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Volume'
+      responses:
+        '201':
+          description: Volume created successfully
+          headers:
+            Location:
+              description: URL of the newly created volume resource
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Volume creation accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /storage/volumes/{uuid}:
+    get:
+      operationId: getVolume
+      summary: Netapp Retrieve a Specific Volume
+      description: Retrieves detailed information about a specific volume including space utilization, configuration, state, associated SVM, aggregate, export policy, snapshot policy, and QoS settings.
+      tags:
+      - Volumes
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Volume details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateVolume
+      summary: Netapp Update a Volume
+      description: Updates the properties of an existing volume. Supports modifying the volume name, size, comment, state, export policy, snapshot policy, tiering policy, and QoS settings.
+      tags:
+      - Volumes
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Volume'
+      responses:
+        '200':
+          description: Volume updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Volume update accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteVolume
+      summary: Netapp Delete a Volume
+      description: Deletes an existing volume. The volume must be offline or unmounted before deletion. This is an asynchronous operation.
+      tags:
+      - Volumes
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Volume deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Volume deletion accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
+    return_records:
+      name: return_records
+      in: query
+      required: false
+      description: If true, return the records in the response body
+      schema:
+        type: boolean
+        default: true
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
+      schema:
+        type: string
+    max_records:
+      name: max_records
+      in: query
+      required: false
+      description: Maximum number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+  schemas:
+    CollectionLinks:
+      type: object
+      description: Pagination links for collection responses
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+    Volume:
+      type: object
+      description: A storage volume is a logical container for data. Volumes are created within SVMs and reside on aggregates. They provide the primary unit of data management in ONTAP.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier for the volume
+          readOnly: true
+          example: '500123'
+        name:
+          type: string
+          description: Volume name (unique within the SVM)
+          examples:
+          - vol1
+        type:
+          type: string
+          description: Volume type. rw = read-write, dp = data-protection, ls = load-sharing
+          enum:
+          - rw
+          - dp
+          - ls
+          readOnly: true
+          example: rw
+        state:
+          type: string
+          description: Volume operational state
+          enum:
+          - online
+          - offline
+          - restricted
+          - mixed
+          example: online
+        style:
+          type: string
+          description: Volume style
+          enum:
+          - flexvol
+          - flexgroup
+          - flexgroup_constituent
+          readOnly: true
+          example: flexvol
+        size:
+          type: integer
+          format: int64
+          description: Volume size in bytes
+          example: 10
+        comment:
+          type: string
+          description: Optional comment or description for the volume
+          maxLength: 1023
+          example: example_value
+        language:
+          type: string
+          description: Language encoding for the volume
+          examples:
+          - c.utf_8
+        create_time:
+          type: string
+          format: date-time
+          description: Time when the volume was created
+          readOnly: true
+          example: '2026-01-15T10:30:00Z'
+        svm:
+          $ref: '#/components/schemas/SvmReference'
+        aggregates:
+          type: array
+          description: Aggregates hosting the volume. A FlexVol has one aggregate; a FlexGroup can span multiple aggregates.
+          items:
+            $ref: '#/components/schemas/AggregateReference'
+          example: []
+        space:
+          type: object
+          description: Volume space usage and configuration
+          properties:
+            size:
+              type: integer
+              format: int64
+              description: Total provisioned size in bytes
+            available:
+              type: integer
+              format: int64
+              description: Available space in bytes
+              readOnly: true
+            used:
+              type: integer
+              format: int64
+              description: Used space in bytes
+              readOnly: true
+            percent_used:
+              type: integer
+              description: Percentage of space used
+              readOnly: true
+              minimum: 0
+              maximum: 100
+            logical_space:
+              type: object
+              description: Logical space accounting
+              properties:
+                available:
+                  type: integer
+                  format: int64
+                used:
+                  type: integer
+                  format: int64
+                used_percent:
+                  type: integer
+                reporting:
+                  type: boolean
+                  description: Whether logical space reporting is enabled
+                enforcement:
+                  type: boolean
+                  description: Whether logical space enforcement is enabled
+            snapshot:
+              type: object
+              description: Snapshot reserve space
+              properties:
+                reserve_percent:
+                  type: integer
+                  description: Percentage of volume reserved for snapshots
+                  minimum: 0
+                  maximum: 100
+                used:
+                  type: integer
+                  format: int64
+                  description: Space used by snapshots in bytes
+                  readOnly: true
+            over_provisioned:
+              type: integer
+              format: int64
+              description: Amount of space over-provisioned in bytes
+              readOnly: true
+          example: example_value
+        nas:
+          type: object
+          description: NAS protocol configuration
+          properties:
+            path:
+              type: string
+              description: Junction path where the volume is mounted in the SVM namespace
+              examples:
+              - /vol1
+            security_style:
+              type: string
+              description: Security style of the volume
+              enum:
+              - unix
+              - ntfs
+              - mixed
+              - unified
+            unix_permissions:
+              type: string
+              description: UNIX permissions in octal format
+              examples:
+              - '0755'
+            export_policy:
+              type: object
+              description: Export policy controlling NFS access
+              properties:
+                name:
+                  type: string
+                  description: Export policy name
+                  examples:
+                  - default
+          example: example_value
+        guarantee:
+          type: object
+          description: Space guarantee configuration
+          properties:
+            type:
+              type: string
+              description: Type of space guarantee
+              enum:
+              - volume
+              - none
+            honored:
+              type: boolean
+              description: Whether the guarantee is currently honored
+              readOnly: true
+          example: example_value
+        snapshot_policy:
+          type: object
+          description: Snapshot policy assigned to the volume
+          properties:
+            name:
+              type: string
+              description: Snapshot policy name
+              examples:
+              - default
+            uuid:
+              type: string
+              format: uuid
+          example: example_value
+        qos:
+          type: object
+          description: Quality of service configuration
+          properties:
+            policy:
+              type: object
+              description: QoS policy group
+              properties:
+                name:
+                  type: string
+                  description: QoS policy name
+                uuid:
+                  type: string
+                  format: uuid
+                max_throughput_iops:
+                  type: integer
+                  description: Maximum throughput in IOPS
+                max_throughput_mbps:
+                  type: integer
+                  description: Maximum throughput in MB/s
+                min_throughput_iops:
+                  type: integer
+                  description: Minimum throughput in IOPS
+                min_throughput_mbps:
+                  type: integer
+                  description: Minimum throughput in MB/s
+          example: example_value
+        tiering:
+          type: object
+          description: FabricPool tiering configuration
+          properties:
+            policy:
+              type: string
+              description: Tiering policy for the volume
+              enum:
+              - all
+              - auto
+              - none
+              - snapshot_only
+              - backup
+            min_cooling_days:
+              type: integer
+              description: Minimum number of days data must be inactive before tiering
+              minimum: 2
+              maximum: 183
+          example: example_value
+        encryption:
+          type: object
+          description: Volume encryption configuration
+          properties:
+            enabled:
+              type: boolean
+              description: Whether volume encryption is enabled
+            state:
+              type: string
+              description: Encryption state
+              readOnly: true
+            type:
+              type: string
+              description: Encryption type
+              readOnly: true
+              enum:
+              - none
+              - volume
+              - aggregate
+          example: example_value
+        autosize:
+          type: object
+          description: Volume autosize configuration
+          properties:
+            mode:
+              type: string
+              description: Autosize mode
+              enum:
+              - false
+              - grow
+              - grow_shrink
+            grow_threshold:
+              type: integer
+              description: Used space threshold percentage to trigger growth
+              minimum: 0
+              maximum: 100
+            shrink_threshold:
+              type: integer
+              description: Used space threshold percentage to trigger shrink
+              minimum: 0
+              maximum: 100
+            maximum:
+              type: integer
+              format: int64
+              description: Maximum size the volume can grow to in bytes
+            minimum:
+              type: integer
+              format: int64
+              description: Minimum size the volume can shrink to in bytes
+          example: example_value
+        clone:
+          type: object
+          description: Clone information if this volume is a clone
+          readOnly: true
+          properties:
+            is_flexclone:
+              type: boolean
+              description: Whether the volume is a FlexClone
+            parent_volume:
+              $ref: '#/components/schemas/VolumeReference'
+            parent_snapshot:
+              type: object
+              properties:
+                name:
+                  type: string
+                uuid:
+                  type: string
+                  format: uuid
+            split_initiated:
+              type: boolean
+              description: Whether clone split has been initiated
+          example: example_value
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    AggregateReference:
+      type: object
+      description: Reference to an aggregate
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    SvmReference:
+      type: object
+      description: Reference to an SVM
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    SelfLink:
+      type: object
+      description: HAL self link
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              description: URL of this resource
+          example: example_value
+    JobLink:
+      type: object
+      description: Reference to an asynchronous job
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Job UUID
+          example: '500123'
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  description: URL to retrieve the job status
+          example: example_value
+    VolumeReference:
+      type: object
+      description: Reference to a volume
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    ErrorResponse:
+      type: object
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
+          example: example_value
+  responses:
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP basic authentication using ONTAP user credentials. Provide the cluster or SVM administrator username and password.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token authentication. Supported in ONTAP 9.8 and later.

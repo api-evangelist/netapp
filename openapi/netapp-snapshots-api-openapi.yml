@@ -1,0 +1,289 @@
+openapi: 3.1.0
+info:
+  title: NetApp ONTAP REST Aggregates Snapshots API
+  description: REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.
+  version: 9.15.1
+  contact:
+    name: NetApp Developer Resources
+    url: https://devnet.netapp.com/
+  license:
+    name: NetApp Terms of Use
+    url: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  termsOfService: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  x-logo:
+    url: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+servers:
+- url: https://{clusterMgmtIp}/api
+  description: ONTAP cluster management endpoint
+  variables:
+    clusterMgmtIp:
+      default: cluster-mgmt-ip
+      description: IP address or hostname of the ONTAP cluster management LIF
+security:
+- basicAuth: []
+- bearerAuth: []
+tags:
+- name: Snapshots
+  description: Operations for managing volume snapshots
+paths:
+  /storage/volumes/{volume.uuid}/snapshots:
+    get:
+      operationId: listSnapshots
+      summary: Netapp List Snapshots for a Volume
+      description: Retrieves the list of snapshots for a specific volume, including snapshot name, UUID, creation time, and size.
+      tags:
+      - Snapshots
+      parameters:
+      - name: volume.uuid
+        in: path
+        required: true
+        description: UUID of the volume
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: List of snapshots retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Snapshot'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createSnapshot
+      summary: Netapp Create a Volume Snapshot
+      description: Creates a new snapshot of the specified volume. The snapshot name is required. An optional comment and expiry time can be specified.
+      tags:
+      - Snapshots
+      parameters:
+      - name: volume.uuid
+        in: path
+        required: true
+        description: UUID of the volume
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Snapshot'
+      responses:
+        '201':
+          description: Snapshot created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Snapshot creation accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CollectionLinks:
+      type: object
+      description: Pagination links for collection responses
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+    ErrorResponse:
+      type: object
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
+          example: example_value
+    SelfLink:
+      type: object
+      description: HAL self link
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              description: URL of this resource
+          example: example_value
+    JobLink:
+      type: object
+      description: Reference to an asynchronous job
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Job UUID
+          example: '500123'
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  description: URL to retrieve the job status
+          example: example_value
+    VolumeReference:
+      type: object
+      description: Reference to a volume
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    Snapshot:
+      type: object
+      description: A point-in-time copy of a volume
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Snapshot UUID
+          readOnly: true
+          example: '500123'
+        name:
+          type: string
+          description: Snapshot name
+          examples:
+          - hourly.2024-01-15_0815
+        create_time:
+          type: string
+          format: date-time
+          description: Time when the snapshot was created
+          readOnly: true
+          example: '2026-01-15T10:30:00Z'
+        expiry_time:
+          type: string
+          format: date-time
+          description: Time when the snapshot expires and can be automatically deleted
+          example: '2026-01-15T10:30:00Z'
+        comment:
+          type: string
+          description: Optional comment for the snapshot
+          example: example_value
+        size:
+          type: integer
+          format: int64
+          description: Amount of space consumed by the snapshot in bytes
+          readOnly: true
+          example: 10
+        state:
+          type: string
+          description: Snapshot state
+          readOnly: true
+          enum:
+          - valid
+          - invalid
+          - partial
+          - unknown
+          example: valid
+        snapmirror_label:
+          type: string
+          description: SnapMirror label used for policy-based selection
+          example: example_value
+        volume:
+          $ref: '#/components/schemas/VolumeReference'
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+  responses:
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
+      schema:
+        type: string
+    max_records:
+      name: max_records
+      in: query
+      required: false
+      description: Maximum number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP basic authentication using ONTAP user credentials. Provide the cluster or SVM administrator username and password.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token authentication. Supported in ONTAP 9.8 and later.

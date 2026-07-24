@@ -1,0 +1,567 @@
+openapi: 3.1.0
+info:
+  title: NetApp ONTAP REST Aggregates API
+  description: REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.
+  version: 9.15.1
+  contact:
+    name: NetApp Developer Resources
+    url: https://devnet.netapp.com/
+  license:
+    name: NetApp Terms of Use
+    url: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  termsOfService: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  x-logo:
+    url: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+servers:
+- url: https://{clusterMgmtIp}/api
+  description: ONTAP cluster management endpoint
+  variables:
+    clusterMgmtIp:
+      default: cluster-mgmt-ip
+      description: IP address or hostname of the ONTAP cluster management LIF
+security:
+- basicAuth: []
+- bearerAuth: []
+tags:
+- name: Aggregates
+  description: Operations for managing storage aggregates (local tiers)
+paths:
+  /storage/aggregates:
+    get:
+      operationId: listAggregates
+      summary: Netapp List Storage Aggregates
+      description: Retrieves a list of aggregates (local tiers) in the cluster. Returns aggregate configuration, space usage, state, RAID details, and the owning node. Aggregates are the physical storage pools from which volumes are provisioned.
+      tags:
+      - Aggregates
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
+      - name: name
+        in: query
+        description: Filter by aggregate name
+        schema:
+          type: string
+      - name: node.name
+        in: query
+        description: Filter by owning node name
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: Filter by aggregate state
+        schema:
+          type: string
+          enum:
+          - online
+          - offline
+          - restricted
+          - creating
+          - destroying
+          - failed
+          - frozen
+          - inconsistent
+          - iron_restricted
+          - mounting
+          - partial
+          - quiesced
+          - quiescing
+          - relocated
+          - relocating
+          - reverted
+          - unknown
+          - unmounted
+          - unmounting
+      responses:
+        '200':
+          description: List of aggregates retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Aggregate'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Aggregate'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createAggregate
+      summary: Netapp Create a New Aggregate
+      description: Creates a new aggregate (local tier) on the specified node. The aggregate name, node, disk count, and RAID type are required.
+      tags:
+      - Aggregates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aggregate'
+      responses:
+        '201':
+          description: Aggregate created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Aggregate creation accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /storage/aggregates/{uuid}:
+    get:
+      operationId: getAggregate
+      summary: Netapp Retrieve a Specific Aggregate
+      description: Retrieves detailed information about a specific aggregate including space usage, RAID configuration, state, and owning node.
+      tags:
+      - Aggregates
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Aggregate details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aggregate'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Aggregate'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateAggregate
+      summary: Netapp Update an Aggregate
+      description: Updates the properties of an existing aggregate. Supports modifying the name and adding disks to expand capacity.
+      tags:
+      - Aggregates
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aggregate'
+      responses:
+        '200':
+          description: Aggregate updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Aggregate update accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteAggregate
+      summary: Netapp Delete an Aggregate
+      description: Deletes an existing aggregate. The aggregate must be empty (no volumes) and offline before deletion.
+      tags:
+      - Aggregates
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        '200':
+          description: Aggregate deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        '202':
+          description: Aggregate deletion accepted (asynchronous operation)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/JobLink'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
+    return_records:
+      name: return_records
+      in: query
+      required: false
+      description: If true, return the records in the response body
+      schema:
+        type: boolean
+        default: true
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
+      schema:
+        type: string
+    max_records:
+      name: max_records
+      in: query
+      required: false
+      description: Maximum number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+  schemas:
+    CollectionLinks:
+      type: object
+      description: Pagination links for collection responses
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+    Aggregate:
+      type: object
+      description: An aggregate (local tier) is a collection of physical disks that provides a pool of storage from which FlexVol volumes are provisioned.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Aggregate UUID
+          readOnly: true
+          example: '500123'
+        name:
+          type: string
+          description: Aggregate name
+          examples:
+          - aggr1
+        state:
+          type: string
+          description: Aggregate operational state
+          readOnly: true
+          enum:
+          - online
+          - offline
+          - restricted
+          - creating
+          - destroying
+          - failed
+          - frozen
+          - inconsistent
+          - iron_restricted
+          - mounting
+          - partial
+          - quiesced
+          - quiescing
+          - relocated
+          - relocating
+          - reverted
+          - unknown
+          - unmounted
+          - unmounting
+          example: online
+        node:
+          $ref: '#/components/schemas/ClusterNodeReference'
+        space:
+          type: object
+          description: Aggregate space usage
+          properties:
+            block_storage:
+              type: object
+              description: Block storage space
+              properties:
+                size:
+                  type: integer
+                  format: int64
+                  description: Total usable space in bytes
+                available:
+                  type: integer
+                  format: int64
+                  description: Available space in bytes
+                used:
+                  type: integer
+                  format: int64
+                  description: Used space in bytes
+                percent_used:
+                  type: integer
+                  description: Percentage of block storage used
+                full_threshold_percent:
+                  type: integer
+                  description: Threshold percentage at which the aggregate is considered full
+                nearly_full_threshold_percent:
+                  type: integer
+                  description: Threshold percentage for nearly full warning
+            cloud_storage:
+              type: object
+              description: FabricPool cloud tier space
+              properties:
+                used:
+                  type: integer
+                  format: int64
+                  description: Space used in the cloud tier in bytes
+            efficiency:
+              type: object
+              description: Storage efficiency information
+              properties:
+                savings:
+                  type: integer
+                  format: int64
+                  description: Total space saved through efficiency
+                ratio:
+                  type: number
+                  format: double
+                  description: Data reduction ratio
+                logical_used:
+                  type: integer
+                  format: int64
+                  description: Logical space used before efficiency savings
+          example: example_value
+        block_storage:
+          type: object
+          description: Block storage configuration
+          properties:
+            primary:
+              type: object
+              properties:
+                disk_count:
+                  type: integer
+                  description: Number of disks in the aggregate
+                disk_class:
+                  type: string
+                  description: Class of disks
+                  enum:
+                  - capacity
+                  - performance
+                  - archive
+                  - solid_state
+                  - array
+                  - virtual
+                  - data_center
+                  - capacity_flash
+                raid_type:
+                  type: string
+                  description: RAID type
+                  enum:
+                  - raid4
+                  - raid_dp
+                  - raid_tec
+                  - raid0
+                raid_size:
+                  type: integer
+                  description: Number of disks per RAID group
+                checksum_style:
+                  type: string
+                  description: Checksum style
+                  enum:
+                  - block
+                  - advanced_zoned
+            mirror:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  description: Whether SyncMirror is enabled
+                state:
+                  type: string
+                  description: Mirror state
+                  enum:
+                  - unmirrored
+                  - cp_count_check
+                  - limbo
+                  - mirrored
+          example: example_value
+        data_encryption:
+          type: object
+          description: Aggregate encryption configuration
+          properties:
+            software_encryption_enabled:
+              type: boolean
+              description: Whether software encryption is enabled on the aggregate
+            drive_protection_enabled:
+              type: boolean
+              description: Whether self-encrypting drives are used
+          example: example_value
+        cloud_storage:
+          type: object
+          description: FabricPool configuration
+          properties:
+            attach_eligible:
+              type: boolean
+              description: Whether the aggregate is eligible for FabricPool attachment
+          example: example_value
+        create_time:
+          type: string
+          format: date-time
+          description: Time when the aggregate was created
+          readOnly: true
+          example: '2026-01-15T10:30:00Z'
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    SelfLink:
+      type: object
+      description: HAL self link
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              description: URL of this resource
+          example: example_value
+    JobLink:
+      type: object
+      description: Reference to an asynchronous job
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Job UUID
+          example: '500123'
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  description: URL to retrieve the job status
+          example: example_value
+    ClusterNodeReference:
+      type: object
+      description: Reference to a cluster node
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    ErrorResponse:
+      type: object
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
+          example: example_value
+  responses:
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP basic authentication using ONTAP user credentials. Provide the cluster or SVM administrator username and password.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token authentication. Supported in ONTAP 9.8 and later.

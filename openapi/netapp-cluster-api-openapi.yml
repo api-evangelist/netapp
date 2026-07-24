@@ -1,0 +1,537 @@
+openapi: 3.1.0
+info:
+  title: NetApp ONTAP REST Aggregates Cluster API
+  description: REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.
+  version: 9.15.1
+  contact:
+    name: NetApp Developer Resources
+    url: https://devnet.netapp.com/
+  license:
+    name: NetApp Terms of Use
+    url: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  termsOfService: https://www.netapp.com/how-to-buy/sales-terms-and-conditions/
+  x-logo:
+    url: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
+servers:
+- url: https://{clusterMgmtIp}/api
+  description: ONTAP cluster management endpoint
+  variables:
+    clusterMgmtIp:
+      default: cluster-mgmt-ip
+      description: IP address or hostname of the ONTAP cluster management LIF
+security:
+- basicAuth: []
+- bearerAuth: []
+tags:
+- name: Cluster
+  description: Operations for managing ONTAP cluster configuration, nodes, licensing, and health
+paths:
+  /cluster:
+    get:
+      operationId: getCluster
+      summary: Netapp Retrieve Cluster Information
+      description: Retrieves the cluster configuration including name, version, UUID, contact information, DNS domains, NTP servers, and management interfaces.
+      tags:
+      - Cluster
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
+      responses:
+        '200':
+          description: Cluster information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateCluster
+      summary: Netapp Update Cluster Configuration
+      description: Updates cluster-wide configuration properties such as name, contact, location, DNS, NTP, and timezone settings.
+      tags:
+      - Cluster
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cluster'
+      responses:
+        '200':
+          description: Cluster configuration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cluster/nodes:
+    get:
+      operationId: listClusterNodes
+      summary: Netapp List Cluster Nodes
+      description: Retrieves the list of nodes in the cluster, including node name, UUID, model, serial number, version, uptime, and health status.
+      tags:
+      - Cluster
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/return_records'
+      - $ref: '#/components/parameters/return_timeout'
+      - $ref: '#/components/parameters/max_records'
+      - $ref: '#/components/parameters/order_by'
+      responses:
+        '200':
+          description: List of cluster nodes retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ClusterNode'
+                  num_records:
+                    type: integer
+                    description: Number of records returned
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ClusterNode'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cluster/nodes/{uuid}:
+    get:
+      operationId: getClusterNode
+      summary: Netapp Retrieve a Specific Cluster Node
+      description: Retrieves information about a specific node in the cluster identified by its UUID.
+      tags:
+      - Cluster
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: Node information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClusterNode'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cluster/licensing/licenses:
+    get:
+      operationId: listLicenses
+      summary: Netapp List Cluster Licenses
+      description: Retrieves information about the licenses installed on the cluster, including license name, scope, state, and compliance status.
+      tags:
+      - Cluster
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/max_records'
+      responses:
+        '200':
+          description: License information retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/License'
+                  num_records:
+                    type: integer
+                  _links:
+                    $ref: '#/components/schemas/CollectionLinks'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
+    return_records:
+      name: return_records
+      in: query
+      required: false
+      description: If true, return the records in the response body
+      schema:
+        type: boolean
+        default: true
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
+      schema:
+        type: string
+    max_records:
+      name: max_records
+      in: query
+      required: false
+      description: Maximum number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+  schemas:
+    CollectionLinks:
+      type: object
+      description: Pagination links for collection responses
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+    License:
+      type: object
+      description: Cluster feature license
+      properties:
+        name:
+          type: string
+          description: License name
+          examples:
+          - NFS
+          - CIFS
+          - iSCSI
+          - FCP
+          - SnapMirror
+          - SnapRestore
+          - FlexClone
+          - SnapVault
+          - FabricPool
+        scope:
+          type: string
+          description: License scope
+          enum:
+          - cluster
+          - node
+          - not_available
+          example: cluster
+        state:
+          type: string
+          description: License compliance state
+          enum:
+          - compliant
+          - noncompliant
+          - unlicensed
+          - unknown
+          example: compliant
+        licenses:
+          type: array
+          description: Individual license entries
+          items:
+            type: object
+            properties:
+              serial_number:
+                type: string
+                description: License serial number
+              owner:
+                type: string
+                description: Node or cluster that owns the license
+              compliance:
+                type: object
+                properties:
+                  state:
+                    type: string
+                    enum:
+                    - compliant
+                    - noncompliant
+          example: []
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    ClusterNode:
+      type: object
+      description: A node in the ONTAP cluster
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Node UUID
+          readOnly: true
+          example: '500123'
+        name:
+          type: string
+          description: Node name
+          examples:
+          - node1
+        model:
+          type: string
+          description: Hardware model of the node
+          readOnly: true
+          examples:
+          - AFF-A400
+        serial_number:
+          type: string
+          description: System serial number
+          readOnly: true
+          example: example_value
+        uptime:
+          type: integer
+          description: Node uptime in seconds
+          readOnly: true
+          example: 10
+        version:
+          type: object
+          description: ONTAP version running on the node
+          readOnly: true
+          properties:
+            full:
+              type: string
+              description: Full version string
+            generation:
+              type: integer
+            major:
+              type: integer
+            minor:
+              type: integer
+          example: example_value
+        controller:
+          type: object
+          description: Node controller information
+          readOnly: true
+          properties:
+            cpu:
+              type: object
+              properties:
+                count:
+                  type: integer
+                  description: Number of CPU cores
+                processor:
+                  type: string
+                  description: CPU processor model
+            memory_size:
+              type: integer
+              description: Total memory in bytes
+              format: int64
+            over_temperature:
+              type: string
+              description: Over-temperature status
+              enum:
+              - over
+              - normal
+          example: example_value
+        state:
+          type: string
+          description: Current operational state of the node
+          readOnly: true
+          enum:
+          - up
+          - down
+          - taken_over
+          - waiting_for_giveback
+          example: up
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    SelfLink:
+      type: object
+      description: HAL self link
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              description: URL of this resource
+          example: example_value
+    ClusterNodeReference:
+      type: object
+      description: Reference to a cluster node
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    Cluster:
+      type: object
+      description: ONTAP cluster configuration and status
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Cluster UUID
+          readOnly: true
+          example: '500123'
+        name:
+          type: string
+          description: Cluster name
+          examples:
+          - cluster1
+        contact:
+          type: string
+          description: Contact information for the cluster administrator
+          example: example_value
+        location:
+          type: string
+          description: Physical location of the cluster
+          example: example_value
+        version:
+          type: object
+          description: ONTAP software version
+          readOnly: true
+          properties:
+            full:
+              type: string
+              description: Full version string
+              examples:
+              - NetApp Release 9.15.1
+            generation:
+              type: integer
+              description: Major version generation
+            major:
+              type: integer
+              description: Major version number
+            minor:
+              type: integer
+              description: Minor version number
+          example: example_value
+        dns_domains:
+          type: array
+          description: DNS domain names for the cluster
+          items:
+            type: string
+          example: []
+        ntp_servers:
+          type: array
+          description: NTP server addresses
+          items:
+            type: string
+          example: []
+        timezone:
+          type: object
+          description: Cluster timezone setting
+          properties:
+            name:
+              type: string
+              description: Timezone name (Olson format)
+              examples:
+              - America/New_York
+          example: example_value
+        management_interfaces:
+          type: array
+          description: Cluster management network interfaces
+          readOnly: true
+          items:
+            type: object
+            properties:
+              ip:
+                type: object
+                properties:
+                  address:
+                    type: string
+                    format: ipv4
+                    description: IPv4 address
+          example: []
+        nodes:
+          type: array
+          description: Nodes in the cluster
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClusterNodeReference'
+          example: []
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    ErrorResponse:
+      type: object
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
+          example: example_value
+  responses:
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP basic authentication using ONTAP user credentials. Provide the cluster or SVM administrator username and password.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token authentication. Supported in ONTAP 9.8 and later.
