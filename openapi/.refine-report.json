@@ -1,0 +1,24 @@
+{
+  "provider": "netapp",
+  "sources": [
+    "netapp-aggregates-api-openapi.yml",
+    "netapp-cluster-api-openapi.yml",
+    "netapp-network-api-openapi.yml",
+    "netapp-snapshots-api-openapi.yml",
+    "netapp-svms-api-openapi.yml",
+    "netapp-volumes-api-openapi.yml"
+  ],
+  "outputs": [
+    "netapp-aggregates-api-openapi.yml",
+    "netapp-cluster-api-openapi.yml",
+    "netapp-network-api-openapi.yml",
+    "netapp-snapshots-api-openapi.yml",
+    "netapp-svms-api-openapi.yml",
+    "netapp-volumes-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
