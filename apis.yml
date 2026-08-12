@@ -456,6 +456,13 @@ apis:
   - type: JSONLD
     url: json-ld/netapp-context.jsonld
 common:
+  - type: IssueTracker
+    url: https://github.com/NetApp/ontap-rest-python/issues
+  - type: ContributionGuide
+    url: https://github.com/NetApp/ontap-rest-python/blob/master/CONTRIBUTING.md
+  - type: License
+    name: BSD-3-Clause
+    url: https://github.com/NetApp/ontap-rest-python/blob/master/LICENSE
   - type: AgenticAccess
     url: agentic-access/netapp-agentic-access.yml
   - type: TrustCenter
