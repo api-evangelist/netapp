@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NetApp ONTAP REST Aggregates SVMs API",
+    "version": "9.15.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SVMs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Storage Virtual Machines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/svm/svms",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SVM name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SVM state"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of storage virtual machines (SVMs) in the cluster. SVMs are secure virtualized storage containers that provide data access to clients. Each SVM has its own volumes, network interfaces, protocols, and security configuration."
+        },
+        {
+          "info": {
+            "name": "Netapp Create a New Svm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{clusterMgmtIp}/api/svm/svms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new storage virtual machine (SVM). The SVM name is required. Optional parameters include allowed protocols (NFS, CIFS, iSCSI, FCP), aggregates, language, snapshot policy, and IP interface configuration."
+        },
+        {
+          "info": {
+            "name": "Netapp Retrieve a Specific Svm",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/svm/svms/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific SVM including name, state, allowed protocols, IP interfaces, aggregates, and CIFS/NFS configuration."
+        },
+        {
+          "info": {
+            "name": "Netapp Update an Svm",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{clusterMgmtIp}/api/svm/svms/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the properties of an existing SVM. Supports modifying name, allowed protocols, language, comment, and snapshot policy."
+        },
+        {
+          "info": {
+            "name": "Netapp Delete an Svm",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{clusterMgmtIp}/api/svm/svms/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes an existing SVM and all associated configuration. All volumes and network interfaces in the SVM must be deleted first."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1268 @@
+{
+  "item": [
+    {
+      "id": "6c47796e-f80a-443d-af15-d58ff51fd4d0",
+      "name": "Volumes",
+      "description": {
+        "content": "Operations for creating, modifying, and managing storage volumes",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1ccb968d-5821-4ac8-b605-a0cedbb354cc",
+          "name": "Netapp List Storage Volumes",
+          "request": {
+            "name": "Netapp List Storage Volumes",
+            "description": {
+              "content": "Retrieves a list of volumes across the cluster. Supports filtering by SVM, aggregate, state, type, and other attributes. Returns volume configuration, space usage, performance counters, and relationships.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "storage",
+                "volumes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                },
+                {
+                  "disabled": false,
+                  "key": "return_records",
+                  "value": "true",
+                  "description": "If true, return the records in the response body"
+                },
+                {
+                  "disabled": false,
+                  "key": "return_timeout",
+                  "value": "15",
+                  "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_records",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+                },
+                {
+                  "disabled": false,
+                  "key": "svm.name",
+                  "value": "<string>",
+                  "description": "Filter by SVM name"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by volume name"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Filter by volume state"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by volume type"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c471358c-10ee-4ff1-ac87-a35e3c7bcb01",
+              "name": "List of volumes retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_records",
+                      "value": "true"
+                    },
+                    {
+                      "key": "return_timeout",
+                      "value": "15"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "svm.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"uuid\": \"8e259141-c01e-e7b8-4b12-a1d186ff005a\",\n      \"name\": \"vol1\",\n      \"type\": \"rw\",\n      \"state\": \"online\",\n      \"style\": \"flexvol\",\n      \"size\": 10,\n      \"comment\": \"example_value\",\n      \"language\": \"c.utf_8\",\n      \"create_time\": \"2026-01-15T10:30:00Z\",\n      \"svm\": {\n        \"uuid\": \"82fb21b1-c878-2777-bbde-77b11ddf9fab\",\n        \"name\": \"Example Title\",\n        \"_links\": {\n          \"self\": {\n            \"href\": \"http://iuqtrzJENFThHBLtX.fmaWbiWHgOwprJSl51COckx,MN\"\n          }\n        }\n      },\n      \"space\": {\n        \"size\": 9698,\n        \"available\": 4418,\n        \"used\": 8447,\n        \"percent_used\": 73,\n        \"logical_space\": {\n          \"available\": 2146,\n          \"used\": 6038,\n          \"used_percent\": 3723,\n          \"reporting\": true,\n          \"enforcement\": false\n        },\n        \"snapshot\": {\n          \"reserve_percent\": 33,\n          \"used\": 601\n        },\n        \"over_provisioned\": 138\n      },\n      \"nas\": {\n        \"path\": \"/vol1\",\n        \"security_style\": \"unix\",\n        \"unix_permissions\": \"0755\",\n        \"export_policy\": {\n          \"name\": \"default\"\n        }\n      },\n      \"guarantee\": {\n        \"type\": \"volume\",\n        \"honored\": false\n      },\n      \"snapshot_policy\": {\n        \"name\": \"default\",\n        \"uuid\": \"2224f27f-7c95-c445-b354-bc68947dafee\"\n      },\n      \"qos\": {\n        \"policy\": {\n          \"name\": \"string\",\n          \"uuid\": \"fe3f7481-6952-842d-a865-8261dc8e9ee7\",\n          \"max_throughput_iops\": 2111,\n          \"max_throughput_mbps\": 5842,\n          \"min_throughput_iops\": 1531,\n          \"min_throughput_mbps\": 8109\n        }\n      },\n      \"tiering\": {\n        \"policy\": \"all\",\n        \"min_cooling_days\": 136\n      },\n      \"encryption\": {\n        \"enabled\": true,\n        \"state\": \"string\",\n        \"type\": \"aggregate\"\n      },\n      \"autosize\": {\n        \"mode\": \"grow_shrink\",\n        \"grow_threshold\": 46,\n        \"shrink_threshold\": 20,\n        \"maximum\": 8163,\n        \"minimum\": 3776\n      },\n      \"clone\": {\n        \"is_flexclone\": true,\n        \"parent_volume\": {\n          \"uuid\": \"81be8f1d-6437-0090-9173-c4b1d939d451\",\n          \"name\": \"Example Title\",\n          \"_links\": {\n            \"self\": {\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"parent_snapshot\": {\n          \"name\": \"string\",\n          \"uuid\": \"70e9228a-c6ff-95e6-06c9-cbf5bf730b32\"\n        },\n        \"split_initiated\": false\n      },\n      \"_links\": {\n        \"self\": {\n          \"href\": \"https://jMHmXzjhmVc.nayjVHaNCpY8oLmbRMzeuIFERzaA+fiCgR6gAb1Qy7PfcX9RTvM8yIyaXwx2rwVWczeQnvdhk7\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"0101c65b-b0a1-c5f3-fd60-59db449286ee\",\n      \"name\": \"vol1\",\n      \"type\": \"rw\",\n      \"state\": \"online\",\n      \"style\": \"flexvol\",\n      \"size\": 10,\n      \"comment\": \"example_value\",\n      \"language\": \"c.utf_8\",\n      \"create_time\": \"2026-01-15T10:30:00Z\",\n      \"svm\": {\n        \"uuid\": \"41d9e488-18cb-1b1e-92b8-6194ece687b8\",\n        \"name\": \"Example Title\",\n        \"_links\": {\n          \"self\": {\n            \"href\": \"http://klzisDnvilfelMgeHvfRRCQdUQRQgG.cgrIsblBmzYTeBzAhACAkIPlRtmEaNYKoruhsfpi,xNYRK9JMTwP3MruCUAfUDBaXTpIRSm5bP\"\n          }\n        }\n      },\n      \"space\": {\n        \"size\": 7090,\n        \"available\": 6029,\n        \"used\": 5771,\n        \"percent_used\": 35,\n        \"logical_space\": {\n          \"available\": 3799,\n          \"used\": 3544,\n          \"used_percent\": 4290,\n          \"reporting\": true,\n          \"enforcement\": false\n        },\n        \"snapshot\": {\n          \"reserve_percent\": 23,\n          \"used\": 4477\n        },\n        \"over_provisioned\": 2677\n      },\n      \"nas\": {\n        \"path\": \"/vol1\",\n        \"security_style\": \"unified\",\n        \"unix_permissions\": \"0755\",\n        \"export_policy\": {\n          \"name\": \"default\"\n        }\n      },\n      \"guarantee\": {\n        \"type\": \"none\",\n        \"honored\": true\n      },\n      \"snapshot_policy\": {\n        \"name\": \"default\",\n        \"uuid\": \"a6d9c672-e7ee-eac2-cb4f-6f2bfe0c7aed\"\n      },\n      \"qos\": {\n        \"policy\": {\n          \"name\": \"string\",\n          \"uuid\": \"93e37e67-3a0f-64e9-0a5b-26d3b19ba03d\",\n          \"max_throughput_iops\": 7151,\n          \"max_throughput_mbps\": 4588,\n          \"min_throughput_iops\": 4062,\n          \"min_throughput_mbps\": 9753\n        }\n      },\n      \"tiering\": {\n        \"policy\": \"snapshot_only\",\n        \"min_cooling_days\": 111\n      },\n      \"encryption\": {\n        \"enabled\": true,\n        \"state\": \"string\",\n        \"type\": \"aggregate\"\n      },\n      \"autosize\": {\n        \"mode\": \"false\",\n        \"grow_threshold\": 38,\n        \"shrink_threshold\": 84,\n        \"maximum\": 2737,\n        \"minimum\": 3117\n      },\n      \"clone\": {\n        \"is_flexclone\": true,\n        \"parent_volume\": {\n          \"uuid\": \"bd210cca-88d8-25d8-eb8b-42eae2be1c27\",\n          \"name\": \"Example Title\",\n          \"_links\": {\n            \"self\": {\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"parent_snapshot\": {\n          \"name\": \"string\",\n          \"uuid\": \"5db819f9-6c94-c6f8-c673-5b28c4e99e0e\"\n        },\n        \"split_initiated\": false\n      },\n      \"_links\": {\n        \"self\": {\n          \"href\": \"http://SmuHRmDwkXKW.gsszQ9JgrMyx.vJSux6ZN2NE+W1wKP9j,Io0\"\n        }\n      }\n    }\n  ],\n  \"num_records\": 5360,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://PkRJzIdUGnyxxmDGlHgWqBt.beguPT,KV9jWKZ00y-r-wycHcWZ\"\n    },\n    \"next\": {\n      \"href\": \"http://EcUCfMSJRICjqJFOfveVFumqkDeQGl.rerlz7+vZfQRFKzblm2q9lj0-\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d0102a6-e52e-4ee4-9382-0e518d4fd051",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_records",
+                      "value": "true"
+                    },
+                    {
+                      "key": "return_timeout",
+                      "value": "15"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "svm.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8629267e-0371-4902-bddb-850b1d92cad2",
+          "name": "Netapp Create a New Volume",
+          "request": {
+            "name": "Netapp Create a New Volume",
+            "description": {
+              "content": "Creates a new volume on the specified SVM and aggregate. The volume name, SVM, and aggregate are required. Optional parameters include size, security style, export policy, tiering policy, QoS policy, and snapshot policy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "storage",
+                "volumes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "return_records",
+                  "value": "false",
+                  "description": "Return the newly created record"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"state\": \"<string>\",\n  \"size\": \"<long>\",\n  \"comment\": \"<string>\",\n  \"language\": \"<string>\",\n  \"svm\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"<uri>\"\n      }\n    }\n  },\n  \"aggregates\": [\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    }\n  ],\n  \"space\": {\n    \"size\": \"<long>\",\n    \"logical_space\": {\n      \"available\": \"<long>\",\n      \"used\": \"<long>\",\n      \"used_percent\": \"<integer>\",\n      \"reporting\": \"<boolean>\",\n      \"enforcement\": \"<boolean>\"\n    },\n    \"snapshot\": {\n      \"reserve_percent\": \"<integer>\"\n    }\n  },\n  \"nas\": {\n    \"path\": \"<string>\",\n    \"security_style\": \"<string>\",\n    \"unix_permissions\": \"<string>\",\n    \"export_policy\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"<string>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"max_throughput_iops\": \"<integer>\",\n      \"max_throughput_mbps\": \"<integer>\",\n      \"min_throughput_iops\": \"<integer>\",\n      \"min_throughput_mbps\": \"<integer>\"\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"<string>\",\n    \"min_cooling_days\": \"<integer>\"\n  },\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"autosize\": {\n    \"mode\": \"<string>\",\n    \"grow_threshold\": \"<integer>\",\n    \"shrink_threshold\": \"<integer>\",\n    \"maximum\": \"<long>\",\n    \"minimum\": \"<long>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<uri>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aebe4343-0924-4a7e-aa1f-00eee0713a12",
+              "name": "Volume created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "return_records",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"vol1\",\n  \"state\": \"online\",\n  \"size\": 10,\n  \"comment\": \"example_value\",\n  \"language\": \"c.utf_8\",\n  \"svm\": {\n    \"uuid\": \"8166f7f4-5f32-f3bf-4ce0-f18b30ad59e5\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://SunNQTEicPAOOkVPTxlkLHbEGHVklaYqK.zfnwsPZJLhLjmgI8zNLT+huXrqUHy0BKIrrL0YRhuGw\"\n      }\n    }\n  },\n  \"space\": {\n    \"size\": \"<long>\",\n    \"logical_space\": {\n      \"available\": \"<long>\",\n      \"used\": \"<long>\",\n      \"used_percent\": \"<integer>\",\n      \"reporting\": \"<boolean>\",\n      \"enforcement\": \"<boolean>\"\n    },\n    \"snapshot\": {\n      \"reserve_percent\": \"<integer>\"\n    }\n  },\n  \"nas\": {\n    \"path\": \"/vol1\",\n    \"security_style\": \"<string>\",\n    \"unix_permissions\": \"0755\",\n    \"export_policy\": {\n      \"name\": \"default\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"<string>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"max_throughput_iops\": \"<integer>\",\n      \"max_throughput_mbps\": \"<integer>\",\n      \"min_throughput_iops\": \"<integer>\",\n      \"min_throughput_mbps\": \"<integer>\"\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"<string>\",\n    \"min_cooling_days\": \"<integer>\"\n  },\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"autosize\": {\n    \"mode\": \"<string>\",\n    \"grow_threshold\": \"<integer>\",\n    \"shrink_threshold\": \"<integer>\",\n    \"maximum\": \"<long>\",\n    \"minimum\": \"<long>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://icjwberiliOPDZScXRQIoE.ajooF.nDT7A0d\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "URL of the newly created volume resource",
+                  "key": "Location",
+                  "value": "https://UIpsUTT.crjA5D5RMfcQp7P+WjT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"1c2f4b05-e8a5-7cd1-4c37-611b4fc79299\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://zHvbVmtKGksEGwglWKeMNzFeduzua.amlexIikGpgZ5Tg\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14a4ce82-c1cd-490b-bf5f-0eb4d5fec557",
+              "name": "Volume creation accepted (asynchronous operation)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "return_records",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"vol1\",\n  \"state\": \"online\",\n  \"size\": 10,\n  \"comment\": \"example_value\",\n  \"language\": \"c.utf_8\",\n  \"svm\": {\n    \"uuid\": \"8166f7f4-5f32-f3bf-4ce0-f18b30ad59e5\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://SunNQTEicPAOOkVPTxlkLHbEGHVklaYqK.zfnwsPZJLhLjmgI8zNLT+huXrqUHy0BKIrrL0YRhuGw\"\n      }\n    }\n  },\n  \"space\": {\n    \"size\": \"<long>\",\n    \"logical_space\": {\n      \"available\": \"<long>\",\n      \"used\": \"<long>\",\n      \"used_percent\": \"<integer>\",\n      \"reporting\": \"<boolean>\",\n      \"enforcement\": \"<boolean>\"\n    },\n    \"snapshot\": {\n      \"reserve_percent\": \"<integer>\"\n    }\n  },\n  \"nas\": {\n    \"path\": \"/vol1\",\n    \"security_style\": \"<string>\",\n    \"unix_permissions\": \"0755\",\n    \"export_policy\": {\n      \"name\": \"default\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"<string>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"max_throughput_iops\": \"<integer>\",\n      \"max_throughput_mbps\": \"<integer>\",\n      \"min_throughput_iops\": \"<integer>\",\n      \"min_throughput_mbps\": \"<integer>\"\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"<string>\",\n    \"min_cooling_days\": \"<integer>\"\n  },\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"autosize\": {\n    \"mode\": \"<string>\",\n    \"grow_threshold\": \"<integer>\",\n    \"shrink_threshold\": \"<integer>\",\n    \"maximum\": \"<long>\",\n    \"minimum\": \"<long>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://icjwberiliOPDZScXRQIoE.ajooF.nDT7A0d\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"1c2f4b05-e8a5-7cd1-4c37-611b4fc79299\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://zHvbVmtKGksEGwglWKeMNzFeduzua.amlexIikGpgZ5Tg\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d50090a0-38cc-459d-8fcf-aa7dfff5c47b",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "return_records",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"vol1\",\n  \"state\": \"online\",\n  \"size\": 10,\n  \"comment\": \"example_value\",\n  \"language\": \"c.utf_8\",\n  \"svm\": {\n    \"uuid\": \"8166f7f4-5f32-f3bf-4ce0-f18b30ad59e5\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://SunNQTEicPAOOkVPTxlkLHbEGHVklaYqK.zfnwsPZJLhLjmgI8zNLT+huXrqUHy0BKIrrL0YRhuGw\"\n      }\n    }\n  },\n  \"space\": {\n    \"size\": \"<long>\",\n    \"logical_space\": {\n      \"available\": \"<long>\",\n      \"used\": \"<long>\",\n      \"used_percent\": \"<integer>\",\n      \"reporting\": \"<boolean>\",\n      \"enforcement\": \"<boolean>\"\n    },\n    \"snapshot\": {\n      \"reserve_percent\": \"<integer>\"\n    }\n  },\n  \"nas\": {\n    \"path\": \"/vol1\",\n    \"security_style\": \"<string>\",\n    \"unix_permissions\": \"0755\",\n    \"export_policy\": {\n      \"name\": \"default\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"<string>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"max_throughput_iops\": \"<integer>\",\n      \"max_throughput_mbps\": \"<integer>\",\n      \"min_throughput_iops\": \"<integer>\",\n      \"min_throughput_mbps\": \"<integer>\"\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"<string>\",\n    \"min_cooling_days\": \"<integer>\"\n  },\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"autosize\": {\n    \"mode\": \"<string>\",\n    \"grow_threshold\": \"<integer>\",\n    \"shrink_threshold\": \"<integer>\",\n    \"maximum\": \"<long>\",\n    \"minimum\": \"<long>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://icjwberiliOPDZScXRQIoE.ajooF.nDT7A0d\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b3cfc0d-cdb4-4e7a-8cd6-43a84ad6755a",
+          "name": "Netapp Retrieve a Specific Volume",
+          "request": {
+            "name": "Netapp Retrieve a Specific Volume",
+            "description": {
+              "content": "Retrieves detailed information about a specific volume including space utilization, configuration, state, associated SVM, aggregate, export policy, snapshot policy, and QoS settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "storage",
+                "volumes",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The unique identifier (UUID) of the resource"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b6a7a1f-df68-45d9-a4af-e9fbacc86503",
+              "name": "Volume details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"25d1b53f-2c4f-23fa-6691-a656c3dd6363\",\n  \"name\": \"vol1\",\n  \"type\": \"rw\",\n  \"state\": \"online\",\n  \"style\": \"flexvol\",\n  \"size\": 10,\n  \"comment\": \"example_value\",\n  \"language\": \"c.utf_8\",\n  \"create_time\": \"2026-01-15T10:30:00Z\",\n  \"svm\": {\n    \"uuid\": \"ea6682f1-7016-d3f7-483d-9b1af910ebb4\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://hphvMegtJjraKtdXBKPNkGzuhm.quGMdwurMdX2M8Dtbu\"\n      }\n    }\n  },\n  \"space\": {\n    \"size\": 7842,\n    \"available\": 7263,\n    \"used\": 2859,\n    \"percent_used\": 60,\n    \"logical_space\": {\n      \"available\": 7068,\n      \"used\": 1903,\n      \"used_percent\": 7146,\n      \"reporting\": true,\n      \"enforcement\": false\n    },\n    \"snapshot\": {\n      \"reserve_percent\": 82,\n      \"used\": 9140\n    },\n    \"over_provisioned\": 5336\n  },\n  \"nas\": {\n    \"path\": \"/vol1\",\n    \"security_style\": \"unix\",\n    \"unix_permissions\": \"0755\",\n    \"export_policy\": {\n      \"name\": \"default\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"none\",\n    \"honored\": false\n  },\n  \"snapshot_policy\": {\n    \"name\": \"default\",\n    \"uuid\": \"a0920272-e706-2bcf-5ad1-41f97fcd575c\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"string\",\n      \"uuid\": \"e3975db8-c922-b5eb-9f1a-5aa2d71ed2e8\",\n      \"max_throughput_iops\": 8109,\n      \"max_throughput_mbps\": 2472,\n      \"min_throughput_iops\": 3069,\n      \"min_throughput_mbps\": 5583\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"none\",\n    \"min_cooling_days\": 67\n  },\n  \"encryption\": {\n    \"enabled\": false,\n    \"state\": \"string\",\n    \"type\": \"aggregate\"\n  },\n  \"autosize\": {\n    \"mode\": \"false\",\n    \"grow_threshold\": 37,\n    \"shrink_threshold\": 53,\n    \"maximum\": 5711,\n    \"minimum\": 6960\n  },\n  \"clone\": {\n    \"is_flexclone\": false,\n    \"parent_volume\": {\n      \"uuid\": \"4167a4c4-7372-6085-c814-30332237709d\",\n      \"name\": \"Example Title\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"http://jLyeUOMCzBzMprEbwdfFEcvxNawLrFBiX.taFMng.8E9FpNNujkFYhCQJedWFNv5q920Wbfo\"\n        }\n      }\n    },\n    \"parent_snapshot\": {\n      \"name\": \"string\",\n      \"uuid\": \"bf673763-6c28-c167-f13e-c50fd7f933f3\"\n    },\n    \"split_initiated\": true\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://QjyDoMIgGvDLKUvOLLEK.pkJja0tXGsp3H\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6a12fdd-1373-4744-82a2-62f9281c9dba",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "253f7b4d-c919-4824-8b85-c8c84725e066",
+          "name": "Netapp Update a Volume",
+          "request": {
+            "name": "Netapp Update a Volume",
+            "description": {
+              "content": "Updates the properties of an existing volume. Supports modifying the volume name, size, comment, state, export policy, snapshot policy, tiering policy, and QoS settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "storage",
+                "volumes",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The unique identifier (UUID) of the resource"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"state\": \"<string>\",\n  \"size\": \"<long>\",\n  \"comment\": \"<string>\",\n  \"language\": \"<string>\",\n  \"svm\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"<uri>\"\n      }\n    }\n  },\n  \"aggregates\": [\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    }\n  ],\n  \"space\": {\n    \"size\": \"<long>\",\n    \"logical_space\": {\n      \"available\": \"<long>\",\n      \"used\": \"<long>\",\n      \"used_percent\": \"<integer>\",\n      \"reporting\": \"<boolean>\",\n      \"enforcement\": \"<boolean>\"\n    },\n    \"snapshot\": {\n      \"reserve_percent\": \"<integer>\"\n    }\n  },\n  \"nas\": {\n    \"path\": \"<string>\",\n    \"security_style\": \"<string>\",\n    \"unix_permissions\": \"<string>\",\n    \"export_policy\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"<string>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"max_throughput_iops\": \"<integer>\",\n      \"max_throughput_mbps\": \"<integer>\",\n      \"min_throughput_iops\": \"<integer>\",\n      \"min_throughput_mbps\": \"<integer>\"\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"<string>\",\n    \"min_cooling_days\": \"<integer>\"\n  },\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"autosize\": {\n    \"mode\": \"<string>\",\n    \"grow_threshold\": \"<integer>\",\n    \"shrink_threshold\": \"<integer>\",\n    \"maximum\": \"<long>\",\n    \"minimum\": \"<long>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<uri>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e457264-6788-4a89-9d87-cb3e36dd60ba",
+              "name": "Volume updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"vol1\",\n  \"state\": \"online\",\n  \"size\": 10,\n  \"comment\": \"example_value\",\n  \"language\": \"c.utf_8\",\n  \"svm\": {\n    \"uuid\": \"8166f7f4-5f32-f3bf-4ce0-f18b30ad59e5\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://SunNQTEicPAOOkVPTxlkLHbEGHVklaYqK.zfnwsPZJLhLjmgI8zNLT+huXrqUHy0BKIrrL0YRhuGw\"\n      }\n    }\n  },\n  \"space\": {\n    \"size\": \"<long>\",\n    \"logical_space\": {\n      \"available\": \"<long>\",\n      \"used\": \"<long>\",\n      \"used_percent\": \"<integer>\",\n      \"reporting\": \"<boolean>\",\n      \"enforcement\": \"<boolean>\"\n    },\n    \"snapshot\": {\n      \"reserve_percent\": \"<integer>\"\n    }\n  },\n  \"nas\": {\n    \"path\": \"/vol1\",\n    \"security_style\": \"<string>\",\n    \"unix_permissions\": \"0755\",\n    \"export_policy\": {\n      \"name\": \"default\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"<string>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"max_throughput_iops\": \"<integer>\",\n      \"max_throughput_mbps\": \"<integer>\",\n      \"min_throughput_iops\": \"<integer>\",\n      \"min_throughput_mbps\": \"<integer>\"\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"<string>\",\n    \"min_cooling_days\": \"<integer>\"\n  },\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"autosize\": {\n    \"mode\": \"<string>\",\n    \"grow_threshold\": \"<integer>\",\n    \"shrink_threshold\": \"<integer>\",\n    \"maximum\": \"<long>\",\n    \"minimum\": \"<long>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://icjwberiliOPDZScXRQIoE.ajooF.nDT7A0d\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"1c2f4b05-e8a5-7cd1-4c37-611b4fc79299\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://zHvbVmtKGksEGwglWKeMNzFeduzua.amlexIikGpgZ5Tg\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f59f5b37-5642-4da8-b594-b88c6da473d1",
+              "name": "Volume update accepted (asynchronous operation)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"vol1\",\n  \"state\": \"online\",\n  \"size\": 10,\n  \"comment\": \"example_value\",\n  \"language\": \"c.utf_8\",\n  \"svm\": {\n    \"uuid\": \"8166f7f4-5f32-f3bf-4ce0-f18b30ad59e5\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://SunNQTEicPAOOkVPTxlkLHbEGHVklaYqK.zfnwsPZJLhLjmgI8zNLT+huXrqUHy0BKIrrL0YRhuGw\"\n      }\n    }\n  },\n  \"space\": {\n    \"size\": \"<long>\",\n    \"logical_space\": {\n      \"available\": \"<long>\",\n      \"used\": \"<long>\",\n      \"used_percent\": \"<integer>\",\n      \"reporting\": \"<boolean>\",\n      \"enforcement\": \"<boolean>\"\n    },\n    \"snapshot\": {\n      \"reserve_percent\": \"<integer>\"\n    }\n  },\n  \"nas\": {\n    \"path\": \"/vol1\",\n    \"security_style\": \"<string>\",\n    \"unix_permissions\": \"0755\",\n    \"export_policy\": {\n      \"name\": \"default\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"<string>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"max_throughput_iops\": \"<integer>\",\n      \"max_throughput_mbps\": \"<integer>\",\n      \"min_throughput_iops\": \"<integer>\",\n      \"min_throughput_mbps\": \"<integer>\"\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"<string>\",\n    \"min_cooling_days\": \"<integer>\"\n  },\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"autosize\": {\n    \"mode\": \"<string>\",\n    \"grow_threshold\": \"<integer>\",\n    \"shrink_threshold\": \"<integer>\",\n    \"maximum\": \"<long>\",\n    \"minimum\": \"<long>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://icjwberiliOPDZScXRQIoE.ajooF.nDT7A0d\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"1c2f4b05-e8a5-7cd1-4c37-611b4fc79299\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://zHvbVmtKGksEGwglWKeMNzFeduzua.amlexIikGpgZ5Tg\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e111acc4-7b66-49b6-be3b-93da54c70836",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"vol1\",\n  \"state\": \"online\",\n  \"size\": 10,\n  \"comment\": \"example_value\",\n  \"language\": \"c.utf_8\",\n  \"svm\": {\n    \"uuid\": \"8166f7f4-5f32-f3bf-4ce0-f18b30ad59e5\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://SunNQTEicPAOOkVPTxlkLHbEGHVklaYqK.zfnwsPZJLhLjmgI8zNLT+huXrqUHy0BKIrrL0YRhuGw\"\n      }\n    }\n  },\n  \"space\": {\n    \"size\": \"<long>\",\n    \"logical_space\": {\n      \"available\": \"<long>\",\n      \"used\": \"<long>\",\n      \"used_percent\": \"<integer>\",\n      \"reporting\": \"<boolean>\",\n      \"enforcement\": \"<boolean>\"\n    },\n    \"snapshot\": {\n      \"reserve_percent\": \"<integer>\"\n    }\n  },\n  \"nas\": {\n    \"path\": \"/vol1\",\n    \"security_style\": \"<string>\",\n    \"unix_permissions\": \"0755\",\n    \"export_policy\": {\n      \"name\": \"default\"\n    }\n  },\n  \"guarantee\": {\n    \"type\": \"<string>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"qos\": {\n    \"policy\": {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"max_throughput_iops\": \"<integer>\",\n      \"max_throughput_mbps\": \"<integer>\",\n      \"min_throughput_iops\": \"<integer>\",\n      \"min_throughput_mbps\": \"<integer>\"\n    }\n  },\n  \"tiering\": {\n    \"policy\": \"<string>\",\n    \"min_cooling_days\": \"<integer>\"\n  },\n  \"encryption\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"autosize\": {\n    \"mode\": \"<string>\",\n    \"grow_threshold\": \"<integer>\",\n    \"shrink_threshold\": \"<integer>\",\n    \"maximum\": \"<long>\",\n    \"minimum\": \"<long>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://icjwberiliOPDZScXRQIoE.ajooF.nDT7A0d\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28e26cd8-a5f0-42b5-82f6-90e021ccaa5c",
+          "name": "Netapp Delete a Volume",
+          "request": {
+            "name": "Netapp Delete a Volume",
+            "description": {
+              "content": "Deletes an existing volume. The volume must be offline or unmounted before deletion. This is an asynchronous operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "storage",
+                "volumes",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The unique identifier (UUID) of the resource"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdfb5375-5d45-4793-8f9e-cade3f509538",
+              "name": "Volume deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"1c2f4b05-e8a5-7cd1-4c37-611b4fc79299\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://zHvbVmtKGksEGwglWKeMNzFeduzua.amlexIikGpgZ5Tg\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5669fae-a80a-402e-9eba-a10374691b12",
+              "name": "Volume deletion accepted (asynchronous operation)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"1c2f4b05-e8a5-7cd1-4c37-611b4fc79299\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://zHvbVmtKGksEGwglWKeMNzFeduzua.amlexIikGpgZ5Tg\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26df9c0a-825b-4820-853b-f5e5bfe90072",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the ONTAP cluster management LIF",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "cluster-mgmt-ip",
+      "key": "clusterMgmtIp"
+    },
+    {
+      "type": "string",
+      "value": "https://{{clusterMgmtIp}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cd459013-c427-4040-a01d-adbf8a54acd9",
+    "name": "NetApp ONTAP REST Aggregates Volumes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.\n\nContact Support:\n Name: NetApp Developer Resources",
+      "type": "text/plain"
+    }
+  }
+}

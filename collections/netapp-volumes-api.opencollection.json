@@ -1,0 +1,182 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NetApp ONTAP REST Aggregates Volumes API",
+    "version": "9.15.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Volumes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Storage Volumes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              },
+              {
+                "name": "svm.name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SVM name"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by volume name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by volume state"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by volume type"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of volumes across the cluster. Supports filtering by SVM, aggregate, state, type, and other attributes. Returns volume configuration, space usage, performance counters, and relationships."
+        },
+        {
+          "info": {
+            "name": "Netapp Create a New Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes",
+            "params": [
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "Return the newly created record"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new volume on the specified SVM and aggregate. The volume name, SVM, and aggregate are required. Optional parameters include size, security style, export policy, tiering policy, QoS policy, and snapshot policy."
+        },
+        {
+          "info": {
+            "name": "Netapp Retrieve a Specific Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific volume including space utilization, configuration, state, associated SVM, aggregate, export policy, snapshot policy, and QoS settings."
+        },
+        {
+          "info": {
+            "name": "Netapp Update a Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the properties of an existing volume. Supports modifying the volume name, size, comment, state, export policy, snapshot policy, tiering policy, and QoS settings."
+        },
+        {
+          "info": {
+            "name": "Netapp Delete a Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes an existing volume. The volume must be offline or unmounted before deletion. This is an asynchronous operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,995 @@
+{
+  "item": [
+    {
+      "id": "35447d52-5b18-4c2c-b0f9-f0d62f1a5cd1",
+      "name": "Cluster",
+      "description": {
+        "content": "Operations for managing ONTAP cluster configuration, nodes, licensing, and health",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "451be328-1175-4557-b15a-c37c8d023168",
+          "name": "Netapp Retrieve Cluster Information",
+          "request": {
+            "name": "Netapp Retrieve Cluster Information",
+            "description": {
+              "content": "Retrieves the cluster configuration including name, version, UUID, contact information, DNS domains, NTP servers, and management interfaces.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                },
+                {
+                  "disabled": false,
+                  "key": "return_records",
+                  "value": "true",
+                  "description": "If true, return the records in the response body"
+                },
+                {
+                  "disabled": false,
+                  "key": "return_timeout",
+                  "value": "15",
+                  "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c1129d0-7b3f-4745-b075-caaff0b9fcb6",
+              "name": "Cluster information retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_records",
+                      "value": "true"
+                    },
+                    {
+                      "key": "return_timeout",
+                      "value": "15"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"db70dd29-8f0c-8b15-539b-41e393524ffa\",\n  \"name\": \"cluster1\",\n  \"contact\": \"example_value\",\n  \"location\": \"example_value\",\n  \"version\": {\n    \"full\": \"NetApp Release 9.15.1\",\n    \"generation\": 5636,\n    \"major\": 7557,\n    \"minor\": 5719\n  },\n  \"timezone\": {\n    \"name\": \"America/New_York\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://loAOg.xbilQQBioJ6mnKfJqDah\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da5ba773-7cb2-4fd9-848d-3dc6c6c59b7c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_records",
+                      "value": "true"
+                    },
+                    {
+                      "key": "return_timeout",
+                      "value": "15"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6aab0ab0-ccca-491b-b21c-51f8ec8688c0",
+          "name": "Netapp Update Cluster Configuration",
+          "request": {
+            "name": "Netapp Update Cluster Configuration",
+            "description": {
+              "content": "Updates cluster-wide configuration properties such as name, contact, location, DNS, NTP, and timezone settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"contact\": \"<string>\",\n  \"location\": \"<string>\",\n  \"dns_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ntp_servers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timezone\": {\n    \"name\": \"<string>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<uri>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "427a7bc9-5a0e-4390-a4aa-f1c719da60e9",
+              "name": "Cluster configuration updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"cluster1\",\n  \"contact\": \"example_value\",\n  \"location\": \"example_value\",\n  \"timezone\": {\n    \"name\": \"America/New_York\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://AfzpmpoVDbprDO.xbs5kWXkv,wm2oSkxqXyjcAIqeT.lFmDNme\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"db70dd29-8f0c-8b15-539b-41e393524ffa\",\n  \"name\": \"cluster1\",\n  \"contact\": \"example_value\",\n  \"location\": \"example_value\",\n  \"version\": {\n    \"full\": \"NetApp Release 9.15.1\",\n    \"generation\": 5636,\n    \"major\": 7557,\n    \"minor\": 5719\n  },\n  \"timezone\": {\n    \"name\": \"America/New_York\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://loAOg.xbilQQBioJ6mnKfJqDah\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6187c7ec-1ba9-421e-a553-147b5caae090",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"cluster1\",\n  \"contact\": \"example_value\",\n  \"location\": \"example_value\",\n  \"timezone\": {\n    \"name\": \"America/New_York\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://AfzpmpoVDbprDO.xbs5kWXkv,wm2oSkxqXyjcAIqeT.lFmDNme\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c611069c-b12d-455c-adf5-066601478a4c",
+          "name": "Netapp List Cluster Nodes",
+          "request": {
+            "name": "Netapp List Cluster Nodes",
+            "description": {
+              "content": "Retrieves the list of nodes in the cluster, including node name, UUID, model, serial number, version, uptime, and health status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster",
+                "nodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                },
+                {
+                  "disabled": false,
+                  "key": "return_records",
+                  "value": "true",
+                  "description": "If true, return the records in the response body"
+                },
+                {
+                  "disabled": false,
+                  "key": "return_timeout",
+                  "value": "15",
+                  "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_records",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb5b0c48-36c5-44d9-8269-a01b2d1e194f",
+              "name": "List of cluster nodes retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_records",
+                      "value": "true"
+                    },
+                    {
+                      "key": "return_timeout",
+                      "value": "15"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"uuid\": \"0df41e59-e9a5-6006-9395-d3aea936a25a\",\n      \"name\": \"node1\",\n      \"model\": \"AFF-A400\",\n      \"serial_number\": \"example_value\",\n      \"uptime\": 10,\n      \"version\": {\n        \"full\": \"string\",\n        \"generation\": 9045,\n        \"major\": 5756,\n        \"minor\": 9453\n      },\n      \"controller\": {\n        \"cpu\": {\n          \"count\": 4312,\n          \"processor\": \"string\"\n        },\n        \"memory_size\": 3670,\n        \"over_temperature\": \"over\"\n      },\n      \"state\": \"up\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"https://vUJKFreIwxnICI.gfIy,6HUSiO0RPfL81Vdexm\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"0a19fd04-c663-006d-bd6c-556883c153e3\",\n      \"name\": \"node1\",\n      \"model\": \"AFF-A400\",\n      \"serial_number\": \"example_value\",\n      \"uptime\": 10,\n      \"version\": {\n        \"full\": \"string\",\n        \"generation\": 898,\n        \"major\": 250,\n        \"minor\": 7171\n      },\n      \"controller\": {\n        \"cpu\": {\n          \"count\": 4949,\n          \"processor\": \"string\"\n        },\n        \"memory_size\": 8564,\n        \"over_temperature\": \"over\"\n      },\n      \"state\": \"up\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"https://WaIxCJwObQvlFrBpJsxgXiH.dqiCKGF+aAONkt9H8rdDrGrGO2orVFlS.p.ci8rIv8PxIm-b.w\"\n        }\n      }\n    }\n  ],\n  \"num_records\": 7930,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://XFwsDgYGzVkgsJ.evtA\"\n    },\n    \"next\": {\n      \"href\": \"http://TEYeSL.gwtuyJWt4+cygazIHJqn-iU.vKWXhO2f46Cpx99kM6kziaACZm\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a51983ec-eb47-485c-9048-37912579693c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_records",
+                      "value": "true"
+                    },
+                    {
+                      "key": "return_timeout",
+                      "value": "15"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3091681-bc4c-412b-bfc9-b0748d2c6910",
+          "name": "Netapp Retrieve a Specific Cluster Node",
+          "request": {
+            "name": "Netapp Retrieve a Specific Cluster Node",
+            "description": {
+              "content": "Retrieves information about a specific node in the cluster identified by its UUID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster",
+                "nodes",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The unique identifier (UUID) of the resource"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53a15349-c407-492c-8140-ba4d30835826",
+              "name": "Node information retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "nodes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"70518a46-959a-cd55-41c6-1571b8515b20\",\n  \"name\": \"node1\",\n  \"model\": \"AFF-A400\",\n  \"serial_number\": \"example_value\",\n  \"uptime\": 10,\n  \"version\": {\n    \"full\": \"string\",\n    \"generation\": 6701,\n    \"major\": 9860,\n    \"minor\": 2720\n  },\n  \"controller\": {\n    \"cpu\": {\n      \"count\": 6258,\n      \"processor\": \"string\"\n    },\n    \"memory_size\": 5707,\n    \"over_temperature\": \"over\"\n  },\n  \"state\": \"up\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://zCfZmFmiraxfaiLIjCWxFGwCO.oqftDc5hiugroi6wZrhiTqUykJhFLQt1aK6OEQ7xA\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38136b74-9b2d-4bb7-bc6e-258a8c21acad",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "nodes",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2505442-0177-4a0e-aad5-c0025062266d",
+          "name": "Netapp List Cluster Licenses",
+          "request": {
+            "name": "Netapp List Cluster Licenses",
+            "description": {
+              "content": "Retrieves information about the licenses installed on the cluster, including license name, scope, state, and compliance status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster",
+                "licensing",
+                "licenses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_records",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return per page"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d12b5c72-f3f1-4e14-9a91-738e90307730",
+              "name": "License information retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "licensing",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"name\": \"NFS\",\n      \"scope\": \"cluster\",\n      \"state\": \"compliant\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"https://JzmMAGGvJUrnhSI.guzbW-Ij7aT+W\"\n        }\n      }\n    },\n    {\n      \"name\": \"NFS\",\n      \"scope\": \"cluster\",\n      \"state\": \"compliant\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"http://VUVaLoXXTOrJofNSoN.kjglA.vXK\"\n        }\n      }\n    }\n  ],\n  \"num_records\": 1836,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://LEmYiG.ijetP.T69h7y3s5iDJNm1GFyISmAIg48GkjRxyxDGJyrazWlqlzsCmq,Tg.\"\n    },\n    \"next\": {\n      \"href\": \"http://JgFKSjyYeGw.rlyL2A8f,aSt5j,cewoCQux1eTqCE.kugarLtaLPP,HBSjwmfMcmlyoxZ\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbf9582c-a37f-41a2-a9c3-48220f9133f5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "licensing",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the ONTAP cluster management LIF",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "cluster-mgmt-ip",
+      "key": "clusterMgmtIp"
+    },
+    {
+      "type": "string",
+      "value": "https://{{clusterMgmtIp}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "026da1b5-93e5-4d49-96de-2c61f7502233",
+    "name": "NetApp ONTAP REST Aggregates Cluster API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.\n\nContact Support:\n Name: NetApp Developer Resources",
+      "type": "text/plain"
+    }
+  }
+}

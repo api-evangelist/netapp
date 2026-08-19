@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NetApp ONTAP REST Aggregates Network API",
+    "version": "9.15.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Network Interfaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/network/ip/interfaces",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              },
+              {
+                "name": "svm.name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SVM name"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by interface name"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of network interfaces (LIFs) across the cluster. Network interfaces provide data access and management connectivity for SVMs and the cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NetApp ONTAP REST Aggregates Cluster API",
+    "version": "9.15.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cluster",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp Retrieve Cluster Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/cluster",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              }
+            ]
+          },
+          "docs": "Retrieves the cluster configuration including name, version, UUID, contact information, DNS domains, NTP servers, and management interfaces."
+        },
+        {
+          "info": {
+            "name": "Netapp Update Cluster Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{clusterMgmtIp}/api/cluster",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates cluster-wide configuration properties such as name, contact, location, DNS, NTP, and timezone settings."
+        },
+        {
+          "info": {
+            "name": "Netapp List Cluster Nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/cluster/nodes",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              }
+            ]
+          },
+          "docs": "Retrieves the list of nodes in the cluster, including node name, UUID, model, serial number, version, uptime, and health status."
+        },
+        {
+          "info": {
+            "name": "Netapp Retrieve a Specific Cluster Node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/cluster/nodes/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              }
+            ]
+          },
+          "docs": "Retrieves information about a specific node in the cluster identified by its UUID."
+        },
+        {
+          "info": {
+            "name": "Netapp List Cluster Licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/cluster/licensing/licenses",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              }
+            ]
+          },
+          "docs": "Retrieves information about the licenses installed on the cluster, including license name, scope, state, and compliance status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

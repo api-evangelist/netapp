@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NetApp ONTAP REST Aggregates Snapshots API",
+    "version": "9.15.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Snapshots for a Volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:volume.uuid/snapshots",
+            "params": [
+              {
+                "name": "volume.uuid",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the volume"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              }
+            ]
+          },
+          "docs": "Retrieves the list of snapshots for a specific volume, including snapshot name, UUID, creation time, and size."
+        },
+        {
+          "info": {
+            "name": "Netapp Create a Volume Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{clusterMgmtIp}/api/storage/volumes/:volume.uuid/snapshots",
+            "params": [
+              {
+                "name": "volume.uuid",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the volume"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new snapshot of the specified volume. The snapshot name is required. An optional comment and expiry time can be specified."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

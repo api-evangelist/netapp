@@ -1,0 +1,1212 @@
+{
+  "item": [
+    {
+      "id": "6a6266dc-b8f6-4116-9687-69745013c25e",
+      "name": "SVMs",
+      "description": {
+        "content": "Operations for managing storage virtual machines (SVMs / vservers)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "58283e49-106b-4eef-aa33-a3018e33c4e6",
+          "name": "Netapp List Storage Virtual Machines",
+          "request": {
+            "name": "Netapp List Storage Virtual Machines",
+            "description": {
+              "content": "Retrieves a list of storage virtual machines (SVMs) in the cluster. SVMs are secure virtualized storage containers that provide data access to clients. Each SVM has its own volumes, network interfaces, protocols, and security configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "svm",
+                "svms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                },
+                {
+                  "disabled": false,
+                  "key": "return_records",
+                  "value": "true",
+                  "description": "If true, return the records in the response body"
+                },
+                {
+                  "disabled": false,
+                  "key": "return_timeout",
+                  "value": "15",
+                  "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_records",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by SVM name"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Filter by SVM state"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7bd40827-55ba-4f85-999b-530c867e2dca",
+              "name": "List of SVMs retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_records",
+                      "value": "true"
+                    },
+                    {
+                      "key": "return_timeout",
+                      "value": "15"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"uuid\": \"ced87afe-7d3a-bf05-f348-f75dff5231cb\",\n      \"name\": \"svm1\",\n      \"state\": \"starting\",\n      \"subtype\": \"default\",\n      \"language\": \"c.utf_8\",\n      \"comment\": \"example_value\",\n      \"ipspace\": {\n        \"name\": \"Default\",\n        \"uuid\": \"2e610a44-83ff-b6ec-3efa-3d60a7e1c0bc\"\n      },\n      \"nfs\": {\n        \"enabled\": false,\n        \"allowed\": true\n      },\n      \"cifs\": {\n        \"enabled\": false,\n        \"allowed\": false,\n        \"name\": \"string\"\n      },\n      \"iscsi\": {\n        \"enabled\": false,\n        \"allowed\": true\n      },\n      \"fcp\": {\n        \"enabled\": false,\n        \"allowed\": false\n      },\n      \"nvme\": {\n        \"enabled\": false,\n        \"allowed\": false\n      },\n      \"snapshot_policy\": {\n        \"name\": \"string\",\n        \"uuid\": \"4391ba7f-66ea-1ecb-875c-1038518b3552\"\n      },\n      \"dns\": {\n        \"domains\": [\n          \"string\",\n          \"string\"\n        ],\n        \"servers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"certificate\": {\n        \"uuid\": \"3e7bf2d5-4402-117c-f39f-fef617db53d3\",\n        \"name\": \"string\"\n      },\n      \"max_volumes\": \"example_value\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"https://zbPMCM.gggkWUXZRr1wuUuF2A3G.JeJlU-j6RMijVfpvWRjaEdr\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"9589525b-33e6-4faf-7ca3-53f09217a5a1\",\n      \"name\": \"svm1\",\n      \"state\": \"starting\",\n      \"subtype\": \"default\",\n      \"language\": \"c.utf_8\",\n      \"comment\": \"example_value\",\n      \"ipspace\": {\n        \"name\": \"Default\",\n        \"uuid\": \"dbf4e104-fc10-3b12-845b-3281d4d38326\"\n      },\n      \"nfs\": {\n        \"enabled\": true,\n        \"allowed\": true\n      },\n      \"cifs\": {\n        \"enabled\": false,\n        \"allowed\": true,\n        \"name\": \"string\"\n      },\n      \"iscsi\": {\n        \"enabled\": false,\n        \"allowed\": true\n      },\n      \"fcp\": {\n        \"enabled\": false,\n        \"allowed\": false\n      },\n      \"nvme\": {\n        \"enabled\": false,\n        \"allowed\": false\n      },\n      \"snapshot_policy\": {\n        \"name\": \"string\",\n        \"uuid\": \"b99214b3-937e-144d-e165-57be8d23cb32\"\n      },\n      \"dns\": {\n        \"domains\": [\n          \"string\",\n          \"string\"\n        ],\n        \"servers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"certificate\": {\n        \"uuid\": \"9a554473-dff2-47f9-5f28-81682cdc4b2d\",\n        \"name\": \"string\"\n      },\n      \"max_volumes\": \"example_value\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"https://DusorzaLUpzGcAvu.nlbzFdIham7VpEWsEf-\"\n        }\n      }\n    }\n  ],\n  \"num_records\": 5713,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://BGZyu.ejflsFeXNbvjxDjnoX-,Tj5jfIu0umYEhvTupV4Tun6UFA-OrUjHx\"\n    },\n    \"next\": {\n      \"href\": \"https://CgoQAHFxxP.khmZHz\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f60ac375-d467-4997-a611-c769de32d42d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_records",
+                      "value": "true"
+                    },
+                    {
+                      "key": "return_timeout",
+                      "value": "15"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5316acf-c14d-4937-ad5b-2e6566315998",
+          "name": "Netapp Create a New Svm",
+          "request": {
+            "name": "Netapp Create a New Svm",
+            "description": {
+              "content": "Creates a new storage virtual machine (SVM). The SVM name is required. Optional parameters include allowed protocols (NFS, CIFS, iSCSI, FCP), aggregates, language, snapshot policy, and IP interface configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "svm",
+                "svms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"state\": \"<string>\",\n  \"language\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"ipspace\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"aggregates\": [\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    }\n  ],\n  \"nfs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"cifs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\",\n    \"name\": \"<string>\"\n  },\n  \"iscsi\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"fcp\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"nvme\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"servers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\"\n  },\n  \"max_volumes\": \"<string>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<uri>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1acbde65-50e1-4f09-8edb-b4fd557f96f1",
+              "name": "SVM created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"svm1\",\n  \"state\": \"starting\",\n  \"language\": \"c.utf_8\",\n  \"comment\": \"example_value\",\n  \"ipspace\": {\n    \"name\": \"Default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"nfs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"cifs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\",\n    \"name\": \"<string>\"\n  },\n  \"iscsi\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"fcp\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"nvme\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"servers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\"\n  },\n  \"max_volumes\": \"example_value\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://KGyFXkGdnCnwYwvFzdlqFSBurUF.wmmuSCwY9HTGJzt4tOhA-XWvP76hphRuTBAsMayImPE,Q1YCuoCFy9XGL1FBHY\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"c073c3c1-0aa3-793a-6ab6-a24df948badd\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://jFweoQZVrTOFcVXlWwQClVqdKgUYaD.uegmghCCmvJFlEZ-p3lGgWVXtLfojUnc5V7Ol\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b341af4c-5d87-488c-8b77-cafe8a0eee81",
+              "name": "SVM creation accepted (asynchronous operation)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"svm1\",\n  \"state\": \"starting\",\n  \"language\": \"c.utf_8\",\n  \"comment\": \"example_value\",\n  \"ipspace\": {\n    \"name\": \"Default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"nfs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"cifs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\",\n    \"name\": \"<string>\"\n  },\n  \"iscsi\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"fcp\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"nvme\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"servers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\"\n  },\n  \"max_volumes\": \"example_value\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://KGyFXkGdnCnwYwvFzdlqFSBurUF.wmmuSCwY9HTGJzt4tOhA-XWvP76hphRuTBAsMayImPE,Q1YCuoCFy9XGL1FBHY\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"c073c3c1-0aa3-793a-6ab6-a24df948badd\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://jFweoQZVrTOFcVXlWwQClVqdKgUYaD.uegmghCCmvJFlEZ-p3lGgWVXtLfojUnc5V7Ol\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53aab7be-3504-4965-8591-ab74802bb30f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"svm1\",\n  \"state\": \"starting\",\n  \"language\": \"c.utf_8\",\n  \"comment\": \"example_value\",\n  \"ipspace\": {\n    \"name\": \"Default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"nfs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"cifs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\",\n    \"name\": \"<string>\"\n  },\n  \"iscsi\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"fcp\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"nvme\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"servers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\"\n  },\n  \"max_volumes\": \"example_value\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://KGyFXkGdnCnwYwvFzdlqFSBurUF.wmmuSCwY9HTGJzt4tOhA-XWvP76hphRuTBAsMayImPE,Q1YCuoCFy9XGL1FBHY\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b66865a8-0891-472e-9550-869aa5dfc3af",
+          "name": "Netapp Retrieve a Specific Svm",
+          "request": {
+            "name": "Netapp Retrieve a Specific Svm",
+            "description": {
+              "content": "Retrieves detailed information about a specific SVM including name, state, allowed protocols, IP interfaces, aggregates, and CIFS/NFS configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "svm",
+                "svms",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The unique identifier (UUID) of the resource"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5759a74-e63b-4080-8ada-a9f8dbb759f6",
+              "name": "SVM details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"d1eb580a-63ba-759a-f0b7-f24c40175fd1\",\n  \"name\": \"svm1\",\n  \"state\": \"starting\",\n  \"subtype\": \"default\",\n  \"language\": \"c.utf_8\",\n  \"comment\": \"example_value\",\n  \"ipspace\": {\n    \"name\": \"Default\",\n    \"uuid\": \"dd00e397-5556-11c3-f770-bfcfb0d79c7a\"\n  },\n  \"nfs\": {\n    \"enabled\": false,\n    \"allowed\": true\n  },\n  \"cifs\": {\n    \"enabled\": false,\n    \"allowed\": true,\n    \"name\": \"string\"\n  },\n  \"iscsi\": {\n    \"enabled\": false,\n    \"allowed\": true\n  },\n  \"fcp\": {\n    \"enabled\": false,\n    \"allowed\": false\n  },\n  \"nvme\": {\n    \"enabled\": true,\n    \"allowed\": true\n  },\n  \"snapshot_policy\": {\n    \"name\": \"string\",\n    \"uuid\": \"cbcaa254-dca1-a42c-f40a-8ce1f6a3d7c8\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"string\",\n      \"string\"\n    ],\n    \"servers\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"f8556cf1-6c91-7e86-ab12-dcc356beab4a\",\n    \"name\": \"string\"\n  },\n  \"max_volumes\": \"example_value\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://pEQPXuAretxajYTFNkjeqszKSlfbESX.twioluhnEz1HM8qx42T,BSC3xIbEWXW5Kc2BmjMszJuQ.gvyV1QMGpW2U7C1L3mJFZ4Kkb4S\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03dad738-7f14-4f1a-8930-3ff94786e3b9",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "366fa37c-9aa2-48e7-b7a1-8a792ee3fb4d",
+          "name": "Netapp Update an Svm",
+          "request": {
+            "name": "Netapp Update an Svm",
+            "description": {
+              "content": "Updates the properties of an existing SVM. Supports modifying name, allowed protocols, language, comment, and snapshot policy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "svm",
+                "svms",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The unique identifier (UUID) of the resource"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"state\": \"<string>\",\n  \"language\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"ipspace\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"aggregates\": [\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"_links\": {\n        \"self\": {\n          \"href\": \"<uri>\"\n        }\n      }\n    }\n  ],\n  \"nfs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"cifs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\",\n    \"name\": \"<string>\"\n  },\n  \"iscsi\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"fcp\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"nvme\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"servers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\"\n  },\n  \"max_volumes\": \"<string>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<uri>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "93ce0b46-bc22-4235-8378-05cf07a74736",
+              "name": "SVM updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"svm1\",\n  \"state\": \"starting\",\n  \"language\": \"c.utf_8\",\n  \"comment\": \"example_value\",\n  \"ipspace\": {\n    \"name\": \"Default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"nfs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"cifs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\",\n    \"name\": \"<string>\"\n  },\n  \"iscsi\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"fcp\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"nvme\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"servers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\"\n  },\n  \"max_volumes\": \"example_value\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://KGyFXkGdnCnwYwvFzdlqFSBurUF.wmmuSCwY9HTGJzt4tOhA-XWvP76hphRuTBAsMayImPE,Q1YCuoCFy9XGL1FBHY\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"c073c3c1-0aa3-793a-6ab6-a24df948badd\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://jFweoQZVrTOFcVXlWwQClVqdKgUYaD.uegmghCCmvJFlEZ-p3lGgWVXtLfojUnc5V7Ol\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bcb0c1a-6507-4253-8cff-1ecbd9f7b45b",
+              "name": "SVM update accepted (asynchronous operation)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"svm1\",\n  \"state\": \"starting\",\n  \"language\": \"c.utf_8\",\n  \"comment\": \"example_value\",\n  \"ipspace\": {\n    \"name\": \"Default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"nfs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"cifs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\",\n    \"name\": \"<string>\"\n  },\n  \"iscsi\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"fcp\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"nvme\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"servers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\"\n  },\n  \"max_volumes\": \"example_value\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://KGyFXkGdnCnwYwvFzdlqFSBurUF.wmmuSCwY9HTGJzt4tOhA-XWvP76hphRuTBAsMayImPE,Q1YCuoCFy9XGL1FBHY\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"c073c3c1-0aa3-793a-6ab6-a24df948badd\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://jFweoQZVrTOFcVXlWwQClVqdKgUYaD.uegmghCCmvJFlEZ-p3lGgWVXtLfojUnc5V7Ol\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9a31f3d-4d0d-493e-a51b-5b1414e74ee3",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"svm1\",\n  \"state\": \"starting\",\n  \"language\": \"c.utf_8\",\n  \"comment\": \"example_value\",\n  \"ipspace\": {\n    \"name\": \"Default\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"nfs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"cifs\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\",\n    \"name\": \"<string>\"\n  },\n  \"iscsi\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"fcp\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"nvme\": {\n    \"enabled\": \"<boolean>\",\n    \"allowed\": \"<boolean>\"\n  },\n  \"snapshot_policy\": {\n    \"name\": \"<string>\",\n    \"uuid\": \"<uuid>\"\n  },\n  \"dns\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"servers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"certificate\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\"\n  },\n  \"max_volumes\": \"example_value\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://KGyFXkGdnCnwYwvFzdlqFSBurUF.wmmuSCwY9HTGJzt4tOhA-XWvP76hphRuTBAsMayImPE,Q1YCuoCFy9XGL1FBHY\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cc07792-249d-4de1-98f8-0405f4d65d84",
+          "name": "Netapp Delete an Svm",
+          "request": {
+            "name": "Netapp Delete an Svm",
+            "description": {
+              "content": "Deletes an existing SVM and all associated configuration. All volumes and network interfaces in the SVM must be deleted first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "svm",
+                "svms",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "uuid",
+                  "description": "(Required) The unique identifier (UUID) of the resource"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae171848-eea6-4f9a-a8f6-b0c0b3fede31",
+              "name": "SVM deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"c073c3c1-0aa3-793a-6ab6-a24df948badd\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://jFweoQZVrTOFcVXlWwQClVqdKgUYaD.uegmghCCmvJFlEZ-p3lGgWVXtLfojUnc5V7Ol\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "502b241f-1231-4941-b3bc-b8e32902d036",
+              "name": "SVM deletion accepted (asynchronous operation)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"c073c3c1-0aa3-793a-6ab6-a24df948badd\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://jFweoQZVrTOFcVXlWwQClVqdKgUYaD.uegmghCCmvJFlEZ-p3lGgWVXtLfojUnc5V7Ol\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d22d6ed-79cd-46f8-a0e5-e438161a0f7f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "svm",
+                    "svms",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "uuid",
+                      "description": "(Required) The unique identifier (UUID) of the resource"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the ONTAP cluster management LIF",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "cluster-mgmt-ip",
+      "key": "clusterMgmtIp"
+    },
+    {
+      "type": "string",
+      "value": "https://{{clusterMgmtIp}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6644f4d5-2e14-45d0-8907-d15e61a1e278",
+    "name": "NetApp ONTAP REST Aggregates SVMs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.\n\nContact Support:\n Name: NetApp Developer Resources",
+      "type": "text/plain"
+    }
+  }
+}

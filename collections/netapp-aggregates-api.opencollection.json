@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NetApp ONTAP REST Aggregates API",
+    "version": "9.15.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Aggregates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Netapp List Storage Aggregates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              },
+              {
+                "name": "return_records",
+                "value": "",
+                "type": "query",
+                "description": "If true, return the records in the response body"
+              },
+              {
+                "name": "return_timeout",
+                "value": "",
+                "type": "query",
+                "description": "The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds)."
+              },
+              {
+                "name": "max_records",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by aggregate name"
+              },
+              {
+                "name": "node.name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by owning node name"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by aggregate state"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of aggregates (local tiers) in the cluster. Returns aggregate configuration, space usage, state, RAID details, and the owning node. Aggregates are the physical storage pools from which volumes are provisioned."
+        },
+        {
+          "info": {
+            "name": "Netapp Create a New Aggregate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new aggregate (local tier) on the specified node. The aggregate name, node, disk count, and RAID type are required."
+        },
+        {
+          "info": {
+            "name": "Netapp Retrieve a Specific Aggregate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific aggregate including space usage, RAID configuration, state, and owning node."
+        },
+        {
+          "info": {
+            "name": "Netapp Update an Aggregate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the properties of an existing aggregate. Supports modifying the name and adding disks to expand capacity."
+        },
+        {
+          "info": {
+            "name": "Netapp Delete an Aggregate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{clusterMgmtIp}/api/storage/aggregates/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UUID) of the resource"
+              }
+            ]
+          },
+          "docs": "Deletes an existing aggregate. The aggregate must be empty (no volumes) and offline before deletion."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

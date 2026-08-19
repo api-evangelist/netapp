@@ -1,0 +1,540 @@
+{
+  "item": [
+    {
+      "id": "ad548e21-9b8a-47e7-88f5-cbccc6402d3b",
+      "name": "Snapshots",
+      "description": {
+        "content": "Operations for managing volume snapshots",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a18f9a4-d06e-4df4-ac76-7afbba6be16a",
+          "name": "Netapp List Snapshots for a Volume",
+          "request": {
+            "name": "Netapp List Snapshots for a Volume",
+            "description": {
+              "content": "Retrieves the list of snapshots for a specific volume, including snapshot name, UUID, creation time, and size.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "storage",
+                "volumes",
+                ":volume.uuid",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_records",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "volume.uuid",
+                  "description": "(Required) UUID of the volume"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0caf9ced-9ca0-4d4c-a9fd-43381af9114f",
+              "name": "List of snapshots retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":volume.uuid",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "volume.uuid",
+                      "description": "(Required) UUID of the volume"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"uuid\": \"e0670df1-e50c-3cf5-1462-8ca4ec73936a\",\n      \"name\": \"hourly.2024-01-15_0815\",\n      \"create_time\": \"2026-01-15T10:30:00Z\",\n      \"expiry_time\": \"2026-01-15T10:30:00Z\",\n      \"comment\": \"example_value\",\n      \"size\": 10,\n      \"state\": \"valid\",\n      \"snapmirror_label\": \"example_value\",\n      \"volume\": {\n        \"uuid\": \"efd06e39-f685-f8af-fb1d-e329bd0b16f6\",\n        \"name\": \"Example Title\",\n        \"_links\": {\n          \"self\": {\n            \"href\": \"https://BcmBncqnZSDIXAiTFpyFrrziJtfHM.pgdu,A+WfvK73SYUF9rQTY.mQlaD\"\n          }\n        }\n      },\n      \"_links\": {\n        \"self\": {\n          \"href\": \"http://sOJzrClaKFkgcaJYfviC.xcfe4Mud2BMX\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"a4a931ba-c2ed-7003-e68d-cb0875d8a46c\",\n      \"name\": \"hourly.2024-01-15_0815\",\n      \"create_time\": \"2026-01-15T10:30:00Z\",\n      \"expiry_time\": \"2026-01-15T10:30:00Z\",\n      \"comment\": \"example_value\",\n      \"size\": 10,\n      \"state\": \"valid\",\n      \"snapmirror_label\": \"example_value\",\n      \"volume\": {\n        \"uuid\": \"216d7cd5-5818-54aa-9eae-5668a9d4ec69\",\n        \"name\": \"Example Title\",\n        \"_links\": {\n          \"self\": {\n            \"href\": \"http://Q.saC,m-bsJ0RhOTCb3O4tsys1Q8s\"\n          }\n        }\n      },\n      \"_links\": {\n        \"self\": {\n          \"href\": \"http://ueyi.ymeO0FNTvLpumbfmlD08AJ9cTITfdJO\"\n        }\n      }\n    }\n  ],\n  \"num_records\": 3461,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://qxe.mvrcaq49pO-RgjkMPdYU7Ib8O,O+CiWjfA2fr,cN\"\n    },\n    \"next\": {\n      \"href\": \"https://NnPkJwhnRMkchMAHSavSv.uziwpWdKo9pIdD5N,oUTqkV6odPdC9lsXGGIncdXKzov,UKNCixkOXgXQyd\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c361543-5820-4da1-a99e-2661027eb595",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":volume.uuid",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "volume.uuid",
+                      "description": "(Required) UUID of the volume"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "12a695c5-d986-447e-8095-f0b4516bd0a2",
+          "name": "Netapp Create a Volume Snapshot",
+          "request": {
+            "name": "Netapp Create a Volume Snapshot",
+            "description": {
+              "content": "Creates a new snapshot of the specified volume. The snapshot name is required. An optional comment and expiry time can be specified.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "storage",
+                "volumes",
+                ":volume.uuid",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "volume.uuid",
+                  "description": "(Required) UUID of the volume"
+                },
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"expiry_time\": \"<dateTime>\",\n  \"comment\": \"<string>\",\n  \"snapmirror_label\": \"<string>\",\n  \"volume\": {\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"<uri>\"\n      }\n    }\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<uri>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f45d983-5db6-476a-af10-12f57b81883a",
+              "name": "Snapshot created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":volume.uuid",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "volume.uuid",
+                      "description": "(Required) UUID of the volume"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"hourly.2024-01-15_0815\",\n  \"expiry_time\": \"2026-01-15T10:30:00Z\",\n  \"comment\": \"example_value\",\n  \"snapmirror_label\": \"example_value\",\n  \"volume\": {\n    \"uuid\": \"c9a02432-0bba-9d06-5944-e4e845f5d162\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://VgddBwHHsvWEVsEHUHskiFZmyrOdERE.pruaeSXW0jOM.B2dCM3XjIhVyNShkEyIrxWxYLcra4HdSPJSSpjWSWTuypASsr5DBDKocyBtr4NVdGgyDHcU\"\n      }\n    }\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://WdVkWyuGLYzhYwmVnJTkQ.bnmJeN5\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"b88be312-e043-97a9-d38c-88bcf66aaaaf\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://TIbsYbX.jeoWpFIsxfU2-AqQo3Aew9DA,muj1yT\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d89684e2-ec6b-485f-8d02-59bc4762c1c5",
+              "name": "Snapshot creation accepted (asynchronous operation)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":volume.uuid",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "volume.uuid",
+                      "description": "(Required) UUID of the volume"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"hourly.2024-01-15_0815\",\n  \"expiry_time\": \"2026-01-15T10:30:00Z\",\n  \"comment\": \"example_value\",\n  \"snapmirror_label\": \"example_value\",\n  \"volume\": {\n    \"uuid\": \"c9a02432-0bba-9d06-5944-e4e845f5d162\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://VgddBwHHsvWEVsEHUHskiFZmyrOdERE.pruaeSXW0jOM.B2dCM3XjIhVyNShkEyIrxWxYLcra4HdSPJSSpjWSWTuypASsr5DBDKocyBtr4NVdGgyDHcU\"\n      }\n    }\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://WdVkWyuGLYzhYwmVnJTkQ.bnmJeN5\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job\": {\n    \"uuid\": \"b88be312-e043-97a9-d38c-88bcf66aaaaf\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://TIbsYbX.jeoWpFIsxfU2-AqQo3Aew9DA,muj1yT\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3f91a76-6dd9-4bef-8088-df9b3e34de17",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "storage",
+                    "volumes",
+                    ":volume.uuid",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "volume.uuid",
+                      "description": "(Required) UUID of the volume"
+                    },
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"hourly.2024-01-15_0815\",\n  \"expiry_time\": \"2026-01-15T10:30:00Z\",\n  \"comment\": \"example_value\",\n  \"snapmirror_label\": \"example_value\",\n  \"volume\": {\n    \"uuid\": \"c9a02432-0bba-9d06-5944-e4e845f5d162\",\n    \"name\": \"Example Title\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"https://VgddBwHHsvWEVsEHUHskiFZmyrOdERE.pruaeSXW0jOM.B2dCM3XjIhVyNShkEyIrxWxYLcra4HdSPJSSpjWSWTuypASsr5DBDKocyBtr4NVdGgyDHcU\"\n      }\n    }\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://WdVkWyuGLYzhYwmVnJTkQ.bnmJeN5\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the ONTAP cluster management LIF",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "cluster-mgmt-ip",
+      "key": "clusterMgmtIp"
+    },
+    {
+      "type": "string",
+      "value": "https://{{clusterMgmtIp}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ff70bec3-e2e2-4de9-bb1c-6ce38af8ceb8",
+    "name": "NetApp ONTAP REST Aggregates Snapshots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.\n\nContact Support:\n Name: NetApp Developer Resources",
+      "type": "text/plain"
+    }
+  }
+}

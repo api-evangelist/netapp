@@ -1,0 +1,275 @@
+{
+  "item": [
+    {
+      "id": "6cc3ded3-dd57-455d-8128-79347a4e4163",
+      "name": "Network",
+      "description": {
+        "content": "Operations for managing network interfaces, ports, and IP configuration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9b28d80-89b2-4d87-84c2-bd1e8ce92a0c",
+          "name": "Netapp List Network Interfaces",
+          "request": {
+            "name": "Netapp List Network Interfaces",
+            "description": {
+              "content": "Retrieves a list of network interfaces (LIFs) across the cluster. Network interfaces provide data access and management connectivity for SVMs and the cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "network",
+                "ip",
+                "interfaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_records",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc)."
+                },
+                {
+                  "disabled": false,
+                  "key": "svm.name",
+                  "value": "<string>",
+                  "description": "Filter by SVM name"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by interface name"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the ONTAP cluster management LIF",
+                  "type": "any",
+                  "value": "{{clusterMgmtIp}}",
+                  "key": "clusterMgmtIp"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3eb1c15a-cfba-4f53-81e0-2c69c7e0f9e6",
+              "name": "List of network interfaces retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "network",
+                    "ip",
+                    "interfaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "svm.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"uuid\": \"d0881abb-7a85-2f6d-cdd9-895071eb37f8\",\n      \"name\": \"lif1\",\n      \"ip\": {\n        \"address\": \"192.168.1.100\",\n        \"netmask\": \"255.255.255.0\",\n        \"family\": \"ipv4\"\n      },\n      \"state\": \"up\",\n      \"enabled\": true,\n      \"scope\": \"svm\",\n      \"service_policy\": {\n        \"name\": \"default-data-files\"\n      },\n      \"svm\": {\n        \"uuid\": \"1786b168-5bc3-4ea7-2f05-f12bb97a890b\",\n        \"name\": \"Example Title\",\n        \"_links\": {\n          \"self\": {\n            \"href\": \"https://DJBXLpQQTqwzjXetoUYGb.gbiIU7k+zQYUKUmixF1QoCfxkC7isiHc4qWWMooIy.Z62\"\n          }\n        }\n      },\n      \"location\": {\n        \"home_node\": {\n          \"uuid\": \"2a4922c1-5e2a-f4d8-0b7d-9df44531053b\",\n          \"name\": \"Example Title\",\n          \"_links\": {\n            \"self\": {\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"home_port\": {\n          \"name\": \"e0d\",\n          \"node\": {\n            \"uuid\": \"bbbe22dd-61fc-9269-31d2-b87a06b3f779\",\n            \"name\": \"Example Title\",\n            \"_links\": {\n              \"self\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"node\": {\n          \"uuid\": \"141eb302-4b5a-d99a-5b68-fe1675b1191e\",\n          \"name\": \"Example Title\",\n          \"_links\": {\n            \"self\": {\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"port\": {\n          \"name\": \"string\",\n          \"node\": {\n            \"uuid\": \"69f20d4e-0399-e0f1-aca6-c6bb0d1497e8\",\n            \"name\": \"Example Title\",\n            \"_links\": {\n              \"self\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"is_home\": true\n      },\n      \"_links\": {\n        \"self\": {\n          \"href\": \"https://xvdiGnvOAIcGxPEcwoXYBTNZBT.dznyT0Ho4CkV,KDAiXHGbH,Kue1lbCh5+4\"\n        }\n      }\n    },\n    {\n      \"uuid\": \"d0c8910d-f19e-f5af-ced4-5d3ebf37eae6\",\n      \"name\": \"lif1\",\n      \"ip\": {\n        \"address\": \"192.168.1.100\",\n        \"netmask\": \"255.255.255.0\",\n        \"family\": \"ipv6\"\n      },\n      \"state\": \"up\",\n      \"enabled\": true,\n      \"scope\": \"svm\",\n      \"service_policy\": {\n        \"name\": \"default-data-files\"\n      },\n      \"svm\": {\n        \"uuid\": \"b9058d16-e040-0e2f-f683-27a2578009fc\",\n        \"name\": \"Example Title\",\n        \"_links\": {\n          \"self\": {\n            \"href\": \"http://bKihwlo.rshwgy-JQktR18Jtbb47emP7yqcdBLWyX1SqhybgJkI\"\n          }\n        }\n      },\n      \"location\": {\n        \"home_node\": {\n          \"uuid\": \"c690590b-1fdc-c606-7835-971dce736da0\",\n          \"name\": \"Example Title\",\n          \"_links\": {\n            \"self\": {\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"home_port\": {\n          \"name\": \"e0d\",\n          \"node\": {\n            \"uuid\": \"17c27fcc-2b3b-a8cf-c063-ef568a80fe05\",\n            \"name\": \"Example Title\",\n            \"_links\": {\n              \"self\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"node\": {\n          \"uuid\": \"8df558d4-983e-6bd6-36ce-967b202e94b5\",\n          \"name\": \"Example Title\",\n          \"_links\": {\n            \"self\": {\n              \"href\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"port\": {\n          \"name\": \"string\",\n          \"node\": {\n            \"uuid\": \"a0ebbdfd-9abd-1a6a-a532-46e8bcfead16\",\n            \"name\": \"Example Title\",\n            \"_links\": {\n              \"self\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"is_home\": false\n      },\n      \"_links\": {\n        \"self\": {\n          \"href\": \"https://NewIesj.iufCMpBhr\"\n        }\n      }\n    }\n  ],\n  \"num_records\": 4820,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"http://uRUacnOwQTngMaSUnRfTYJdLDv.icpuj7s2mqMhLZZ0wkFJ+SCvXQY2Hr,k8lKJrfrgG+EK\"\n    },\n    \"next\": {\n      \"href\": \"http://CspitH.mfY5tCr6,5i8hPX5\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ea6c123-9598-440c-afc1-a2612ea244fb",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "network",
+                    "ip",
+                    "interfaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_records",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "svm.name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the ONTAP cluster management LIF",
+                      "type": "any",
+                      "value": "{{clusterMgmtIp}}",
+                      "key": "clusterMgmtIp"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\",\n    \"target\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the ONTAP cluster management LIF",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "cluster-mgmt-ip",
+      "key": "clusterMgmtIp"
+    },
+    {
+      "type": "string",
+      "value": "https://{{clusterMgmtIp}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a8588a14-baf8-46a9-9a23-543f66ade355",
+    "name": "NetApp ONTAP REST Aggregates Network API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.\n\nContact Support:\n Name: NetApp Developer Resources",
+      "type": "text/plain"
+    }
+  }
+}
