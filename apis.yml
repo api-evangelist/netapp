@@ -17,7 +17,7 @@ image: https://www.netapp.com/media/na_logo_black_rgb_reg-mark_tcm19-21014.jpg
 url: https://www.netapp.com
 created: '2024'
 modified: '2026-05-19'
-specificationVersion: '0.18'
+specificationVersion: '0.23'
 type: Index
 access: 3rd-Party
 tags:
