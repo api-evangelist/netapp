@@ -1,5 +1,18 @@
 name: NetApp
 description: Collection of NetApp APIs for cloud data services, storage management, and infrastructure.
+deliveryModel:
+  model: self-hosted
+  license: BSD-3-Clause
+  open_source: true
+  commercial: false
+  callable_host: false
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
@@ -456,6 +469,9 @@ apis:
   - type: JSONLD
     url: json-ld/netapp-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/netapp-capability-edges.yml
+    name: NetApp Business Capability Map
   - type: IssueTracker
     url: https://github.com/NetApp/ontap-rest-python/issues
   - type: ContributionGuide

@@ -1,0 +1,66 @@
+slug: netapp
+provider: NetApp
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Aggregates
+  spec_file: netapp-aggregates-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.92
+  evidence: GET /storage/aggregates  listAggregates  Netapp List Storage Aggregates
+  reason: Provisioning and management of ONTAP storage aggregates is compute/storage infrastructure management.
+- tag: Volumes
+  spec_file: netapp-volumes-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.92
+  evidence: POST /storage/volumes  createVolume  Netapp Create a New Volume
+  reason: Storage volume provisioning and lifecycle is squarely infrastructure (storage) management.
+- tag: SVMs
+  spec_file: netapp-svms-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.9
+  evidence: POST /svm/svms  createSvm  Netapp Create a New Svm — Storage Virtual Machines
+  reason: Creating and managing storage virtual machines is storage/compute infrastructure provisioning.
+- tag: Cluster
+  spec_file: netapp-cluster-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.88
+  evidence: GET /cluster/nodes  listClusterNodes  Netapp List Cluster Nodes
+  reason: Cluster configuration, node inventory and licensing of a storage cluster is IT infrastructure
+    management.
+- tag: Network
+  spec_file: netapp-network-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: GET /network/ip/interfaces  listNetworkInterfaces  Netapp List Network Interfaces
+  reason: Listing IP network interfaces on the storage system is network infrastructure management.
+- tag: Snapshots
+  spec_file: netapp-snapshots-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: POST /storage/volumes/{volume.uuid}/snapshots  createSnapshot  Netapp Create a Volume Snapshot
+  reason: Volume snapshot creation is storage-level data protection performed on infrastructure; fits
+    IT infrastructure management, though it also touches backup/DR.
