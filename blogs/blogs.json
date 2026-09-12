@@ -2,18 +2,18 @@
   "repo": "netapp",
   "feeds": [
     {
+      "source": "https://www.netapp.com/support-and-training/",
+      "error": "HTTPError"
+    },
+    {
       "source": "https://github.com/NetApp",
       "feed_url": "https://github.com/NetApp",
       "title": "",
       "saved": 0,
       "method": "none"
-    },
-    {
-      "source": "https://www.netapp.com/support-and-training/",
-      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-08-30T22:33:40Z",
+  "fetched": "2026-09-06T19:17:18Z",
   "post_count": 0,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
