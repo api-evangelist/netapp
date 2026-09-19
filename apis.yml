@@ -317,6 +317,8 @@ apis:
   humanURL: https://docs.netapp.com/us-en/cloud-manager-automation/
   baseURL: https://cloudmanager.cloud.netapp.com
   tags:
+  - Networks
+  tags_raw:
   - Network
   properties:
   - type: OpenAPI
