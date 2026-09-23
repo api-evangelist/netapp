@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: NetApp ONTAP REST Aggregates Volumes API
+  title: NetApp ONTAP REST Volumes API
   description: REST API for managing NetApp ONTAP storage systems. Provides programmatic access to cluster administration, storage provisioning, data protection, and networking configuration. The ONTAP REST API is available on all ONTAP 9.6 and later systems, with expanded coverage in each subsequent release. Resources include clusters, storage virtual machines (SVMs), aggregates, volumes, LUNs, snapshots, network interfaces, and more.
   version: 9.15.1
   contact:
@@ -247,75 +247,23 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    uuid:
-      name: uuid
-      in: path
-      required: true
-      description: The unique identifier (UUID) of the resource
-      schema:
-        type: string
-        format: uuid
-    order_by:
-      name: order_by
-      in: query
-      required: false
-      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
-      schema:
-        type: string
-    return_records:
-      name: return_records
-      in: query
-      required: false
-      description: If true, return the records in the response body
-      schema:
-        type: boolean
-        default: true
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
-      schema:
-        type: string
-    max_records:
-      name: max_records
-      in: query
-      required: false
-      description: Maximum number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    return_timeout:
-      name: return_timeout
-      in: query
-      required: false
-      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 120
-        default: 15
   schemas:
-    CollectionLinks:
+    ErrorResponse:
       type: object
-      description: Pagination links for collection responses
+      description: ONTAP REST API error response
       properties:
-        self:
+        error:
           type: object
           properties:
-            href:
+            message:
               type: string
-              format: uri
-          example: example_value
-        next:
-          type: object
-          description: Link to the next page of results
-          properties:
-            href:
+              description: Human-readable error message
+            code:
               type: string
-              format: uri
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
           example: example_value
     Volume:
       type: object
@@ -630,22 +578,28 @@ components:
           example: example_value
         _links:
           $ref: '#/components/schemas/SelfLink'
-    AggregateReference:
+    CollectionLinks:
       type: object
-      description: Reference to an aggregate
+      description: Pagination links for collection responses
       properties:
-        uuid:
-          type: string
-          format: uuid
-          example: '500123'
-        name:
-          type: string
-          example: Example Title
-        _links:
-          $ref: '#/components/schemas/SelfLink'
-    SvmReference:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+    VolumeReference:
       type: object
-      description: Reference to an SVM
+      description: Reference to a volume
       properties:
         uuid:
           type: string
@@ -668,6 +622,19 @@ components:
               format: uri
               description: URL of this resource
           example: example_value
+    AggregateReference:
+      type: object
+      description: Reference to an aggregate
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
     JobLink:
       type: object
       description: Reference to an asynchronous job
@@ -688,9 +655,9 @@ components:
                   format: uri
                   description: URL to retrieve the job status
           example: example_value
-    VolumeReference:
+    SvmReference:
       type: object
-      description: Reference to a volume
+      description: Reference to an SVM
       properties:
         uuid:
           type: string
@@ -701,23 +668,6 @@ components:
           example: Example Title
         _links:
           $ref: '#/components/schemas/SelfLink'
-    ErrorResponse:
-      type: object
-      description: ONTAP REST API error response
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Human-readable error message
-            code:
-              type: string
-              description: Error code
-            target:
-              type: string
-              description: The field or resource that caused the error
-          example: example_value
   responses:
     ErrorResponse:
       description: Error response
@@ -725,6 +675,56 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
+      schema:
+        type: string
+    max_records:
+      name: max_records
+      in: query
+      required: false
+      description: Maximum number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
+    return_records:
+      name: return_records
+      in: query
+      required: false
+      description: If true, return the records in the response body
+      schema:
+        type: boolean
+        default: true
   securitySchemes:
     basicAuth:
       type: http
