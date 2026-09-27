@@ -239,6 +239,56 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    max_records:
+      name: max_records
+      in: query
+      required: false
+      description: Maximum number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
+      schema:
+        type: string
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
+    return_records:
+      name: return_records
+      in: query
+      required: false
+      description: If true, return the records in the response body
+      schema:
+        type: boolean
+        default: true
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
   schemas:
     ErrorResponse:
       type: object
@@ -257,9 +307,9 @@ components:
               type: string
               description: The field or resource that caused the error
           example: example_value
-    CollectionLinks:
+    SelfLink:
       type: object
-      description: Pagination links for collection responses
+      description: HAL self link
       properties:
         self:
           type: object
@@ -267,14 +317,7 @@ components:
             href:
               type: string
               format: uri
-          example: example_value
-        next:
-          type: object
-          description: Link to the next page of results
-          properties:
-            href:
-              type: string
-              format: uri
+              description: URL of this resource
           example: example_value
     Aggregate:
       type: object
@@ -453,18 +496,6 @@ components:
           example: '2026-01-15T10:30:00Z'
         _links:
           $ref: '#/components/schemas/SelfLink'
-    SelfLink:
-      type: object
-      description: HAL self link
-      properties:
-        self:
-          type: object
-          properties:
-            href:
-              type: string
-              format: uri
-              description: URL of this resource
-          example: example_value
     JobLink:
       type: object
       description: Reference to an asynchronous job
@@ -484,6 +515,25 @@ components:
                   type: string
                   format: uri
                   description: URL to retrieve the job status
+          example: example_value
+    CollectionLinks:
+      type: object
+      description: Pagination links for collection responses
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
           example: example_value
     ClusterNodeReference:
       type: object
@@ -505,56 +555,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
-      schema:
-        type: string
-    max_records:
-      name: max_records
-      in: query
-      required: false
-      description: Maximum number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    return_timeout:
-      name: return_timeout
-      in: query
-      required: false
-      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 120
-        default: 15
-    uuid:
-      name: uuid
-      in: path
-      required: true
-      description: The unique identifier (UUID) of the resource
-      schema:
-        type: string
-        format: uuid
-    order_by:
-      name: order_by
-      in: query
-      required: false
-      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
-      schema:
-        type: string
-    return_records:
-      name: return_records
-      in: query
-      required: false
-      description: If true, return the records in the response body
-      schema:
-        type: boolean
-        default: true
   securitySchemes:
     basicAuth:
       type: http

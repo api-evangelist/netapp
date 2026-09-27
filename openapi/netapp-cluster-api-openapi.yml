@@ -178,6 +178,63 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    License:
+      type: object
+      description: Cluster feature license
+      properties:
+        name:
+          type: string
+          description: License name
+          examples:
+          - NFS
+          - CIFS
+          - iSCSI
+          - FCP
+          - SnapMirror
+          - SnapRestore
+          - FlexClone
+          - SnapVault
+          - FabricPool
+        scope:
+          type: string
+          description: License scope
+          enum:
+          - cluster
+          - node
+          - not_available
+          example: cluster
+        state:
+          type: string
+          description: License compliance state
+          enum:
+          - compliant
+          - noncompliant
+          - unlicensed
+          - unknown
+          example: compliant
+        licenses:
+          type: array
+          description: Individual license entries
+          items:
+            type: object
+            properties:
+              serial_number:
+                type: string
+                description: License serial number
+              owner:
+                type: string
+                description: Node or cluster that owns the license
+              compliance:
+                type: object
+                properties:
+                  state:
+                    type: string
+                    enum:
+                    - compliant
+                    - noncompliant
+          example: []
+        _links:
+          $ref: '#/components/schemas/SelfLink'
     ErrorResponse:
       type: object
       description: ONTAP REST API error response
@@ -195,6 +252,114 @@ components:
               type: string
               description: The field or resource that caused the error
           example: example_value
+    ClusterNode:
+      type: object
+      description: A node in the ONTAP cluster
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Node UUID
+          readOnly: true
+          example: '500123'
+        name:
+          type: string
+          description: Node name
+          examples:
+          - node1
+        model:
+          type: string
+          description: Hardware model of the node
+          readOnly: true
+          examples:
+          - AFF-A400
+        serial_number:
+          type: string
+          description: System serial number
+          readOnly: true
+          example: example_value
+        uptime:
+          type: integer
+          description: Node uptime in seconds
+          readOnly: true
+          example: 10
+        version:
+          type: object
+          description: ONTAP version running on the node
+          readOnly: true
+          properties:
+            full:
+              type: string
+              description: Full version string
+            generation:
+              type: integer
+            major:
+              type: integer
+            minor:
+              type: integer
+          example: example_value
+        controller:
+          type: object
+          description: Node controller information
+          readOnly: true
+          properties:
+            cpu:
+              type: object
+              properties:
+                count:
+                  type: integer
+                  description: Number of CPU cores
+                processor:
+                  type: string
+                  description: CPU processor model
+            memory_size:
+              type: integer
+              description: Total memory in bytes
+              format: int64
+            over_temperature:
+              type: string
+              description: Over-temperature status
+              enum:
+              - over
+              - normal
+          example: example_value
+        state:
+          type: string
+          description: Current operational state of the node
+          readOnly: true
+          enum:
+          - up
+          - down
+          - taken_over
+          - waiting_for_giveback
+          example: up
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    SelfLink:
+      type: object
+      description: HAL self link
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              description: URL of this resource
+          example: example_value
+    ClusterNodeReference:
+      type: object
+      description: Reference to a cluster node
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
     CollectionLinks:
       type: object
       description: Pagination links for collection responses
@@ -303,178 +468,6 @@ components:
           example: []
         _links:
           $ref: '#/components/schemas/SelfLink'
-    SelfLink:
-      type: object
-      description: HAL self link
-      properties:
-        self:
-          type: object
-          properties:
-            href:
-              type: string
-              format: uri
-              description: URL of this resource
-          example: example_value
-    ClusterNodeReference:
-      type: object
-      description: Reference to a cluster node
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          example: '500123'
-        name:
-          type: string
-          example: Example Title
-        _links:
-          $ref: '#/components/schemas/SelfLink'
-    License:
-      type: object
-      description: Cluster feature license
-      properties:
-        name:
-          type: string
-          description: License name
-          examples:
-          - NFS
-          - CIFS
-          - iSCSI
-          - FCP
-          - SnapMirror
-          - SnapRestore
-          - FlexClone
-          - SnapVault
-          - FabricPool
-        scope:
-          type: string
-          description: License scope
-          enum:
-          - cluster
-          - node
-          - not_available
-          example: cluster
-        state:
-          type: string
-          description: License compliance state
-          enum:
-          - compliant
-          - noncompliant
-          - unlicensed
-          - unknown
-          example: compliant
-        licenses:
-          type: array
-          description: Individual license entries
-          items:
-            type: object
-            properties:
-              serial_number:
-                type: string
-                description: License serial number
-              owner:
-                type: string
-                description: Node or cluster that owns the license
-              compliance:
-                type: object
-                properties:
-                  state:
-                    type: string
-                    enum:
-                    - compliant
-                    - noncompliant
-          example: []
-        _links:
-          $ref: '#/components/schemas/SelfLink'
-    ClusterNode:
-      type: object
-      description: A node in the ONTAP cluster
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Node UUID
-          readOnly: true
-          example: '500123'
-        name:
-          type: string
-          description: Node name
-          examples:
-          - node1
-        model:
-          type: string
-          description: Hardware model of the node
-          readOnly: true
-          examples:
-          - AFF-A400
-        serial_number:
-          type: string
-          description: System serial number
-          readOnly: true
-          example: example_value
-        uptime:
-          type: integer
-          description: Node uptime in seconds
-          readOnly: true
-          example: 10
-        version:
-          type: object
-          description: ONTAP version running on the node
-          readOnly: true
-          properties:
-            full:
-              type: string
-              description: Full version string
-            generation:
-              type: integer
-            major:
-              type: integer
-            minor:
-              type: integer
-          example: example_value
-        controller:
-          type: object
-          description: Node controller information
-          readOnly: true
-          properties:
-            cpu:
-              type: object
-              properties:
-                count:
-                  type: integer
-                  description: Number of CPU cores
-                processor:
-                  type: string
-                  description: CPU processor model
-            memory_size:
-              type: integer
-              description: Total memory in bytes
-              format: int64
-            over_temperature:
-              type: string
-              description: Over-temperature status
-              enum:
-              - over
-              - normal
-          example: example_value
-        state:
-          type: string
-          description: Current operational state of the node
-          readOnly: true
-          enum:
-          - up
-          - down
-          - taken_over
-          - waiting_for_giveback
-          example: up
-        _links:
-          $ref: '#/components/schemas/SelfLink'
-  responses:
-    ErrorResponse:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     fields:
       name: fields
@@ -500,16 +493,6 @@ components:
       schema:
         type: string
         format: uuid
-    return_timeout:
-      name: return_timeout
-      in: query
-      required: false
-      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 120
-        default: 15
     order_by:
       name: order_by
       in: query
@@ -525,6 +508,23 @@ components:
       schema:
         type: boolean
         default: true
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+  responses:
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
