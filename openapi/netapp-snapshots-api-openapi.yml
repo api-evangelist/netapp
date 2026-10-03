@@ -111,6 +111,13 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
     max_records:
       name: max_records
       in: query
@@ -127,14 +134,68 @@ components:
       description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
       schema:
         type: string
-    order_by:
-      name: order_by
-      in: query
-      required: false
-      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
-      schema:
-        type: string
   schemas:
+    VolumeReference:
+      type: object
+      description: Reference to a volume
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    SelfLink:
+      type: object
+      description: HAL self link
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              description: URL of this resource
+          example: example_value
+    CollectionLinks:
+      type: object
+      description: Pagination links for collection responses
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+    ErrorResponse:
+      type: object
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
+          example: example_value
     Snapshot:
       type: object
       description: A point-in-time copy of a volume
@@ -189,35 +250,6 @@ components:
           $ref: '#/components/schemas/VolumeReference'
         _links:
           $ref: '#/components/schemas/SelfLink'
-    ErrorResponse:
-      type: object
-      description: ONTAP REST API error response
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Human-readable error message
-            code:
-              type: string
-              description: Error code
-            target:
-              type: string
-              description: The field or resource that caused the error
-          example: example_value
-    SelfLink:
-      type: object
-      description: HAL self link
-      properties:
-        self:
-          type: object
-          properties:
-            href:
-              type: string
-              format: uri
-              description: URL of this resource
-          example: example_value
     JobLink:
       type: object
       description: Reference to an asynchronous job
@@ -238,38 +270,6 @@ components:
                   format: uri
                   description: URL to retrieve the job status
           example: example_value
-    CollectionLinks:
-      type: object
-      description: Pagination links for collection responses
-      properties:
-        self:
-          type: object
-          properties:
-            href:
-              type: string
-              format: uri
-          example: example_value
-        next:
-          type: object
-          description: Link to the next page of results
-          properties:
-            href:
-              type: string
-              format: uri
-          example: example_value
-    VolumeReference:
-      type: object
-      description: Reference to a volume
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          example: '500123'
-        name:
-          type: string
-          example: Example Title
-        _links:
-          $ref: '#/components/schemas/SelfLink'
   responses:
     ErrorResponse:
       description: Error response

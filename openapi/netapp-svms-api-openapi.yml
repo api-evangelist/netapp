@@ -221,6 +221,31 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
     max_records:
       name: max_records
       in: query
@@ -237,21 +262,6 @@ components:
       description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
       schema:
         type: string
-    uuid:
-      name: uuid
-      in: path
-      required: true
-      description: The unique identifier (UUID) of the resource
-      schema:
-        type: string
-        format: uuid
-    order_by:
-      name: order_by
-      in: query
-      required: false
-      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
-      schema:
-        type: string
     return_records:
       name: return_records
       in: query
@@ -260,20 +270,10 @@ components:
       schema:
         type: boolean
         default: true
-    return_timeout:
-      name: return_timeout
-      in: query
-      required: false
-      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 120
-        default: 15
   schemas:
-    SvmReference:
+    ClusterNodeReference:
       type: object
-      description: Reference to an SVM
+      description: Reference to a cluster node
       properties:
         uuid:
           type: string
@@ -453,23 +453,6 @@ components:
           example: example_value
         _links:
           $ref: '#/components/schemas/SelfLink'
-    ErrorResponse:
-      type: object
-      description: ONTAP REST API error response
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Human-readable error message
-            code:
-              type: string
-              description: Error code
-            target:
-              type: string
-              description: The field or resource that caused the error
-          example: example_value
     SelfLink:
       type: object
       description: HAL self link
@@ -482,39 +465,6 @@ components:
               format: uri
               description: URL of this resource
           example: example_value
-    JobLink:
-      type: object
-      description: Reference to an asynchronous job
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Job UUID
-          example: '500123'
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  format: uri
-                  description: URL to retrieve the job status
-          example: example_value
-    AggregateReference:
-      type: object
-      description: Reference to an aggregate
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          example: '500123'
-        name:
-          type: string
-          example: Example Title
-        _links:
-          $ref: '#/components/schemas/SelfLink'
     CollectionLinks:
       type: object
       description: Pagination links for collection responses
@@ -534,19 +484,6 @@ components:
               type: string
               format: uri
           example: example_value
-    ClusterNodeReference:
-      type: object
-      description: Reference to a cluster node
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          example: '500123'
-        name:
-          type: string
-          example: Example Title
-        _links:
-          $ref: '#/components/schemas/SelfLink'
     NetworkInterface:
       type: object
       description: A network interface (LIF) providing data or management access
@@ -643,6 +580,69 @@ components:
               type: boolean
               description: Whether the interface is on its home port
           example: example_value
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    ErrorResponse:
+      type: object
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
+          example: example_value
+    JobLink:
+      type: object
+      description: Reference to an asynchronous job
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Job UUID
+          example: '500123'
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  description: URL to retrieve the job status
+          example: example_value
+    SvmReference:
+      type: object
+      description: Reference to an SVM
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
+    AggregateReference:
+      type: object
+      description: Reference to an aggregate
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
         _links:
           $ref: '#/components/schemas/SelfLink'
   responses:

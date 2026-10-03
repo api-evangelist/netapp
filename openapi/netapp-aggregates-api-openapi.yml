@@ -240,6 +240,31 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
     max_records:
       name: max_records
       in: query
@@ -256,21 +281,6 @@ components:
       description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
       schema:
         type: string
-    uuid:
-      name: uuid
-      in: path
-      required: true
-      description: The unique identifier (UUID) of the resource
-      schema:
-        type: string
-        format: uuid
-    order_by:
-      name: order_by
-      in: query
-      required: false
-      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
-      schema:
-        type: string
     return_records:
       name: return_records
       in: query
@@ -279,46 +289,20 @@ components:
       schema:
         type: boolean
         default: true
-    return_timeout:
-      name: return_timeout
-      in: query
-      required: false
-      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 120
-        default: 15
   schemas:
-    ErrorResponse:
+    ClusterNodeReference:
       type: object
-      description: ONTAP REST API error response
+      description: Reference to a cluster node
       properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Human-readable error message
-            code:
-              type: string
-              description: Error code
-            target:
-              type: string
-              description: The field or resource that caused the error
-          example: example_value
-    SelfLink:
-      type: object
-      description: HAL self link
-      properties:
-        self:
-          type: object
-          properties:
-            href:
-              type: string
-              format: uri
-              description: URL of this resource
-          example: example_value
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        name:
+          type: string
+          example: Example Title
+        _links:
+          $ref: '#/components/schemas/SelfLink'
     Aggregate:
       type: object
       description: An aggregate (local tier) is a collection of physical disks that provides a pool of storage from which FlexVol volumes are provisioned.
@@ -496,25 +480,17 @@ components:
           example: '2026-01-15T10:30:00Z'
         _links:
           $ref: '#/components/schemas/SelfLink'
-    JobLink:
+    SelfLink:
       type: object
-      description: Reference to an asynchronous job
+      description: HAL self link
       properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Job UUID
-          example: '500123'
-        _links:
+        self:
           type: object
           properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  format: uri
-                  description: URL to retrieve the job status
+            href:
+              type: string
+              format: uri
+              description: URL of this resource
           example: example_value
     CollectionLinks:
       type: object
@@ -535,19 +511,43 @@ components:
               type: string
               format: uri
           example: example_value
-    ClusterNodeReference:
+    ErrorResponse:
       type: object
-      description: Reference to a cluster node
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
+          example: example_value
+    JobLink:
+      type: object
+      description: Reference to an asynchronous job
       properties:
         uuid:
           type: string
           format: uuid
+          description: Job UUID
           example: '500123'
-        name:
-          type: string
-          example: Example Title
         _links:
-          $ref: '#/components/schemas/SelfLink'
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  description: URL to retrieve the job status
+          example: example_value
   responses:
     ErrorResponse:
       description: Error response
