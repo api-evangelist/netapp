@@ -160,3 +160,70 @@ plans:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  - subscription
+  units:
+  - data
+  - negotiated
+  - period
+  plans:
+  - name: Cloud Volumes ONTAP
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - negotiated
+    periods:
+    - month
+  - name: FSx for NetApp ONTAP (AWS)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - data
+    periods:
+    - month
+  - name: Azure NetApp Files
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - data
+    periods:
+    - month
+  - name: BlueXP
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - period
+    periods:
+    - month
+  - name: Cloud Insights
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - period
+    periods:
+    - month
+  - name: Spot by NetApp
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - other
+    periods:
+    - month
+  - name: NetApp Enterprise (Hardware + ONTAP)
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
