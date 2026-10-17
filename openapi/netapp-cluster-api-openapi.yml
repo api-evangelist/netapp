@@ -177,36 +177,57 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The unique identifier (UUID) of the resource
+      schema:
+        type: string
+        format: uuid
+    return_timeout:
+      name: return_timeout
+      in: query
+      required: false
+      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 120
+        default: 15
+    order_by:
+      name: order_by
+      in: query
+      required: false
+      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
+      schema:
+        type: string
+    max_records:
+      name: max_records
+      in: query
+      required: false
+      description: Maximum number of records to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    return_records:
+      name: return_records
+      in: query
+      required: false
+      description: If true, return the records in the response body
+      schema:
+        type: boolean
+        default: true
   schemas:
-    ErrorResponse:
-      type: object
-      description: ONTAP REST API error response
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Human-readable error message
-            code:
-              type: string
-              description: Error code
-            target:
-              type: string
-              description: The field or resource that caused the error
-          example: example_value
-    SelfLink:
-      type: object
-      description: HAL self link
-      properties:
-        self:
-          type: object
-          properties:
-            href:
-              type: string
-              format: uri
-              description: URL of this resource
-          example: example_value
     Cluster:
       type: object
       description: ONTAP cluster configuration and status
@@ -296,9 +317,9 @@ components:
           example: []
         _links:
           $ref: '#/components/schemas/SelfLink'
-    CollectionLinks:
+    SelfLink:
       type: object
-      description: Pagination links for collection responses
+      description: HAL self link
       properties:
         self:
           type: object
@@ -306,14 +327,7 @@ components:
             href:
               type: string
               format: uri
-          example: example_value
-        next:
-          type: object
-          description: Link to the next page of results
-          properties:
-            href:
-              type: string
-              format: uri
+              description: URL of this resource
           example: example_value
     ClusterNodeReference:
       type: object
@@ -385,6 +399,42 @@ components:
           example: []
         _links:
           $ref: '#/components/schemas/SelfLink'
+    ErrorResponse:
+      type: object
+      description: ONTAP REST API error response
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Human-readable error message
+            code:
+              type: string
+              description: Error code
+            target:
+              type: string
+              description: The field or resource that caused the error
+          example: example_value
+    CollectionLinks:
+      type: object
+      description: Pagination links for collection responses
+      properties:
+        self:
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
+        next:
+          type: object
+          description: Link to the next page of results
+          properties:
+            href:
+              type: string
+              format: uri
+          example: example_value
     ClusterNode:
       type: object
       description: A node in the ONTAP cluster
@@ -468,56 +518,6 @@ components:
           example: up
         _links:
           $ref: '#/components/schemas/SelfLink'
-  parameters:
-    order_by:
-      name: order_by
-      in: query
-      required: false
-      description: Comma-separated list of fields to sort by. Add 'desc' after a field name to sort in descending order (e.g., name desc).
-      schema:
-        type: string
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of fields to return. Use * for all fields. Nested fields can be specified using dot notation (e.g., space.size).
-      schema:
-        type: string
-    uuid:
-      name: uuid
-      in: path
-      required: true
-      description: The unique identifier (UUID) of the resource
-      schema:
-        type: string
-        format: uuid
-    max_records:
-      name: max_records
-      in: query
-      required: false
-      description: Maximum number of records to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    return_timeout:
-      name: return_timeout
-      in: query
-      required: false
-      description: The number of seconds to wait for the response. If the operation takes longer, a job link is returned instead (0-120 seconds).
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 120
-        default: 15
-    return_records:
-      name: return_records
-      in: query
-      required: false
-      description: If true, return the records in the response body
-      schema:
-        type: boolean
-        default: true
   responses:
     ErrorResponse:
       description: Error response
