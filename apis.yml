@@ -49,6 +49,11 @@ apis:
   humanURL: https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api
   tags:
   - AWS
+  - Microsoft Azure
+  - Cloud Volumes
+  - GCP
+  tags_raw:
+  - AWS
   - Azure
   - Cloud Volumes
   - GCP
@@ -216,6 +221,10 @@ apis:
   baseURL: https://management.azure.com
   humanURL: https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-develop-with-rest-api
   tags:
+  - Microsoft Azure
+  - Cloud Volumes
+  - Storage
+  tags_raw:
   - Azure
   - Cloud Volumes
   - Microsoft Azure
