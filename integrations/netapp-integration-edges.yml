@@ -13,6 +13,9 @@ checked:
 - https://www.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/suppliers
 - microsoft-sentinel/integrations/microsoft-sentinel-integration-edges.yml
 - eclipse/integrations/eclipse-integration-edges.yml
+- opentofu/integrations/opentofu-integration-edges.yml
+- pulumi/integrations/pulumi-integration-edges.yml
+- terraform/integrations/terraform-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -189,5 +192,69 @@ edges:
   category: IDE / developer extension marketplace listing
   badges:
   - Verified namespace
+- partner_name: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: opentofu-registry
+  evidence: https://search.opentofu.org/provider/netapp/netapp-cloudmanager
+  mirror_of: opentofu/integrations/opentofu-integration-edges.yml
+  apps:
+  - netapp/netapp-cloudmanager
+  - netapp/netapp-elementsw
+  - netapp/netapp-gcp
+  - netapp/netapp-ontap
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
+- partner_name: Pulumi (pulumi-registry)
+  partner: pulumi
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: pulumi-registry
+  evidence: https://www.pulumi.com/registry/packages/netapp-cloudmanager/
+  mirror_of: pulumi/integrations/pulumi-integration-edges.yml
+  apps:
+  - netapp-cloudmanager
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/NetApp/netapp-cloudmanager
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - NetApp/netapp-cloudmanager
+  - NetApp/netapp-gcp
+  - NetApp/netapp-ontap
+  - NetApp/netapp-elementsw
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (Terraform partner tier)
+  - Verified publisher (GitHub domain-verified organization)
 source:
 - microsoft-sentinel/integrations/microsoft-sentinel-integration-edges.yml
