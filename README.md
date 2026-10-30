@@ -1,4 +1,4 @@
-# NetApp (netapp)
+# NetApp
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,351 +66,239 @@
 
 Collection of NetApp APIs for cloud data services, storage management, and infrastructure.
 
-**APIs.json:** [https://www.netapp.com](https://www.netapp.com)
+**Areas:** Cloud · Data Management · Hybrid Cloud · Infrastructure · Storage · Fortune 500
+
+## NetApp on APIs.io
+
+Everything profiled for NetApp is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/netapp/](https://apis.io/providers/netapp/)** — or go straight to one of the APIs or properties below.
+
+### APIs (18)
+
+- [NetApp Cloud Volumes Service API](https://apis.io/apis/netapp/netapp-cloud-volumes-service-api/) — API for managing NetApp Cloud Volumes Service in major cloud providers.
+- [NetApp Astra Control API](https://apis.io/apis/netapp/netapp-astra-control-api/) — API for Kubernetes-native application data management.
+- [NetApp StorageGRID API](https://apis.io/apis/netapp/netapp-storagegrid-api/) — API for object storage management with StorageGRID.
+- [NetApp Element API](https://apis.io/apis/netapp/netapp-element-api/) — API for NetApp Element software and NetApp HCI storage management.
+- [NetApp Cloud Insights API](https://apis.io/apis/netapp/netapp-cloud-insights-api/) — API for infrastructure monitoring and analytics.
+- [NetApp BlueXP Automation API](https://apis.io/apis/netapp/netapp-bluexp-automation-api/) — REST API for automating the administration of cloud-based and on-premises storage resources managed by NetApp BlueXP, including Cloud Volumes ONTAP,…
+- [NetApp Active IQ Unified Manager API](https://apis.io/apis/netapp/netapp-active-iq-unified-manager-api/) — REST API for managing and monitoring storage resources on supported NetApp storage systems, including health, performance, capacity, and event management.
+- [NetApp Active IQ Digital Advisor API](https://apis.io/apis/netapp/netapp-active-iq-digital-advisor-api/) — API services for NetApp Active IQ Digital Advisor providing system information, storage efficiency, performance, health, and upgrade insights across your…
+- [NetApp SnapCenter API](https://apis.io/apis/netapp/netapp-snapcenter-api/) — REST API for automating SnapCenter data protection operations including backup, restore, and clone management for applications and databases.
+- [NetApp E-Series SANtricity Web Services API](https://apis.io/apis/netapp/netapp-e-series-santricity-web-services-api/) — RESTful API for managing and monitoring NetApp E-Series and EF-Series storage systems through the SANtricity Web Services Proxy.
+- [Azure NetApp Files REST API](https://apis.io/apis/netapp/azure-netapp-files-rest-api/) — REST API for managing Azure NetApp Files resources including NetApp accounts, capacity pools, volumes, and snapshots in Microsoft Azure.
+- [NetApp ONTAP Tools for VMware vSphere API](https://apis.io/apis/netapp/netapp-ontap-tools-for-vmware-vsphere-api/) — REST API for managing ONTAP tools for VMware vSphere, enabling storage provisioning, virtual machine lifecycle management, and vSphere integration.
+- [NetApp Aggregates API](https://apis.io/apis/netapp/netapp-aggregates-api/) — Operations for managing storage aggregates (local tiers)
+- [NetApp Cluster API](https://apis.io/apis/netapp/netapp-cluster-api/) — Operations for managing ONTAP cluster configuration, nodes, licensing, and health
+- [NetApp Network API](https://apis.io/apis/netapp/netapp-network-api/) — Operations for managing network interfaces, ports, and IP configuration
+- [NetApp Snapshots API](https://apis.io/apis/netapp/netapp-snapshots-api/) — Operations for managing volume snapshots
+- [NetApp SVMs API](https://apis.io/apis/netapp/netapp-svms-api/) — Operations for managing storage virtual machines (SVMs / vservers)
+- [NetApp Volumes API](https://apis.io/apis/netapp/netapp-volumes-api/) — Operations for creating, modifying, and managing storage volumes
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [MCP Server](https://apis.io/servers/netapp/mcp-server/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Netapp Agentic Access](https://apis.io/agentic-access/netapp/netapp-agentic-access/)
+
+#### JSON Schema (32)
+
+The data models the API reads and writes.
+
+- [Aggregate](https://apis.io/schemas/netapp/netapp-aggregate/)
+- [AggregateReference](https://apis.io/schemas/netapp/netapp-aggregatereference/)
+- [Cluster](https://apis.io/schemas/netapp/netapp-cluster/)
+- [ClusterNode](https://apis.io/schemas/netapp/netapp-clusternode/)
+- [ClusterNodeReference](https://apis.io/schemas/netapp/netapp-clusternodereference/)
+- [CollectionLinks](https://apis.io/schemas/netapp/netapp-collectionlinks/)
+- [ErrorResponse](https://apis.io/schemas/netapp/netapp-errorresponse/)
+- [JobLink](https://apis.io/schemas/netapp/netapp-joblink/)
+- [License](https://apis.io/schemas/netapp/netapp-license/)
+- [NetworkInterface](https://apis.io/schemas/netapp/netapp-networkinterface/)
+- [Aggregate](https://apis.io/schemas/netapp/netapp-ontap-aggregate/)
+- [AggregateReference](https://apis.io/schemas/netapp/netapp-ontap-aggregate-reference/)
+- [Cluster](https://apis.io/schemas/netapp/netapp-ontap-cluster/)
+- [ClusterNode](https://apis.io/schemas/netapp/netapp-ontap-cluster-node/)
+- [ClusterNodeReference](https://apis.io/schemas/netapp/netapp-ontap-cluster-node-reference/)
+- [CollectionLinks](https://apis.io/schemas/netapp/netapp-ontap-collection-links/)
+- [ErrorResponse](https://apis.io/schemas/netapp/netapp-ontap-error-response/)
+- [JobLink](https://apis.io/schemas/netapp/netapp-ontap-job-link/)
+- [License](https://apis.io/schemas/netapp/netapp-ontap-license/)
+- [NetworkInterface](https://apis.io/schemas/netapp/netapp-ontap-network-interface/)
+- [SelfLink](https://apis.io/schemas/netapp/netapp-ontap-self-link/)
+- [Snapshot](https://apis.io/schemas/netapp/netapp-ontap-snapshot/)
+- [Svm](https://apis.io/schemas/netapp/netapp-ontap-svm/)
+- [SvmReference](https://apis.io/schemas/netapp/netapp-ontap-svm-reference/)
+- [Volume](https://apis.io/schemas/netapp/netapp-ontap-volume/)
+- …and 7 more published on APIs.io
 
-## Scope
+#### JSON Structure (17)
 
-- **Type:** Index
-- **Access:** 3rd-Party
+Data models expressed in JSON Structure.
 
-## Tags
+- [Netapp Ontap Aggregate Reference Structure](https://apis.io/json-structure/netapp/netapp-ontap-aggregate-reference-structure/)
+- [Netapp Ontap Aggregate Structure](https://apis.io/json-structure/netapp/netapp-ontap-aggregate-structure/)
+- [Netapp Ontap Cluster Node Reference Structure](https://apis.io/json-structure/netapp/netapp-ontap-cluster-node-reference-structure/)
+- [Netapp Ontap Cluster Node Structure](https://apis.io/json-structure/netapp/netapp-ontap-cluster-node-structure/)
+- [Netapp Ontap Cluster Structure](https://apis.io/json-structure/netapp/netapp-ontap-cluster-structure/)
+- [Netapp Ontap Collection Links Structure](https://apis.io/json-structure/netapp/netapp-ontap-collection-links-structure/)
+- [Netapp Ontap Error Response Structure](https://apis.io/json-structure/netapp/netapp-ontap-error-response-structure/)
+- [Netapp Ontap Job Link Structure](https://apis.io/json-structure/netapp/netapp-ontap-job-link-structure/)
+- [Netapp Ontap License Structure](https://apis.io/json-structure/netapp/netapp-ontap-license-structure/)
+- [Netapp Ontap Network Interface Structure](https://apis.io/json-structure/netapp/netapp-ontap-network-interface-structure/)
+- [Netapp Ontap Self Link Structure](https://apis.io/json-structure/netapp/netapp-ontap-self-link-structure/)
+- [Netapp Ontap Snapshot Structure](https://apis.io/json-structure/netapp/netapp-ontap-snapshot-structure/)
+- [Netapp Ontap Svm Reference Structure](https://apis.io/json-structure/netapp/netapp-ontap-svm-reference-structure/)
+- [Netapp Ontap Svm Structure](https://apis.io/json-structure/netapp/netapp-ontap-svm-structure/)
+- [Netapp Ontap Volume Reference Structure](https://apis.io/json-structure/netapp/netapp-ontap-volume-reference-structure/)
+- [Netapp Ontap Volume Structure](https://apis.io/json-structure/netapp/netapp-ontap-volume-structure/)
+- [Netapp Structure](https://apis.io/json-structure/netapp/netapp-structure/)
 
-- Cloud
-- Data Management
-- Hybrid Cloud
-- Infrastructure
-- Storage
+#### JSON-LD (2)
 
-## Timestamps
+Linked-data contexts for the provider's vocabulary.
 
-- **Created:** 2024
-- **Modified:** 2026-05-19
+- [Netapp Context](https://apis.io/jsonld/netapp/netapp-context/)
+- [Netapp Ontap Context](https://apis.io/jsonld/netapp/netapp-ontap-context/)
 
-## APIs
+#### Vocabulary (1)
 
-### NetApp Cloud Manager API
+The provider's domain terms, defined.
 
-API for managing NetApp Cloud Volumes ONTAP and cloud data services.
+- [NetApp Domain Vocabulary](https://apis.io/vocabularies/netapp/netapp-vocabulary/)
 
-- **Human URL:** [https://docs.netapp.com/us-en/cloud-manager-automation/](https://docs.netapp.com/us-en/cloud-manager-automation/)
-- **Base URL:** `https://cloudmanager.cloud.netapp.com`
+#### Examples (16)
 
-#### Tags
+Example requests and responses.
 
-- Automation
-- Cloud Management
-- ONTAP
+- [Netapp Ontap Aggregate Example](https://apis.io/examples/netapp/netapp-ontap-aggregate-example/)
+- [Netapp Ontap Aggregate Reference Example](https://apis.io/examples/netapp/netapp-ontap-aggregate-reference-example/)
+- [Netapp Ontap Cluster Example](https://apis.io/examples/netapp/netapp-ontap-cluster-example/)
+- [Netapp Ontap Cluster Node Example](https://apis.io/examples/netapp/netapp-ontap-cluster-node-example/)
+- [Netapp Ontap Cluster Node Reference Example](https://apis.io/examples/netapp/netapp-ontap-cluster-node-reference-example/)
+- [Netapp Ontap Collection Links Example](https://apis.io/examples/netapp/netapp-ontap-collection-links-example/)
+- [Netapp Ontap Error Response Example](https://apis.io/examples/netapp/netapp-ontap-error-response-example/)
+- [Netapp Ontap Job Link Example](https://apis.io/examples/netapp/netapp-ontap-job-link-example/)
+- [Netapp Ontap License Example](https://apis.io/examples/netapp/netapp-ontap-license-example/)
+- [Netapp Ontap Network Interface Example](https://apis.io/examples/netapp/netapp-ontap-network-interface-example/)
+- [Netapp Ontap Self Link Example](https://apis.io/examples/netapp/netapp-ontap-self-link-example/)
+- [Netapp Ontap Snapshot Example](https://apis.io/examples/netapp/netapp-ontap-snapshot-example/)
+- [Netapp Ontap Svm Example](https://apis.io/examples/netapp/netapp-ontap-svm-example/)
+- [Netapp Ontap Svm Reference Example](https://apis.io/examples/netapp/netapp-ontap-svm-reference-example/)
+- [Netapp Ontap Volume Example](https://apis.io/examples/netapp/netapp-ontap-volume-example/)
+- [Netapp Ontap Volume Reference Example](https://apis.io/examples/netapp/netapp-ontap-volume-reference-example/)
 
-#### Properties
+#### Collections (7)
 
-- [Documentation](https://docs.netapp.com/us-en/cloud-manager-automation/)
-- [OpenAPI](https://docs.netapp.com/us-en/cloud-manager-automation/api/openapi.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Authentication](https://docs.netapp.com/us-en/cloud-manager-automation/platform/get_identifiers.html)
-- [Getting Started](https://docs.netapp.com/us-en/cloud-manager-automation/cm/your_api_call.html)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### NetApp ONTAP REST API
+- [NetApp ONTAP REST Aggregates API](https://apis.io/collections/netapp/open-netapp-aggregates-api/)
+- [NetApp ONTAP REST Aggregates Cluster API](https://apis.io/collections/netapp/open-netapp-cluster-api/)
+- [NetApp ONTAP REST Aggregates Network API](https://apis.io/collections/netapp/open-netapp-network-api/)
+- [NetApp ONTAP REST API](https://apis.io/collections/netapp/open-netapp-ontap/)
+- [NetApp ONTAP REST Aggregates Snapshots API](https://apis.io/collections/netapp/open-netapp-snapshots-api/)
+- [NetApp ONTAP REST Aggregates SVMs API](https://apis.io/collections/netapp/open-netapp-svms-api/)
+- [NetApp ONTAP REST Aggregates Volumes API](https://apis.io/collections/netapp/open-netapp-volumes-api/)
 
-REST API for NetApp ONTAP storage management system.
+#### Governance rules (2)
 
-- **Human URL:** [https://docs.netapp.com/us-en/ontap-automation/](https://docs.netapp.com/us-en/ontap-automation/)
-- **Base URL:** `https://<cluster-management-ip>/api`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [NetApp — jsonschema rules](https://apis.io/rules/netapp/netapp-jsonschema-spectral-rules/)
+- [NetApp API Rules](https://apis.io/rules/netapp/netapp-spectral-rules/)
 
-- ONTAP
-- REST API
-- Storage Management
+#### Security (3)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://docs.netapp.com/us-en/ontap-automation/)
-- [API Reference](https://docs.netapp.com/us-en/ontap-automation/reference/api_reference.html)
-- [Getting Started](https://docs.netapp.com/us-en/ontap-automation/getting_started_with_the_ontap_rest_api.html)
-- [Authentication](https://docs.netapp.com/us-en/ontap-automation/rest/authentication.html)
-- [Release Notes](https://docs.netapp.com/us-en/ontap-automation/whats-new.html)
-- [API Reference](https://docs.netapp.com/us-en/ontap-restapi/)
-- [GitHub Repository](https://github.com/NetApp/ontap-rest-python)
-- [OpenAPI](openapi/netapp-ontap-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/netapp-volume-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/netapp-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Netapp Authentication](https://apis.io/security/netapp/netapp-authentication/)
+- [Netapp Domain Security](https://apis.io/security/netapp/netapp-domain-security/)
+- [Netapp Trust Center](https://apis.io/security/netapp/netapp-trust-center/)
 
-### NetApp Cloud Volumes Service API
+#### Plans and pricing (1)
 
-API for managing NetApp Cloud Volumes Service in major cloud providers.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api](https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api)
-- **Base URL:** `https://cloudvolumesgcp-api.netapp.com`
+- [Netapp Plans Pricing](https://apis.io/plans/netapp/netapp-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- AWS
-- Azure
-- Cloud Volumes
-- GCP
+Published request limits.
 
-#### Properties
+- [Netapp Rate Limits](https://apis.io/rate-limits/netapp/netapp-rate-limits/)
 
-- [Documentation](https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api)
-- [API Reference](https://cloud.google.com/architecture/partners/netapp-cloud-volumes/reference)
-- [API Reference](https://docs.cloud.google.com/netapp/volumes/docs/reference/rest)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-### NetApp Astra Control API
+What the API costs to run, by operation.
 
-API for Kubernetes-native application data management.
+- [Netapp Finops](https://apis.io/finops/netapp/netapp-finops/)
 
-- **Human URL:** [https://docs.netapp.com/us-en/astra-automation/](https://docs.netapp.com/us-en/astra-automation/)
-- **Base URL:** `https://astra.netapp.io/accounts`
+## Where to find this API
 
-#### Tags
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- Application Management
-- Container Storage
-- Data Protection
-- Kubernetes
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/astra-automation/)
-- [API Reference](https://docs.netapp.com/us-en/astra-automation/reference/overview.html)
-- [Getting Started](https://docs.netapp.com/us-en/astra-automation/get-started/overview.html)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp StorageGRID API
-
-API for object storage management with StorageGRID.
-
-- **Human URL:** [https://docs.netapp.com/us-en/storagegrid-116/admin/using-grid-management-api.html](https://docs.netapp.com/us-en/storagegrid-116/admin/using-grid-management-api.html)
-- **Base URL:** `https://<storagegrid-endpoint>/api/v3`
-
-#### Tags
-
-- Grid Management
-- Object Storage
-- S3
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/storagegrid-116/admin/using-grid-management-api.html)
-- [Documentation](https://docs.netapp.com/us-en/storagegrid/admin/using-grid-management-api.html)
-- [Documentation](https://docs.netapp.com/us-en/storagegrid/s3/)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp Element API
-
-API for NetApp Element software and NetApp HCI storage management.
-
-- **Human URL:** [https://docs.netapp.com/us-en/element-software/api/index.html](https://docs.netapp.com/us-en/element-software/api/index.html)
-- **Base URL:** `https://<mvip>/json-rpc`
-
-#### Tags
-
-- Element
-- HCI
-- JSON-RPC
-- Storage
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/element-software/api/index.html)
-- [API Reference](https://docs.netapp.com/us-en/element-software/api/reference_element_api_reference.html)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp Cloud Insights API
-
-API for infrastructure monitoring and analytics.
-
-- **Human URL:** [https://docs.netapp.com/us-en/cloudinsights/API_Overview.html](https://docs.netapp.com/us-en/cloudinsights/API_Overview.html)
-- **Base URL:** `https://<tenant>.cloudinsights.netapp.com/rest/v1`
-
-#### Tags
-
-- Analytics
-- Monitoring
-- Observability
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/cloudinsights/API_Overview.html)
-- [Authentication](https://docs.netapp.com/us-en/cloudinsights/API_Overview.html#api-access-tokens)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp BlueXP Automation API
-
-REST API for automating the administration of cloud-based and on-premises storage resources managed by NetApp BlueXP, including Cloud Volumes ONTAP, on-premises ONTAP, and other BlueXP services.
-
-- **Human URL:** [https://docs.netapp.com/us-en/bluexp-automation/](https://docs.netapp.com/us-en/bluexp-automation/)
-- **Base URL:** `https://cloudmanager.cloud.netapp.com`
-
-#### Tags
-
-- BlueXP
-- Cloud Automation
-- Hybrid Cloud
-- Storage Management
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/bluexp-automation/)
-- [API Reference](https://docs.netapp.com/us-en/bluexp-automation/cm/api_reference.html)
-- [Getting Started](https://docs.netapp.com/us-en/bluexp-automation/cm/your_api_call.html)
-- [Portal](https://bluexp.netapp.com/)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp Active IQ Unified Manager API
-
-REST API for managing and monitoring storage resources on supported NetApp storage systems, including health, performance, capacity, and event management.
-
-- **Human URL:** [https://docs.netapp.com/us-en/active-iq-unified-manager/api-automation/concept_get_started_with_um_apis.html](https://docs.netapp.com/us-en/active-iq-unified-manager/api-automation/concept_get_started_with_um_apis.html)
-- **Base URL:** `https://<aiqum-host>/api`
-
-#### Tags
-
-- Active IQ
-- Monitoring
-- Storage Analytics
-- Unified Manager
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/active-iq-unified-manager/api-automation/concept_get_started_with_um_apis.html)
-- [Authentication](https://docs.netapp.com/us-en/active-iq-unified-manager/api-automation/concept_rest_api_access_and_authentication_in_um_apis.html)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp Active IQ Digital Advisor API
-
-API services for NetApp Active IQ Digital Advisor providing system information, storage efficiency, performance, health, and upgrade insights across your NetApp installed base.
-
-- **Human URL:** [https://docs.netapp.com/us-en/active-iq/concept_overview_API_service.html](https://docs.netapp.com/us-en/active-iq/concept_overview_API_service.html)
-- **Base URL:** `https://api.activeiq.netapp.com`
-
-#### Tags
-
-- Active IQ
-- Digital Advisor
-- Health
-- Monitoring
-- Upgrades
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/active-iq/concept_overview_API_service.html)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp SnapCenter API
-
-REST API for automating SnapCenter data protection operations including backup, restore, and clone management for applications and databases.
-
-- **Human URL:** [https://docs.netapp.com/us-en/snapcenter/sc-automation/overview_rest_apis.html](https://docs.netapp.com/us-en/snapcenter/sc-automation/overview_rest_apis.html)
-- **Base URL:** `https://<snapcenter-host>:8146/api`
-
-#### Tags
-
-- Backup
-- Clone
-- Data Protection
-- Restore
-- SnapCenter
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/snapcenter/sc-automation/overview_rest_apis.html)
-- [API Reference](https://docs.netapp.com/us-en/snapcenter/sc-automation/reference_supported_rest_apis.html)
-- [Getting Started](https://docs.netapp.com/us-en/snapcenter/sc-automation/task_get_started_with_the_rest_api.html)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp E-Series SANtricity Web Services API
-
-RESTful API for managing and monitoring NetApp E-Series and EF-Series storage systems through the SANtricity Web Services Proxy.
-
-- **Human URL:** [https://docs.netapp.com/us-en/e-series/web-services-proxy/index.html](https://docs.netapp.com/us-en/e-series/web-services-proxy/index.html)
-- **Base URL:** `https://<web-services-proxy-host>/devmgr/v2`
-
-#### Tags
-
-- E-Series
-- SANtricity
-- Storage
-- Web Services
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/e-series/web-services-proxy/index.html)
-- [API Reference](https://library.netapp.com/ecmdocs/ECMLP2839901/html/v2.html)
-- [Documentation](https://docs.netapp.com/us-en/e-series-family/)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Azure NetApp Files REST API
-
-REST API for managing Azure NetApp Files resources including NetApp accounts, capacity pools, volumes, and snapshots in Microsoft Azure.
-
-- **Human URL:** [https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-develop-with-rest-api](https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-develop-with-rest-api)
-- **Base URL:** `https://management.azure.com`
-
-#### Tags
-
-- Azure
-- Cloud Volumes
-- Microsoft Azure
-- Storage
-
-#### Properties
-
-- [Documentation](https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-develop-with-rest-api)
-- [API Reference](https://learn.microsoft.com/en-us/rest/api/netapp/)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### NetApp ONTAP Tools for VMware vSphere API
-
-REST API for managing ONTAP tools for VMware vSphere, enabling storage provisioning, virtual machine lifecycle management, and vSphere integration.
-
-- **Human URL:** [https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/](https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/)
-- **Base URL:** `https://<ontap-tools-host>:8443`
-
-#### Tags
-
-- ONTAP
-- Virtualization
-- VMware
-- vSphere
-
-#### Properties
-
-- [Documentation](https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/)
-- [API Reference](https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-104/automation/api-reference.html)
-- [Getting Started](https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/automation/get-started-with-the-rest-api.html)
-- [Postman Collection](collections/netapp-ontap.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/netapp-ontap.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/netapp)
-- [Developer Portal](https://devnet.netapp.com/)
+- [Website](https://netapp.com)
 - [Support](https://www.netapp.com/support-and-training/)
 - [Blog](https://netapp.io/)
-- [GitHub Organization](https://github.com/NetApp)
-- [Blog](https://blog.netapp.com/)
-- [Features](https://www.netapp.com/data-management/)
-- [Use Cases](https://www.netapp.com/solutions/)
-- [Integrations](https://bluexp.netapp.com/)
-- [M C P Server](https://github.com/NetApp/mcp)
+- [GitHub](https://github.com/NetApp)
 
-## Maintainers
+## API Evangelist rating
 
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 38.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 63.3 |
+| Contract quality | 58.2 |
+| Contract governance | 13.6 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 15.8 |
+
+**Agent readiness 21.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/netapp/](https://apis.io/providers/netapp/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for NetApp: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/netapp/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
